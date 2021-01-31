@@ -16,7 +16,7 @@
 #OFFSET:-0.009;
 #BPMS:0.000=153.000;
 #STOPS:;
-#BGCHANGES:;
+#BGCHANGES:0.000=bg=1.000=0=0=1=====;
 #FGCHANGES:0.000=lua=1.000=0=0=1=====;
 //--------------- dance-single - Oranjul20 ----------------
 #NOTES:
