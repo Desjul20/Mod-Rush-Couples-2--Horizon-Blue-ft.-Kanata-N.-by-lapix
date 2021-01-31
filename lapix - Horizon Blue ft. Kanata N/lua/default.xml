@@ -1,6 +1,5 @@
 <ActorFrame
 InitCommand="%function(self)
-
 	nitg_version = FUCK_EXE and tonumber(GAMESTATE:GetVersionDate()) >= 20180617 --NotITG version number to check for, v3 by default
 	
 	if not nitg_version then
@@ -151,11 +150,10 @@ end"
 ---------------------------------------------------------------------------------------
 ----------------------Begin tables 'n stuff--------------------------------------------
 ---------------------------------------------------------------------------------------
-
 			--beat based mods
 			--{beat_start, beat_end, mods, len_or_end, player_number}
 			mods = {
-				{0,9999,'*2 2.5x, *-1 overhead, *-1 approachtype, *-1 dizzyholds, *-1 stealthpastreceptors, *-1 modtimer','end'},
+				{0,9999,'*2 2.5x, *-1 overhead, *-1 approachtype, *-1 dizzyholds, *-1 stealthpastreceptors, *-1 modtimer, *-1 -999999999 cover','end'},
 				{0,30.5,'*0.25 35 tipsy, *0.25 35 drunk','len'},
 				{30.5,1.5,'*0.25 0 tipsy, *0.25 0 drunk','len'},
 				{36,13,'*0.25 50 tipsy, *0.25 50 drunk','len'},
@@ -277,9 +275,11 @@ end"
 				end
 			 end, true)
 			 
-			me(2.5,3.75,360,0,'rotationz','len',outCubic)
+			me(2.5,2.75,360,0,'rotationz','len',outCubic)
 			m(0,3.5,'*-1 stealth','len')
 			me(3,1.5,100,0,'stealth','len',outCubic)
+			
+			
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
@@ -439,7 +439,6 @@ end"
 					end
 				end
 			end
-
 ---------------------------------------------------------------------------------------
 ----------------------END DON'T TOUCH IT KIDDO-----------------------------------------
 ---------------------------------------------------------------------------------------
@@ -461,6 +460,7 @@ end"
 	GetProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2:GetChild('Combo')) end end"/>
 	</children></ZZLAER>
 	
+	
 	<!--This is for the time based mod reader-->
 	<BitmapText
 		Font="Common Normal"
@@ -468,5 +468,7 @@ end"
 		OnCommand="x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;effectclock,music;playcommand,SetTime;hidden,1"
 		SetTimeCommand="%function(self) self:settext(self:GetSecsIntoEffect()); mod_time = tonumber(self:GetText()); self:sleep(0.02); self:queuecommand('SetTime'); end"
 	/>
+	
+	<Layer Type="Quad" InitCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;" OnCommand="sleep,26.676;diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" />
 	
 </children></ActorFrame></children></ActorFrame>
