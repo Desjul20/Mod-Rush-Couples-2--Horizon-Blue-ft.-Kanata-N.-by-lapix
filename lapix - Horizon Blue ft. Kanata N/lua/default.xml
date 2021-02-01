@@ -158,6 +158,8 @@ end"
 				{30.5,1.5,'*0.25 0 tipsy, *0.25 0 drunk','len'},
 				{36,13,'*0.25 50 tipsy, *0.25 50 drunk','len'},
 				{49,13,'*0.25 0 tipsy, *0.25 0 drunk','len'},
+				
+				{68,99,'*-1 40 DrawSize','len'},
 			}
 			
 			--beat-based ease mods
@@ -274,6 +276,22 @@ end"
 			    end
 				end
 			 end, true)
+			 m2(68,function()
+			 for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+				a:zoom(0.75)
+				a:linear(2.5)
+				a:addx(256*2+32)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X-32)
+				a:linear(2.5)
+				a:addx(256*2+64)
+				
+			    end
+				end
+			end, true)
+			 
 			 
 			me(2.5,2.75,360,0,'rotationz','len',outCubic)
 			m(0,3.5,'*-1 stealth','len')
@@ -468,6 +486,90 @@ end"
 		OnCommand="x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;effectclock,music;playcommand,SetTime;hidden,1"
 		SetTimeCommand="%function(self) self:settext(self:GetSecsIntoEffect()); mod_time = tonumber(self:GetText()); self:sleep(0.02); self:queuecommand('SetTime'); end"
 	/>
+	
+	<Layer
+        Type="Sprite"
+        Texture="transparent"
+        InitCommand="%function(self)
+
+            aftSpriteInfinite = self;
+            self:basezoomx((SCREEN_WIDTH/DISPLAY:GetDisplayWidth()));
+            self:basezoomy(-1*(SCREEN_HEIGHT/DISPLAY:GetDisplayHeight()))
+            self:x(SCREEN_CENTER_X);
+            self:y(SCREEN_CENTER_Y);
+			self:diffusealpha(0)
+            -- Set this like you want
+			self:sleep(26.676)
+			self:linear(0.392)
+            self:zoom(1.05);
+            self:diffusealpha(0.95*alphamult);
+			self:decelerate(1.960)
+			self:zoom(1.0);
+			self:sleep(0);
+            self:diffusealpha(0*alphamult);
+
+        end"
+    />
+	
+	<Layer
+        Type="ActorFrameTexture"
+        InitCommand="%function(self)
+
+            infiniteAft = self;
+            self:SetWidth(DISPLAY:GetDisplayWidth());
+            self:SetHeight(DISPLAY:GetDisplayHeight());
+            self:EnableDepthBuffer(false);
+            self:EnableAlphaBuffer(true);
+            self:EnableFloat(false);
+            self:EnablePreserveTexture(true);
+            self:Create();
+
+            aftSpriteInfinite:SetTexture(self:GetTexture()); -- Put the texture into the sprite above.
+            
+        end"
+    />
+	
+	<Layer
+        Type="ActorFrameTexture"
+        InitCommand="%function(self)
+
+            normal_Aft = self;
+            self:SetWidth(DISPLAY:GetDisplayWidth());
+            self:SetHeight(DISPLAY:GetDisplayHeight());
+            self:EnableDepthBuffer(false);
+            self:EnableAlphaBuffer(true);
+            self:EnableFloat(false);
+            self:EnablePreserveTexture(true);
+            self:Create();
+            
+        end"
+    />
+	
+	<LAER Type="ActorProxy" 
+	GetProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192) end end"/>
+	<LAER Type="ActorProxy"
+	GetProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-192) end end"/>
+	
+	<LAER Type="ActorProxy"
+	GetProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(384) end end"/>
+	<LAER Type="ActorProxy"
+	GetProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-384) end end"/>
+	
+	<LAER Type="ActorProxy"
+	GetProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(576) end end"/>
+	<LAER Type="ActorProxy"
+	GetProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(768) end end"/>
+	
+	
+	<LAER Type="ActorProxy"
+	GetProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(-576) end end"/>
+	<LAER Type="ActorProxy"
+	GetProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-768) end end"/>
+	
+	
+	
+	
+	
 	
 	<Layer Type="Quad" InitCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;" OnCommand="sleep,26.676;diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" />
 	
