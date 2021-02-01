@@ -154,7 +154,23 @@ end"
             P3:SetInputPlayer(1)
 			P3:GetChild('Judgment'):hidden(1)
 			P3:GetChild('Combo'):hidden(1)
+			P3:zoom(1.2)    
              end
+			--I haven't activated P4 anywhere yet, but they'll come in handy for wacky arrow trails later   
+			local P4 = SCREENMAN:GetTopScreen():GetChild('PlayerP3')
+               if P4 then
+            P4:SetAwake(false)
+            P4:hidden(0)
+            P4:SetInputPlayer(1)
+			P4:GetChild('Judgment'):hidden(1)
+			P4:GetChild('Combo'):hidden(1)
+            end
+			--this might come in handy     
+			local function quickOn(beat,strength,len,md,pn)
+			    local activation_rate = math.abs(strength/10)
+			    m( beat-0.1,0.3,'*'..activation_rate..' '..strength..' '..md, 'len', pn )
+				m( beat+0.1,len,'*'..((activation_rate/5)/len)..' 0 '..md, 'len', pn )
+			end    
 ---------------------------------------------------------------------------------------
 ----------------------Begin tables 'n stuff--------------------------------------------
 ---------------------------------------------------------------------------------------
@@ -290,7 +306,23 @@ end"
 			P3:linear(0.01)
 			P3:diffusealpha(0)
 			end)
-						 
+			
+			m2(29,function()
+			   Plr(1):SetHiddenRegions({{31,36.1}})
+			   Plr(2):SetHiddenRegions({{31,36.1}})
+			end)
+			
+			m2(27,function()
+			P3:x(800)
+			P3:diffusealpha(0.4)
+			P3:zoom(0.6)
+			end)
+			
+			m2(30,function()
+			P3:linear(3.5)
+			P3:addx(-1000)
+			end)
+			     
 			me(2.5,2.75,360,0,'rotationz','len',outCubic)
 			m(0,3.5,'*-1 stealth','len')
 			m(0,3,'*-1 dark','len',3)
@@ -300,7 +332,19 @@ end"
 			me(18,1,0,50,'movey','len',inOutElastic,1)
 			me(18,1,0,-50,'movey','len',inOutElastic,2)
 			me(19.5,2,360,0,'rotationx','len',outCubic)
-			
+			m(30.5,6,'*-1 85% stealth','len',3)
+			     --thinking about making a similar motion to windy fairy... don't have time to mod it right now though 
+			me(36,9,0,-200,'movex0','len',outCubic,1)
+			me(36,9,0,-100,'movex0','len',outCubic,2)
+			     
+			--can't just let the player 3 in the back move without wacky effects! not exactly satisfied with quickOn though.
+			for i=31,36, 1 do
+			quickOn(i,50,.5,'tipsy',3)
+			quickOn(i,50,.5,'drunk',3)
+			quickOn(i+1,-100,.5,'tipsy',3)
+			quickOn(i+1,-100,.5,'drunk',3)
+			end
+			     
 			m2(260,function()
 			 for pn = 1, 2 do
 			    local a = Plr(pn)
@@ -375,7 +419,9 @@ end"
 			    end
 				end
 			end, true)
-			     
+			    
+			     --I havent started modding this idea yet, but I'm thinking of making something similar to that one part in kirby's sea of white elephants file on 292 onwards. what do you think? 
+			     --also, I dont have much ideas for the middle (100 to 226), so if you have anything cool for that part feel free to do it
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
