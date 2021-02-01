@@ -147,6 +147,14 @@ end"
 			local m2 = mod_message
 			local me = mod_ease
 		        local mpf = mod_perframe
+			local P3 = SCREENMAN:GetTopScreen():GetChild('PlayerP3')
+               if P3 then
+            P3:SetAwake(false)
+            P3:hidden(0)
+            P3:SetInputPlayer(1)
+			P3:GetChild('Judgment'):hidden(1)
+			P3:GetChild('Combo'):hidden(1)
+             end
 ---------------------------------------------------------------------------------------
 ----------------------Begin tables 'n stuff--------------------------------------------
 ---------------------------------------------------------------------------------------
@@ -277,7 +285,23 @@ end"
 			    end
 				end
 			 end, true)
-			 m2(260,function()
+			     
+			 m2(13,function()
+			P3:linear(0.01)
+			P3:diffusealpha(0)
+			end)
+						 
+			me(2.5,2.75,360,0,'rotationz','len',outCubic)
+			m(0,3.5,'*-1 stealth','len')
+			m(0,3,'*-1 dark','len',3)
+			me(3,1.5,100,0,'stealth','len',outCubic)
+			me(28.5,0.5,0,30,'rotationy','len',outCubic)
+			me(29,7,1110,0,'rotationy','len',outCubic)
+			me(18,1,0,50,'movey','len',inOutElastic,1)
+			me(18,1,0,-50,'movey','len',inOutElastic,2)
+			me(19.5,2,360,0,'rotationx','len',outCubic)
+			
+			m2(260,function()
 			 for pn = 1, 2 do
 			    local a = Plr(pn)
 			    if a then
@@ -351,13 +375,7 @@ end"
 			    end
 				end
 			end, true)
-			 
-			 
-			me(2.5,2.75,360,0,'rotationz','len',outCubic)
-			m(0,3.5,'*-1 stealth','len')
-			me(3,1.5,100,0,'stealth','len',outCubic)
-			
-			
+			     
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
