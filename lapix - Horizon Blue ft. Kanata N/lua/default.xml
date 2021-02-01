@@ -224,7 +224,7 @@ end"
 			--{beat,thing,persists}
 			mod_actions = {
 				{0,'GetProxy',true},
-				{68,'Proxy',true},
+				{260,'Proxy',true},
 				{0,function()
 					for pn=1,2 do
 						local a = Plr(pn)
@@ -277,17 +277,76 @@ end"
 			    end
 				end
 			 end, true)
-			 m2(68,function()
+			 m2(260,function()
 			 for pn = 1, 2 do
 			    local a = Plr(pn)
 			    if a then
+				Plr(1):addx(-192)
 				a:zoom(0.75)
-				a:linear(2.5)
-				a:addx(256*2+32)
+				a:linear(2)
+				a:addx(192*2)
 				a:sleep(0)
-				a:x(SCREEN_CENTER_X-32)
-				a:linear(2.5)
-				a:addx(256*2+64)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				
 				
 			    end
 				end
@@ -546,24 +605,25 @@ end"
         end"
     />
 	
+	----OPTIMIZE!!!!
 	<LAER Type="ActorProxy" 
-	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192) end end"/>
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192+192) end end"/>
+	<LAER Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192+192+192) end end"/>
 	<LAER Type="ActorProxy"
 	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-192) end end"/>
 	
 	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(384) end end"/>
-	<LAER Type="ActorProxy"
 	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-384) end end"/>
 	
 	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(576) end end"/>
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(576+192) end end"/>
 	<LAER Type="ActorProxy"
 	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(768) end end"/>
 	
 	
 	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(-576) end end"/>
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(-576+192) end end"/>
 	<LAER Type="ActorProxy"
 	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-768) end end"/>
 	
