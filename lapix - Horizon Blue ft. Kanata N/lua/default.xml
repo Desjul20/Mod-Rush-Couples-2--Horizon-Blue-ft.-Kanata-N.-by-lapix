@@ -224,6 +224,7 @@ end"
 			--{beat,thing,persists}
 			mod_actions = {
 				{0,'GetProxy',true},
+				{68,'Proxy',true},
 				{0,function()
 					for pn=1,2 do
 						local a = Plr(pn)
@@ -546,25 +547,25 @@ end"
     />
 	
 	<LAER Type="ActorProxy" 
-	GetProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192) end end"/>
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192) end end"/>
 	<LAER Type="ActorProxy"
-	GetProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-192) end end"/>
+	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-192) end end"/>
 	
 	<LAER Type="ActorProxy"
-	GetProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(384) end end"/>
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(384) end end"/>
 	<LAER Type="ActorProxy"
-	GetProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-384) end end"/>
+	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-384) end end"/>
 	
 	<LAER Type="ActorProxy"
-	GetProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(576) end end"/>
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(576) end end"/>
 	<LAER Type="ActorProxy"
-	GetProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(768) end end"/>
+	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(768) end end"/>
 	
 	
 	<LAER Type="ActorProxy"
-	GetProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(-576) end end"/>
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(-576) end end"/>
 	<LAER Type="ActorProxy"
-	GetProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-768) end end"/>
+	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-768) end end"/>
 	
 	
 	
