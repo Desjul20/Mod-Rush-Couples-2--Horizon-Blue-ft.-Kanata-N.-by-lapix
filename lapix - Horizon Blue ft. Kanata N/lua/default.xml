@@ -15,6 +15,14 @@ InitCommand="%function(self)
 	function Plr(pn)
 		return _G['P'..pn]
 	end
+	
+	function mod_do(str,pn)
+		if pn then
+			GAMESTATE:ApplyGameCommand('mod,'..str,pn)
+		else
+			GAMESTATE:ApplyGameCommand('mod,'..str)
+		end
+	end
 end"
 ><children><ActorFrame Condition="nitg_version"
 OnCommand="%function(self)
@@ -45,6 +53,7 @@ end"
 	<Layer File="modhelpers" />
 	<Layer File="easing" />
 	<Layer File="spellcards" />
+	<Layer File="../notedata.xml" />
 	
 	<Layer
 		Type="ActorFrame"
@@ -146,8 +155,8 @@ end"
 			local m = mod_insert
 			local m2 = mod_message
 			local me = mod_ease
-		        local mpf = mod_perframe
-			local P3 = SCREENMAN:GetTopScreen():GetChild('PlayerP3')
+		    local mpf = mod_perframe
+			P3 = SCREENMAN:GetTopScreen():GetChild('PlayerP3')
                if P3 then
             P3:SetAwake(false)
             P3:hidden(0)
@@ -157,7 +166,7 @@ end"
 			P3:zoom(1.2)    
              end
 			--I haven't activated P4 anywhere yet, but they'll come in handy for wacky arrow trails later   
-			local P4 = SCREENMAN:GetTopScreen():GetChild('PlayerP3')
+			P4 = SCREENMAN:GetTopScreen():GetChild('PlayerP3')
                if P4 then
             P4:SetAwake(false)
             P4:hidden(0)
@@ -171,6 +180,7 @@ end"
 			    m( beat-0.1,0.3,'*'..activation_rate..' '..strength..' '..md, 'len', pn )
 				m( beat+0.1,len,'*'..((activation_rate/5)/len)..' 0 '..md, 'len', pn )
 			end    
+			
 ---------------------------------------------------------------------------------------
 ----------------------Begin tables 'n stuff--------------------------------------------
 ---------------------------------------------------------------------------------------
@@ -184,6 +194,8 @@ end"
 				{49,13,'*0.25 0 tipsy, *0.25 0 drunk','len'},
 				
 				{68,99,'*-1 40 DrawSize','len'},
+				
+				{260,64,'*8 300 beat','len'},
 			}
 			
 			--beat-based ease mods
@@ -204,13 +216,13 @@ end"
 			mods_ease = {
 				-- EXAMPLE TWEEN: from beat 0 to 4, make rotationz go from 360 to 0 with the inOutBack tween
 				--{0, 4, 360, 0, 'rotationz', 'len', inOutBack},
-				{32,1,0,100,'flip','len', outCubic},
-				{33,1,0,100,'invert','len', outCubic},
-				{33,1,100,0,'flip','len', outCubic},
-				{34,1,0,100,'flip','len', outCubic},
-				{34,1,100,-100,'invert','len', outCubic},
-				{35,1,100,0,'flip','len', outCubic},
-				{35,1,-100,0,'invert','len', outCubic},
+				{32,1,0,100,'flip','len', outCubic,3},
+				{33,1,0,100,'invert','len', outCubic,3},
+				{33,1,100,0,'flip','len', outCubic,3},
+				{34,1,0,100,'flip','len', outCubic,3},
+				{34,1,100,-100,'invert','len', outCubic,3},
+				{35,1,100,0,'flip','len', outCubic,3},
+				{35,1,-100,0,'invert','len', outCubic,3},
 				
 				{64,1,0,100,'flip','len', outCubic},
 				{65,1,0,100,'invert','len', outCubic},
@@ -219,6 +231,14 @@ end"
 				{66,1,100,-100,'invert','len', outCubic},
 				{67,1,100,0,'flip','len', outCubic},
 				{67,1,-100,0,'invert','len', outCubic},
+				
+				{128,1,0,100,'flip','len', outCubic},
+				{129,1,0,100,'invert','len', outCubic},
+				{129,1,100,0,'flip','len', outCubic},
+				{130,1,0,100,'flip','len', outCubic},
+				{130,1,100,-100,'invert','len', outCubic},
+				{131,1,100,0,'flip','len', outCubic},
+				{131,1,-100,0,'invert','len', outCubic},
 				
 				-- EXAMPLE TWEEN: from beat 4 to 8, rotate topscreen from 360 to 0 with the outBack tween
 				--{4, 4, 360, 0, function(a) SCREENMAN:GetTopScreen():rotationz(a) end, 'len', outBack},
@@ -248,7 +268,11 @@ end"
 			--{beat,thing,persists}
 			mod_actions = {
 				{0,'GetProxy',true},
-				{260,'Proxy',true},
+				{68,'DestroyBG',true},
+				{340,'ResetBG',true},
+				{404,'DestroyBG',true},
+				{228,'Proxy',true},
+				{324,'HideProxy',true},
 				{0,function()
 					for pn=1,2 do
 						local a = Plr(pn)
@@ -303,8 +327,8 @@ end"
 			 end, true)
 			     
 			 m2(13,function()
-			P3:linear(0.01)
-			P3:diffusealpha(0)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):linear(0.01)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):diffusealpha(0)
 			end)
 			
 			m2(29,function()
@@ -313,31 +337,48 @@ end"
 			end)
 			
 			m2(27,function()
-			P3:x(800)
-			P3:diffusealpha(0.4)
-			P3:zoom(0.6)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(800)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):diffusealpha(0.4)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(0.6)
 			end)
 			
 			m2(30,function()
-			P3:linear(3.5)
-			P3:addx(-1000)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):linear(3.5)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):addx(-1000)
 			end)
+			
+			
 			     
 			me(2.5,2.75,360,0,'rotationz','len',outCubic)
 			m(0,3.5,'*-1 stealth','len')
 			m(0,3,'*-1 dark','len',3)
 			me(3,1.5,100,0,'stealth','len',outCubic)
-			me(28.5,0.5,0,30,'rotationy','len',outCubic)
-			me(29,7,1110,0,'rotationy','len',outCubic)
+			me(28.5,0.5,0,30,'rotationy','len',outCubic,1)
+			me(29,7,1110,0,'rotationy','len',outCubic,1)
+			me(28.5,0.5,0,30,'rotationy','len',outCubic,2)
+			me(29,7,1110,0,'rotationy','len',outCubic,2)
+			me(28.5,0.5,0,30,'rotationy','len',outCubic,4)
+			me(29,7,1110,0,'rotationy','len',outCubic,4)
 			me(18,1,0,50,'movey','len',inOutElastic,1)
 			me(18,1,0,-50,'movey','len',inOutElastic,2)
 			me(19.5,2,360,0,'rotationx','len',outCubic)
 			m(30.5,6,'*-1 85% stealth','len',3)
+			
+			m(224,258.25,'Dark','end',1)
+			m(224,258.25,'Dark','end',2)
+			m(228,259.75,'*-1 HideNoteFlash','end',1)
+			m(228,259.75,'*-1 HideNoteFlash','end',2)
+			m(258.25,999,'Dark','len',3)
+			m(258.25,999,'Dark','len',4)
+			m(260,999,'*-1 hide','len',3)
+			m(260,999,'*-1 hide','len',4)
 			     --thinking about making a similar motion to windy fairy... don't have time to mod it right now though 
 			me(36,9,0,-200,'movex0','len',outCubic,1)
 			me(36,9,0,-100,'movex0','len',outCubic,2)
 			     
 			--can't just let the player 3 in the back move without wacky effects! not exactly satisfied with quickOn though.
+			
+			--yeah, at least you have something to go off of.
 			for i=31,36, 1 do
 			quickOn(i,50,.5,'tipsy',3)
 			quickOn(i,50,.5,'drunk',3)
@@ -349,13 +390,23 @@ end"
 			 for pn = 1, 2 do
 			    local a = Plr(pn)
 			    if a then
-				Plr(1):addx(-192)
+				Plr(1):x(SCREEN_CENTER_X-192)
 				a:zoom(0.75)
 				a:linear(2)
 				a:addx(192*2)
 				a:sleep(0)
 				a:x(SCREEN_CENTER_X)
-				Plr(1):addx(-192)
+				Plr(1):x(SCREEN_CENTER_X-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):x(SCREEN_CENTER_X-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):x(SCREEN_CENTER_X-192)
 				a:linear(2)
 				a:addx(192*2)
 				a:sleep(0)
@@ -365,63 +416,104 @@ end"
 				a:addx(192*2)
 				a:sleep(0)
 				a:x(SCREEN_CENTER_X)
-				Plr(1):addx(-192)
+				Plr(1):x(SCREEN_CENTER_X-192)
 				a:linear(2)
 				a:addx(192*2)
 				a:sleep(0)
 				a:x(SCREEN_CENTER_X)
-				Plr(1):addx(-192)
+				Plr(1):x(SCREEN_CENTER_X-192)
 				a:linear(2)
 				a:addx(192*2)
 				a:sleep(0)
 				a:x(SCREEN_CENTER_X)
-				Plr(1):addx(-192)
+				Plr(1):x(SCREEN_CENTER_X-192)
 				a:linear(2)
 				a:addx(192*2)
 				a:sleep(0)
 				a:x(SCREEN_CENTER_X)
-				Plr(1):addx(-192)
+				Plr(1):x(SCREEN_CENTER_X-192)
 				a:linear(2)
 				a:addx(192*2)
 				a:sleep(0)
 				a:x(SCREEN_CENTER_X)
-				Plr(1):addx(-192)
+				Plr(1):x(SCREEN_CENTER_X-192)
 				a:linear(2)
 				a:addx(192*2)
 				a:sleep(0)
 				a:x(SCREEN_CENTER_X)
-				Plr(1):addx(-192)
+				Plr(1):x(SCREEN_CENTER_X-192)
 				a:linear(2)
 				a:addx(192*2)
 				a:sleep(0)
 				a:x(SCREEN_CENTER_X)
-				Plr(1):addx(-192)
+				Plr(1):x(SCREEN_CENTER_X-192)
 				a:linear(2)
 				a:addx(192*2)
 				a:sleep(0)
 				a:x(SCREEN_CENTER_X)
-				Plr(1):addx(-192)
-				a:linear(2)
-				a:addx(192*2)
+				Plr(1):x(SCREEN_CENTER_X-192)
+				a:linear(1.098)
+				a:addx(192)
 				a:sleep(0)
-				a:x(SCREEN_CENTER_X)
-				Plr(1):addx(-192)
-				a:linear(2)
-				a:addx(192*2)
-				a:sleep(0)
-				a:x(SCREEN_CENTER_X)
-				Plr(1):addx(-192)
-				a:linear(2)
-				a:addx(192*2)
-				a:sleep(0)
+				a:zoom(1)
 				
 				
 			    end
 				end
 			end, true)
+			
+			m2(112, function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(24)
+			end,true)
+			
+			m2(115.5,function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(0)
+			end,true)
+			
+			m2(143, function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(24)
+			end,true)
+			
+			m2(147.5,function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(0)
+			end,true)
+			
+			m2(225.5,function()
+				Plr(1):SetHiddenRegions({{228,259.75}})
+				Plr(2):SetHiddenRegions({{228,259.75}})
+				for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+					Plr(1):x(SCREEN_CENTER_X-192)
+					--idk why but something is holding player 1 on the same x value as player 2.
+					a:zoom(0.75)
+					SCREENMAN:GetTopScreen():GetChild('PlayerP3'):SetHiddenRegions({{260,324}})
+					SCREENMAN:GetTopScreen():GetChild('PlayerP4'):SetHiddenRegions({{260,324}})
+				end
+				end
+			end,true)
+			
+			m2(53.5,function()
+				aux:linear(0.393*12)
+				aux:aux(150)
+			end,true)
 			    
 			     --I havent started modding this idea yet, but I'm thinking of making something similar to that one part in kirby's sea of white elephants file on 292 onwards. what do you think? 
+				 
+				 
+				 --I don't know what part but i think it's the part where the play field turns into a SDVX playfield. if it's that one then it'll fit but is kinda boring. I was thinking to still have the scrolling but more effects, i'm not sure if it is good to have the scrolling on that part.
+				 
+				 
+				 
+				 
 			     --also, I dont have much ideas for the middle (100 to 226), so if you have anything cool for that part feel free to do it
+				 
+				 
+				 --Already working on it. Is gonna be difficult. I also helped you with some of the work you tried to add, it's not fully finished.. I hope it's what you want it to be.
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
@@ -439,6 +531,14 @@ end"
 		
 		UpdateCommand="%function(self)
 			local beat = GAMESTATE:GetSongBeat()
+			
+			function math.sign(v)
+					return (v >= 0 and 1) or -1
+				end
+				function math.round(v, bracket)
+					bracket = bracket or 1
+					return math.floor(v/bracket + math.sign(v) * 0.5) * bracket
+				end
 			
 			if beat>=0 and not checked then
 					local ThingsToGrab = {'BPMDisplay','LifeFrame','ScoreFrame','Lyrics','SongBackground','SongForeground','Overlay','Underlay'}
@@ -565,6 +665,35 @@ end"
 							end
 						end
 					end
+					
+					if beat >= 112 then
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(1)
+							Plr(1):x(aux_spin:getaux()*math.cos(beat * math.pi)+SCREEN_CENTER_X)
+							Plr(1):y(aux_spin:getaux()*math.sin(beat * math.pi)+SCREEN_CENTER_Y)
+							Plr(2):x(aux_spin:getaux()*math.cos((beat + 0.5) * math.pi)+SCREEN_CENTER_X)
+							Plr(2):y(aux_spin:getaux()*math.sin((beat + 0.5) * math.pi)+SCREEN_CENTER_Y)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):hidden(0)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(aux_spin:getaux()*math.cos((beat + 1) * math.pi)+SCREEN_CENTER_X)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):y(aux_spin:getaux()*math.sin((beat + 1) * math.pi)+SCREEN_CENTER_Y)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):x(aux_spin:getaux()*math.cos((beat + 1.5) * math.pi)+SCREEN_CENTER_X)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):y(aux_spin:getaux()*math.sin((beat + 1.5) * math.pi)+SCREEN_CENTER_Y)
+					end
+					
+					if beat >= 292 and beat <= 324 then
+						mod_do('*-1 '..(math.sin(beat/4 * math.pi)*100)..' drunk')
+					end
+					
+					function tinyFlicker(b,value1,value2,length,period,speed1,speed2)
+						if beat-b < length then
+							if ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) > -0.5 and ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) < 0 then
+									mod_do('*'..speed1..' '..value1..' tiny')
+							elseif ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) > 0 and ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) < 0.5 then
+								mod_do('*'..speed2..' '..value2..' tiny')
+							end
+						end
+					end
+					
+					tinyFlicker(53.5,aux:getaux(),aux:getaux()*-1,10.5,32,-1,-1)
 				
 					---------------------------------------
 					-- Actions table --
@@ -614,8 +743,7 @@ end"
 	<Layer
         Type="Sprite"
         Texture="transparent"
-        InitCommand="%function(self)
-
+        OnCommand="%function(self)
             aftSpriteInfinite = self;
             self:basezoomx((SCREEN_WIDTH/DISPLAY:GetDisplayWidth()));
             self:basezoomy(-1*(SCREEN_HEIGHT/DISPLAY:GetDisplayHeight()))
@@ -631,14 +759,12 @@ end"
 			self:zoom(1.0);
 			self:sleep(0);
             self:diffusealpha(0*alphamult);
-
         end"
     />
 	
 	<Layer
         Type="ActorFrameTexture"
-        InitCommand="%function(self)
-
+        OnCommand="%function(self)
             infiniteAft = self;
             self:SetWidth(DISPLAY:GetDisplayWidth());
             self:SetHeight(DISPLAY:GetDisplayHeight());
@@ -647,7 +773,6 @@ end"
             self:EnableFloat(false);
             self:EnablePreserveTexture(true);
             self:Create();
-
             aftSpriteInfinite:SetTexture(self:GetTexture()); -- Put the texture into the sprite above.
             
         end"
@@ -655,9 +780,8 @@ end"
 	
 	<Layer
         Type="ActorFrameTexture"
-        InitCommand="%function(self)
-
-            normal_Aft = self;
+        OnCommand="%function(self)
+            NormalScreen = self;
             self:SetWidth(DISPLAY:GetDisplayWidth());
             self:SetHeight(DISPLAY:GetDisplayHeight());
             self:EnableDepthBuffer(false);
@@ -665,37 +789,42 @@ end"
             self:EnableFloat(false);
             self:EnablePreserveTexture(true);
             self:Create();
-            
         end"
     />
 	
+	
+	
 	----OPTIMIZE!!!!
-	<LAER Type="ActorProxy" 
-	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192+192) end end"/>
-	<LAER Type="ActorProxy" 
-	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192+192+192) end end"/>
-	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-192) end end"/>
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(192*4) end end"
+	HideProxyMessageCommand="hidden,1" />
 	
-	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-384) end end"/>
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192*2) end end"
+	HideProxyMessageCommand="hidden,1" />
 	
-	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(576+192) end end"/>
-	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(768) end end"/>
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(192*3) end end"
+	HideProxyMessageCommand="hidden,1" />
+	
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(-192*2) end end"
+	HideProxyMessageCommand="hidden,1" />
+	
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-192*2) end end"
+	HideProxyMessageCommand="hidden,1" />
+	
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(-192*3) end end"
+	HideProxyMessageCommand="hidden,1" />
 	
 	
-	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(-576+192) end end"/>
-	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-768) end end"/>
 	
+	<Layer Type="Quad" InitCommand="hidden,1;" OnCommand="%function(self) aux_spin = self self:aux(0) end" />
 	
+	<Layer Type="Quad" InitCommand="hidden,1;" OnCommand="%function(self) aux = self self:aux(5) end" />
 	
-	
-	
-	
-	<Layer Type="Quad" InitCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;" OnCommand="sleep,26.676;diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" />
+	<Layer Type="Quad" InitCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;" ResetBGMessageCommand="diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" DestroyBGMessageCommand="diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" />
 	
 </children></ActorFrame></children></ActorFrame>

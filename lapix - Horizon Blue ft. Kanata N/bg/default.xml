@@ -2,53 +2,53 @@
 
 	<Layer
 		File="1x1"
-		OnCommand="x,80;y,80;sleep,26.676;linear,1.5;zoom,0"
+		OnCommand="x,80;y,80;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 	<Layer
 		File="2x1"
-		OnCommand="x,240;y,80;sleep,26.676;linear,1.5;zoom,0"
+		OnCommand="x,240;y,80;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 	<Layer
 		File="3x1"
-		OnCommand="x,400;y,80;sleep,26.676;linear,1.5;zoom,0"
+		OnCommand="x,400;y,80;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 	<Layer
 		File="4x1"
-		OnCommand="x,560;y,80;sleep,26.676;linear,1.5;zoom,0"
+		OnCommand="x,560;y,80;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 	
 	<Layer
 		File="1x2"
-		OnCommand="x,80;y,240;sleep,26.676;linear,1.5;zoom,0"
+		OnCommand="x,80;y,240;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 	<Layer
 		File="2x2"
-		OnCommand="x,240;y,240;sleep,26.676;linear,1.5;zoom,0"
+		OnCommand="x,240;y,240;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 	<Layer
 		File="3x2"
-		OnCommand="x,400;y,240;sleep,26.676;linear,1.5;zoom,0"
+		OnCommand="x,400;y,240;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 	<Layer
 		File="4x2"
-		OnCommand="x,560;y,240;sleep,26.676;linear,1.5;zoom,0"
+		OnCommand="x,560;y,240;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 	
 	<Layer
 		File="1x3"
-		OnCommand="x,80;y,400;sleep,26.676;linear,1.5;zoom,0"
+		OnCommand="x,80;y,400;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 	<Layer
 		File="2x3"
-		OnCommand="x,240;y,400;sleep,26.676;linear,1.5;zoom,0"
+		OnCommand="x,240;y,400;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 	<Layer
 		File="3x3"
-		OnCommand="x,400;y,400;sleep,26.676;linear,1.5;zoom,0"
+		OnCommand="x,400;y,400;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 	<Layer
 		File="4x3"
-		OnCommand="x,560;y,400;sleep,26.676;linear,1.5;zoom,0"
+		OnCommand="x,560;y,400;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 
 </children></ActorFrame>
