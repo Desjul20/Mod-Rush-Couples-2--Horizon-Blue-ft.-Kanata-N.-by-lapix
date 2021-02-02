@@ -51,4 +51,26 @@
 		OnCommand="x,560;y,400;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
 	/>
 
+	<Layer
+	   File="horizon_blurry"
+	   OnCommand="%function(self)
+	   blurizon=self;
+	   self:x(SCREEN_CENTER_X)
+	   self:y(SCREEN_CENTER_Y)
+	   self:diffusealpha(0)
+	   end"
+	/>
+	
+	<Layer
+	File="sparklies/white"
+	OnCommand="%function(self)
+	horizon=self
+	self:zoomto(SCREEN_WIDTH,SCREEN_HEIGHT);
+	self:x(SCREEN_CENTER_X);
+	self:y(SCREEN_CENTER_Y);
+	self:diffuse(0,0.5,2,1);
+	self:diffusealpha(0)
+    end"
+	/>
+	
 </children></ActorFrame>
