@@ -165,8 +165,8 @@ end"
 			P3:GetChild('Combo'):hidden(1)
 			P3:zoom(1.2)    
              end
-			--I haven't activated P4 anywhere yet, but they'll come in handy for wacky arrow trails later   
-			P4 = SCREENMAN:GetTopScreen():GetChild('PlayerP3')
+			--dude. this P4 has been set to define P3 for a whole morning. how did I miss this???  
+			P4 = SCREENMAN:GetTopScreen():GetChild('PlayerP4')
                if P4 then
             P4:SetAwake(false)
             P4:hidden(0)
@@ -325,6 +325,21 @@ end"
 			    end
 				end
 			 end, true)
+		
+			 m2(4,function()
+			   for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+			    a:bounce(1)
+				a:effectmagnitude(0,10,0)
+				a:effectperiod(0.5)
+			    end
+				end
+			 end, true)
+			     
+			 m2(68,function()
+			blurizon:diffusealpha(0)
+			end)
 			     
 			 m2(13,function()
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):linear(0.01)
@@ -336,6 +351,10 @@ end"
 			   Plr(2):SetHiddenRegions({{31,36.1}})
 			end)
 			
+			m2(29,function()
+			   P3:SetHiddenRegions({{29,31}})
+			end)
+			     
 			m2(27,function()
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(800)
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):diffusealpha(0.4)
@@ -346,13 +365,44 @@ end"
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):linear(3.5)
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):addx(-1000)
 			end)
+			     
+			m2(36,function()
+			flash:accelerate(0.1)
+			flash:diffusealpha(1)
+			flash:accelerate(0.8)
+			flash:diffusealpha(0)
+			end)
 			
+			m2(36,function()
+			gradient:accelerate(0.5)
+			gradient:diffusealpha(0.5)
+			end)
 			
+			m2(68,function()
+			flash:diffusealpha(1)
+			flash:accelerate(0.6)
+			flash:diffusealpha(0)
+			end)
+			
+			m2(36,function()
+			blurizon:accelerate(0.1)
+			blurizon:diffusealpha(1)
+			end)     
+			
+			--im sleepy and forgot the purpose of these, but ill still put them here
+			m(0,3,'*-1 stealth','len')
+			m(0,290.5,'*-1 stealth','len',4)
+			m(0,3,'*-1 dark','len',3)
+			m(30,1,'*-1 30% dark','len',3)
+			m(0,3,'*-1 dark','len',4)
 			     
 			me(2.5,2.75,360,0,'rotationz','len',outCubic)
 			m(0,3.5,'*-1 stealth','len')
 			m(0,3,'*-1 dark','len',3)
 			me(3,1.5,100,0,'stealth','len',outCubic)
+			m(4,29,'*-1 80% stealth','len',3)
+			m(29,4,'*1 no stealth','len',3)
+			m(30.5,6,'*-1 30% stealth','len',3)
 			me(28.5,0.5,0,30,'rotationy','len',outCubic,1)
 			me(29,7,1110,0,'rotationy','len',outCubic,1)
 			me(28.5,0.5,0,30,'rotationy','len',outCubic,2)
@@ -373,8 +423,21 @@ end"
 			m(260,999,'*-1 hide','len',3)
 			m(260,999,'*-1 hide','len',4)
 			     --thinking about making a similar motion to windy fairy... don't have time to mod it right now though 
-			me(36,9,0,-200,'movex0','len',outCubic,1)
-			me(36,9,0,-100,'movex0','len',outCubic,2)
+			me(36,5,0,-200,'movex0','len',outCubic,1)
+			me(36,5,0,-100,'movex0','len',outCubic,2)
+			me(36,5,0,-100,'movex1','len',outCubic,1)
+			me(36,5,0,100,'movex2','len',outCubic,1)
+			me(36,5,0,200,'movex3','len',outCubic,1)
+			me(36,5,0,100,'movex3','len',outCubic,2)
+			me(41,25,-200,-200,'movex0','len',outCubic,1)
+			me(41,25,-100,-100,'movex0','len',outCubic,2)
+			me(41,25,-100,-100,'movex1','len',outCubic,1)
+			me(41,25,100,100,'movex2','len',outCubic,1)
+			me(41,25,200,200,'movex3','len',outCubic,1)
+			me(41,25,100,100,'movex3','len',outCubic,2)
+			me(50.5,1,0,300,'pulse','len',outExpo)
+			me(51.5,1.5,360,0,'rotationz','len',outExpo)
+			m(36,20,'*-1 arrowpath','len')
 			     
 			--can't just let the player 3 in the back move without wacky effects! not exactly satisfied with quickOn though.
 			
@@ -420,7 +483,8 @@ end"
 				a:linear(2)
 				a:addx(192*2)
 				a:sleep(0)
-				a:x(SCREEN_CENTER_X)
+			        --the cool horizon part im trying to make starts before these, so im commenting them out for now
+				--[[a:x(SCREEN_CENTER_X)
 				Plr(1):x(SCREEN_CENTER_X-192)
 				a:linear(2)
 				a:addx(192*2)
@@ -455,7 +519,7 @@ end"
 				a:linear(1.098)
 				a:addx(192)
 				a:sleep(0)
-				a:zoom(1)
+				a:zoom(1)]]
 				
 				
 			    end
@@ -501,7 +565,13 @@ end"
 				aux:linear(0.393*12)
 				aux:aux(150)
 			end,true)
-			    
+			  
+			--trivial, but adds a nice touch to the bg.     
+			mpf(36,68,function(beat)
+			blurizon:rotationy( 5*math.sin(beat*math.pi) )
+		    blurizon:rotationx( 5*math.sin(beat*math.pi) )
+			end)
+			     
 			     --I havent started modding this idea yet, but I'm thinking of making something similar to that one part in kirby's sea of white elephants file on 292 onwards. what do you think? 
 				 
 				 
@@ -514,6 +584,8 @@ end"
 				 
 				 
 				 --Already working on it. Is gonna be difficult. I also helped you with some of the work you tried to add, it's not fully finished.. I hope it's what you want it to be.
+			     
+			     --orange notes: just curious, where are you from and how old are you? we've been working together for quite some time and I still know almost nothing about you
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
@@ -825,6 +897,41 @@ end"
 	
 	<Layer Type="Quad" InitCommand="hidden,1;" OnCommand="%function(self) aux = self self:aux(5) end" />
 	
-	<Layer Type="Quad" InitCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;" ResetBGMessageCommand="diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" DestroyBGMessageCommand="diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" />
+	--<Layer Type="Quad" InitCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;" ResetBGMessageCommand="diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" DestroyBGMessageCommand="diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" />
+	
+	--the flash above, but better
+	<Layer
+	Type="Quad"
+	OnCommand="%function(self)
+	flash=self;
+	 self:diffusealpha(0);
+         self:zoomto(SCREEN_WIDTH,SCREEN_HEIGHT);
+           self:x(SCREEN_CENTER_X);
+            self:y(SCREEN_CENTER_Y);
+            self:diffuse(1,1,1,0);
+	end"
+	/>
+	
+	--im stealing a bunch of assets from other people's files so that I could get good graphics in our file, and honestly? it works, it works very well, it looks really good and it's only the beggining
+	<Layer
+	File="sparklies/gradient"
+	OnCommand="%function(self)
+	gradient=self;
+	self:x(SCREEN_CENTER_X);
+	self:y(SCREEN_CENTER_Y);
+	self:diffusealpha(0)
+	end"
+	/>
+	
+	<Layer
+	File="sparklies/white"
+	OnCommand="%function(self)
+	horizon=self
+	self:zoomto(SCREEN_WIDTH,SCREEN_HEIGHT);
+	self:x(SCREEN_CENTER_X);
+	self:y(SCREEN_CENTER_Y);
+	self:diffuse(0,0.5,2,0.5);
+    end"
+	/>
 	
 </children></ActorFrame></children></ActorFrame>
