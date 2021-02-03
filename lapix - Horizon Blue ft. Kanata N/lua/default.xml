@@ -439,22 +439,7 @@ end"
 			me(19.5,2,360,0,'rotationx','len',outCubic)
 			m(30.5,6,'*-1 85% stealth','len',3)
 			
-			m(224,258.25,'Dark,*-1 Halgun','end',1)
-			m(224,258.25,'Dark,*-1 Halgun','end',2)
-			m(225,259.75,'*-1 HideNoteFlash','end',1)
-			m(225,259.75,'*-1 HideNoteFlash','end',2)
-			m(259.75,0.25,'*-1 no HideNoteFlash','len')
-			m(258.25,999,'Dark','len',3)
-			m(258.25,999,'Dark','len',4)
-			m(260,999,'*-1 hide,*-1 Halgun','len',3)
-			m(260,999,'*-1 hide,*-1 Halgun','len',4)
 			
-			--I hope this doesn't lag too much. It's fine for me. Cool effect either way
-			m(228,257.5,'*-1 -3000% parabolaz, *-1 200 drawsize','end')
-			me(257.5,260,-3000,0,'parabolaz','end',inCubic,2)
-			me(257.5,260,-3000,0,'parabolaz','end',inCubic,1)
-			m(227,260,'*-1 0 parabolaz, *2 95 stealth, 150 wave, -100 tornado,  distant, 25 centered, dark','end',3)
-			m(227,260,'*-1 0 parabolaz, *2 95 stealth, 150 wave, 100 tornado,  distant, 25 centered, dark','end',4)
 			     --thinking about making a similar motion to windy fairy... don't have time to mod it right now though 
 			me(36,5,0,-200,'movex0','len',outCubic,1)
 			me(36,5,0,-100,'movex0','len',outCubic,2)
@@ -473,22 +458,6 @@ end"
 			m(36,20,'*-1 arrowpath','len')
 			
 			m(68,1,'*-1 no pulse, *-1 no arrowpath, *-1 no tiny','len')
-			
-			me(176,1,0,200,'expand','len',outQuint)
-			me(177,1,200,0,'expand','len',inCirc)
-			m(178,0.25,'*16 '..(math.rad(90)*100)..' ConfusionZOffset','len')
-			m(178.25,0.25,'*16 '..(math.rad(180)*100)..' ConfusionZOffset','len')
-			m(178.5,0.25,'*16 '..(math.rad(270)*100)..' ConfusionZOffset','len')
-			m(178.75,0.5,'*16 '..(math.rad(360)*100)..' ConfusionZOffset','len')
-			m(179.25,0.25,'*16 '..(math.rad(450)*100)..' ConfusionZOffset','len')
-			m(179.5,0.25,'*16 '..(math.rad(540)*100)..' ConfusionZOffset','len')
-			m(179.75,0.25,'*32 '..(math.rad(0)*100)..' ConfusionZOffset','len')
-			
-			m(228,260,'*-1 400 movex','end',1)
-			m(260,261,'*-1 0 movex','end',1)
-			
-			
-			
 			
 			me(100,0.5,0,100,'flip','len',outBack)
 			me(100.5,0.5,100,0,'flip','len',outBack)
@@ -539,8 +508,53 @@ end"
 			me(111.5,0.25,200,-200,'tipsy','len',outCubic)
 			me(111.75,0.25,-200,0,'tipsy','len',outCubic)
 			
+			
 			me(116,0.5,100,0,'Reverse','len', outCubic)
 			m(116,1,'*-1 no Reverse')
+			me(116,0.5,0,100,'invert','len',outCubic)
+			me(116.5,0.5,100,-100,'invert','len',outCubic)
+			me(116.5,0.5,0,100,'flip','len',outCubic)
+			m(117,2,'*-1 flip, *-1 -100 invert','len')
+			me(119,0.5,100,0,'flip','len',outCubic)
+			me(119,0.5,-100,100,'invert','len',outCubic)
+			me(119.5,0.5,0,100,'flip','len',outCubic)
+			me(119.5,0.5,100,0,'invert','len',outCubic)
+			me(120,0.5,100,0,'flip','len',outCubic)
+			
+			me(176,1,0,200,'expand','len',outQuint)
+			me(177,1,200,0,'expand','len',inCirc)
+			m(178,0.25,'*16 '..(math.rad(90)*100)..' ConfusionZOffset','len')
+			m(178.25,0.25,'*16 '..(math.rad(180)*100)..' ConfusionZOffset','len')
+			m(178.5,0.25,'*16 '..(math.rad(270)*100)..' ConfusionZOffset','len')
+			m(178.75,0.5,'*16 '..(math.rad(360)*100)..' ConfusionZOffset','len')
+			m(179.25,0.25,'*16 '..(math.rad(450)*100)..' ConfusionZOffset','len')
+			m(179.5,0.25,'*16 '..(math.rad(540)*100)..' ConfusionZOffset','len')
+			m(179.75,0.25,'*32 '..(math.rad(0)*100)..' ConfusionZOffset','len')
+			
+			
+			
+			m(224,258.25,'Dark,*-1 Halgun','end',1)
+			m(224,258.25,'Dark,*-1 Halgun','end',2)
+			m(225,259.75,'*-1 HideNoteFlash','end',1)
+			m(225,259.75,'*-1 HideNoteFlash','end',2)
+			m(259.75,0.25,'*-1 no HideNoteFlash','len')
+			m(258.25,999,'Dark','len',3)
+			m(258.25,999,'Dark','len',4)
+			m(260,999,'*-1 hide,*-1 Halgun','len',3)
+			m(260,999,'*-1 hide,*-1 Halgun','len',4)
+			
+			--I hope this doesn't lag too much. It's fine for me. Cool effect either way
+			m(228,257.5,'*-1 -3000% parabolaz, *-1 200 drawsize','end')
+			me(258,260,-3000,0,'parabolaz','end',outSine,2)
+			me(258,260,-3000,0,'parabolaz','end',outSine,1)
+			m(227,260,'*-1 0 parabolaz, *2 95 stealth, 150 wave, -100 tornado,  distant, 25 centered, dark','end',3)
+			m(227,260,'*-1 0 parabolaz, *2 95 stealth, 150 wave, 100 tornado,  distant, 25 centered, dark','end',4)
+			
+			
+			m(228,260,'*-1 400 movex','end',1)
+			m(260,261,'*-1 0 movex','end',1)
+			
+			
 			
 			
 			--can't just let the player 3 in the back move without wacky effects! not exactly satisfied with quickOn though.
@@ -859,7 +873,9 @@ end"
 							mod_do('*-1 0 mini')
 							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
 							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
-							mod_do('*-1 '..(math.abs(math.sin(beat/2 * math.pi)*(aux_spin:getaux()*4)))..' Invert')
+							if math.abs(math.sin(beat/2 * math.pi)*(aux_spin:getaux()*4)) > 0 then
+								mod_do('*-1 '..(math.abs(math.sin(beat/2 * math.pi)*(aux_spin:getaux()*4)))..' Invert')
+							end
 					end
 					
 					if beat >= 292 and beat <= 324 then
