@@ -1,6 +1,7 @@
 <ActorFrame
 InitCommand="%function(self)
-	nitg_version = FUCK_EXE and tonumber(GAMESTATE:GetVersionDate()) >= 20180617 --NotITG version number to check for, v3 by default
+	nitg_version = FUCK_EXE and tonumber(GAMESTATE:GetVersionDate()) >= 20200112 --NotITG version number to check for, v3 by default
+	--the notitg build date is at minimum of v4
 	
 	if not nitg_version then
 		SCREENMAN:SystemMessage('Outdated version of NotITG detected, mods will not work');
@@ -195,7 +196,7 @@ end"
 				{36,13,'*0.25 50 tipsy, *0.25 50 drunk','len'},
 				{49,13,'*0.25 0 tipsy, *0.25 0 drunk','len'},
 				
-				{68,99,'*-1 40 DrawSize','len'},
+				{260,99,'*-1 40 DrawSize','len'},
 				
 				{260,64,'*8 300 beat','len'},
 			}
@@ -450,7 +451,10 @@ end"
 			
 			--I hope this doesn't lag too much. It's fine for me. Cool effect either way
 			m(228,257.5,'*-1 -3000% parabolaz, *-1 200 drawsize','end')
-			me(257.5,260,-3000,0,'parabolaz','end',inCubic)
+			me(257.5,260,-3000,0,'parabolaz','end',inCubic,2)
+			me(257.5,260,-3000,0,'parabolaz','end',inCubic,1)
+			m(227,260,'*-1 0 parabolaz, *2 95 stealth, 150 wave, -100 tornado,  distant, 25 centered, dark','end',3)
+			m(227,260,'*-1 0 parabolaz, *2 95 stealth, 150 wave, 100 tornado,  distant, 25 centered, dark','end',4)
 			     --thinking about making a similar motion to windy fairy... don't have time to mod it right now though 
 			me(36,5,0,-200,'movex0','len',outCubic,1)
 			me(36,5,0,-100,'movex0','len',outCubic,2)
