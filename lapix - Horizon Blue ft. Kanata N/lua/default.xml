@@ -448,6 +448,9 @@ end"
 			m(260,999,'*-1 hide,*-1 Halgun','len',3)
 			m(260,999,'*-1 hide,*-1 Halgun','len',4)
 			
+			--
+			m(228,257.5,'*-1 -3000% parabolaz, *-1 200 drawsize','end')
+			me(257.5,260,-3000,0,'parabolaz','end',inCubic)
 			     --thinking about making a similar motion to windy fairy... don't have time to mod it right now though 
 			me(36,5,0,-200,'movex0','len',outCubic,1)
 			me(36,5,0,-100,'movex0','len',outCubic,2)
