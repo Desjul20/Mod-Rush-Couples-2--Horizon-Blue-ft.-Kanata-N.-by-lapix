@@ -438,14 +438,16 @@ end"
 			me(19.5,2,360,0,'rotationx','len',outCubic)
 			m(30.5,6,'*-1 85% stealth','len',3)
 			
-			m(224,258.25,'Dark','end',1)
-			m(224,258.25,'Dark','end',2)
-			m(228,259.75,'*-1 HideNoteFlash','end',1)
-			m(228,259.75,'*-1 HideNoteFlash','end',2)
+			m(224,258.25,'Dark,*-1 Halgun','end',1)
+			m(224,258.25,'Dark,*-1 Halgun','end',2)
+			m(225,259.75,'*-1 HideNoteFlash','end',1)
+			m(225,259.75,'*-1 HideNoteFlash','end',2)
+			m(259.75,0.25,'*-1 no HideNoteFlash','len')
 			m(258.25,999,'Dark','len',3)
 			m(258.25,999,'Dark','len',4)
-			m(260,999,'*-1 hide','len',3)
-			m(260,999,'*-1 hide','len',4)
+			m(260,999,'*-1 hide,*-1 Halgun','len',3)
+			m(260,999,'*-1 hide,*-1 Halgun','len',4)
+			
 			     --thinking about making a similar motion to windy fairy... don't have time to mod it right now though 
 			me(36,5,0,-200,'movex0','len',outCubic,1)
 			me(36,5,0,-100,'movex0','len',outCubic,2)
@@ -463,7 +465,7 @@ end"
 			me(51.5,1.5,360,0,'rotationz','len',outExpo)
 			m(36,20,'*-1 arrowpath','len')
 			
-			m(110,1,'*-1 no pulse, *-1 no arrowpath, *-1 no tiny','len',3)
+			m(68,1,'*-1 no pulse, *-1 no arrowpath, *-1 no tiny','len')
 			
 			me(176,1,0,200,'expand','len',outQuint)
 			me(177,1,200,0,'expand','len',inCirc)
@@ -647,9 +649,9 @@ end"
 				aux_spin:aux(0)
 			end,true)
 			
-			m2(225.5,function()
-				Plr(1):SetHiddenRegions({{228,259.75}})
-				Plr(2):SetHiddenRegions({{228,259.75}})
+			m2(225,function()
+				Plr(1):SetHiddenRegions({{225,259.75}})
+				Plr(2):SetHiddenRegions({{225,259.75}})
 				for pn = 1, 2 do
 			    local a = Plr(pn)
 			    if a then
