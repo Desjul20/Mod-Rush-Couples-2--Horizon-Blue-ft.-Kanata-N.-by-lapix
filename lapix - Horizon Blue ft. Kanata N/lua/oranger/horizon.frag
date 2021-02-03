@@ -1,4 +1,5 @@
 //I stole this shader from shadertoy and added a few changes, now I feel like a thief
+//huh. just realised this shader isn't converted. whoops!
 
 void mainImage( out vec4 fragColor, in vec2 fragCoord ){
 	vec3 c;
