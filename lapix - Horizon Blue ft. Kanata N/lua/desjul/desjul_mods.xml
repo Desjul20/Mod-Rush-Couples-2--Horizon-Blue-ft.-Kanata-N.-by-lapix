@@ -1,0 +1,307 @@
+<Layer Type="ActorFrame"><children>
+
+    <Layer File="modhelpers" />
+	<Layer File="easing" />
+	<Layer
+        Type="ActorFrame"
+        OnCommand="%function(self)
+            ---------------------------------------------------------
+			---------DOCUMENTATION-----------------------------------
+			---------------------------------------------------------
+			
+			--function perframe( beat, endBeat )
+				--return true if the current beat is between 'beat' and 'endBeat'
+			
+			--function mod_shader(beat,key,which)
+				--turn on shader key at specified beat (up to 10 keys available, defined by 'which' = 0-9
+				
+			--function mod_insert(beat,len,mod,len_or_end,pn)
+				--insert mod into beat mods table
+			--function mod_insert2(time,len,mod,len_or_end,pn)
+				--insert mod into time mods table
+			--function mod_ease(beat, len, start_strength, end_strength, mod, len_or_end, ease_type, pn, sustain, opt1, opt2)
+				--insert mod into ease mods table
+			--function mod_perframe(start, end, function(beat, deltatime))
+				--insert function into perframe reader
+				
+			--function mod_message(beat,msg,persistent)
+				--insert something into the actions table.
+				--msg can also be a function. If string, a message gets broadcast at that beat
+				--if 'persistent' is true, message will run even if editor starts at a beat past it
+				
+			--function mod_blacklist(t,n)
+				--check if number n occurs in table t
+				--useful for doing 'every beat EXCEPT the contents of t'
+				
+			--function simple_m0d(beat,strength,mult,mod)
+			--function simple_m0d2(beat,strength,mult,mod,pn)
+			--function simple_m0d3(beat,strength,duration,bpm,mod,pn)
+				--activate mods at specific beat but also deactivate them
+				
+			--function mod_wiggle(beat,num,div,amt,speed,mod,pn,first)
+				--alternates a mod back and forth before resetting to 0
+				
+			--function mod_spring(beat,strength,num,mod,pn)
+				--like mod_wiggle, but springier
+			
+			--function mod_springt(time,strength,dur,mod,pn)
+				--time-based per-frame alternating mod that decreases based on how much time is left.
+					--think doorstopper
+			
+			--function mod_springt2(time,strength,dur,mod,pn)
+				--time-based per-frame alternating mod
+			
+			--function mod_spring_adjustable(beat,strength,num,period,mod,pn, first)
+				--it's not very good
+			
+			--function mod_beat(beat,strength,pn)
+				--turns on beat for the beat specified, at the desired strength	
+			
+			--function switcheroo_add(beat,which,speed,len,pn)
+				--adds a column swap at the desired beat
+			--[[	switcheroos = {normal = {0,0}, ldur = {0,0}, reset = {0,0},
+					flip = {100,0}, rudl = {100,0}, invert = {0,100}, dlru = {0,100},
+					ludr = {25,-75}, rdul = {75,75}, drlu = {25,125}, ulrd = {75,-125}, urld = {100,-100}}
+			]]
+			
+			--function mod_sugarkiller(beat,duration,speed,minstealth,maxstealth,pn)
+				--portable version of the effect from sugarkill X
+			
+			--function mod_bounce(beat,length,start,apex,mod,ease_type,pn)
+			--function func_bounce(beat,length,start,apex,function,ease_type)
+				--eases out from start to apex, then eases back in from apex to start
+				--ease_type should be a string, i.e. 'Quad', 'Cubic', 'Circ'
+			
+			
+			
+			--function modulo(a, b)
+				--returns the remainder when a is divided by b, works properly with negatives unlike math.mod
+			
+			--function randomXD(t)
+				--returns a pseudo-random number between 0 and 1 seeded based on the given argument
+				--returns 0.5 if t is 0 (useful sometimes!)
+				
+			---------------------------------------------------------
+			--------END DOCUMENTATION--------------------------------
+			---------------------------------------------------------
+			
+			local m = mod_insert
+			local m2 = mod_message
+			local me = mod_ease
+			local mpf = mod_perframe
+			
+			--beat based mods
+			--m(beat_start, beat_end, mods, len_or_end, player_number)
+			
+			--beat-based ease mods
+			--me(beat_start, beat_end, mod_start, mod_end, mod/function, len_or_end, ease_type, player_number, sustainbeats, optional_param1, optional_param2)
+			--valid ease types are:
+				--linear
+				--inQuad    outQuad    inOutQuad    outInQuad
+				--inCubic   outCubic   inOutCubic   outInCubic
+				--inQuart   outQuart   inOutQuart   outInQuart
+				--inQuint   outQuint   inOutQuint   outInQuint
+				--inSine    outSine    inOutSine    outInSine
+				--inExpo    outExpo    inOutExpo    outInExpo
+				--inCirc    outCirc    inOutCirc    outInCirc
+				--inElastic outElastic inOutElastic outInElastic    --can take 2 optional parameters - amplitude & period
+				--inBack    outBack    inOutBack    outInBack       --can take 1 optional parameter  - spring amount
+				--inBounce  outBounce  inOutBounce  outInBounce
+				
+			--beat-based ease functions
+			--me(beat_start, beat_end, mod_start, mod_end, mod_function, len_or_end, ease_type, sustainbeats, optional_param1, optional_param2)
+			--mod_function gets passed a number as a parameter which can then be used to manipulate 
+				
+			-- you can now write perframe stuff without having to scroll down!
+			-- mpf(beat_start,beat_end,function(beat,deltatime))
+			
+			--this is both a message broadcaster and a function runner
+			--if you put mm(beat,'String') then 'String' is broadcast as a message on that beat
+			--if you put mm(beat,function() somecode end) then function() is run at that beat
+			--see example on beat 0
+			--mm(beat,thing,persists)
+			
+			
+			m(224,258.25,'Dark','end',1)
+			m(224,258.25,'Dark','end',2)
+			m(228,259.75,'*-1 HideNoteFlash','end',1)
+			m(228,259.75,'*-1 HideNoteFlash','end',2)
+			m(259.75,0.25,'*-1 no HideNoteFlash','len')
+			m(258.25,999,'Dark','len',3)
+			m(258.25,290.5,'Dark','end',4)
+			m(260,999,'*-1 hide','len',3)
+			m(260,290.5,'*-1 hide','end',4)
+			m(290.5,1,'*-1 no hide','len',4)
+			m(260,999,'*-1 hide,*-1 Halgun','len',3)
+			m(260,999,'*-1 hide,*-1 Halgun','len',4)
+			
+			--I hope this doesn't lag too much. It's fine for me. Cool effect either way
+			m(228,257.5,'*-1 -3000% parabolaz, *-1 200 drawsize','end')
+			m(227,260,'*-1 0 parabolaz, *2 95 stealth, 150 wave, -100 tornado,  distant, 25 centered, dark','end',3)
+			m(227,260,'*-1 0 parabolaz, *2 95 stealth, 150 wave, 100 tornado,  distant, 25 centered, dark','end',4)
+			
+			m(68,1,'*-1 no pulse, *-1 no arrowpath, *-1 no tiny','len')
+			
+			m(178,0.25,'*16 '..(math.rad(90)*100)..' ConfusionZOffset','len')
+			m(178.25,0.25,'*16 '..(math.rad(180)*100)..' ConfusionZOffset','len')
+			m(178.5,0.25,'*16 '..(math.rad(270)*100)..' ConfusionZOffset','len')
+			m(178.75,0.5,'*16 '..(math.rad(360)*100)..' ConfusionZOffset','len')
+			m(179.25,0.25,'*16 '..(math.rad(450)*100)..' ConfusionZOffset','len')
+			m(179.5,0.25,'*16 '..(math.rad(540)*100)..' ConfusionZOffset','len')
+			m(179.75,0.25,'*32 '..(math.rad(0)*100)..' ConfusionZOffset','len')
+			
+			m(228,260,'*-1 400 movex','end',1)
+			m(260,261,'*-1 0 movex','end',1)
+			
+			m(101.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(102,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			m(104.5,11.5,'*-1 Reverse')
+			
+			m(108,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(108.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			m(116,1,'*-1 no Reverse')
+			
+			m(100,99,'*-1 no stealth','len',3)
+			
+			
+			 m2(260,function()
+			 for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+				Plr(1):addx(-192)
+				a:zoom(0.75)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				--[[a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)
+				a:x(SCREEN_CENTER_X)
+				Plr(1):addx(-192)
+				a:linear(2)
+				a:addx(192*2)
+				a:sleep(0)]]
+				
+				
+			    end
+				end
+			end, true)
+			
+			m2(112, function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(24)
+			end,true)
+			
+			m2(115.5,function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(0)
+			end,true)
+			
+			m2(143, function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(24)
+			end,true)
+			
+			m2(147.5,function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(0)
+			end,true)
+			
+			m2(225,function()
+				Plr(1):SetHiddenRegions({{225,259.75}})
+				Plr(2):SetHiddenRegions({{225,259.75}})
+				for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+					Plr(1):x(SCREEN_CENTER_X-192)
+					--idk why but something is holding player 1 on the same x value as player 2.
+					a:zoom(0.75)
+					SCREENMAN:GetTopScreen():GetChild('PlayerP3'):SetHiddenRegions({{260,324}})
+					SCREENMAN:GetTopScreen():GetChild('PlayerP4'):SetHiddenRegions({{260,324}})
+				end
+				end
+			end,true)
+			
+			m2(53.5,function()
+				aux:linear(0.393*12)
+				aux:aux(150)
+			end,true)
+			
+			m2(68,function()
+			softifier:linear(1.96)
+			softifier:diffusealpha(0)
+			end)
+			
+---------------------------------------------------------------------------------------
+----------------------Sort the actions table-------------------------------------------
+---------------------------------------------------------------------------------------
+			
+			if table.getn(mod_actions) > 1 then
+                table.sort(mod_actions, modtable_compare)
+            end
+             
+            self:queuecommand('Revo_NITGFanUpdate')
+        end"
+        
+        Revo_NITGFanUpdateCommand="%function(self)
+            local beat = GAMESTATE:GetSongBeat()
+            self:sleep(0.02)
+            self:queuecommand('Revo_NITGFanUpdate')
+        end"
+		/>
+	
+</children></Layer>

@@ -1,0 +1,291 @@
+<Layer Type="ActorFrame"><children>
+
+    <Layer File="modhelpers" />
+	<Layer File="easing" />
+	<Layer
+        Type="ActorFrame"
+        OnCommand="%function(self)
+            ---------------------------------------------------------
+			---------DOCUMENTATION-----------------------------------
+			---------------------------------------------------------
+			
+			--function perframe( beat, endBeat )
+				--return true if the current beat is between 'beat' and 'endBeat'
+			
+			--function mod_shader(beat,key,which)
+				--turn on shader key at specified beat (up to 10 keys available, defined by 'which' = 0-9
+				
+			--function mod_insert(beat,len,mod,len_or_end,pn)
+				--insert mod into beat mods table
+			--function mod_insert2(time,len,mod,len_or_end,pn)
+				--insert mod into time mods table
+			--function mod_ease(beat, len, start_strength, end_strength, mod, len_or_end, ease_type, pn, sustain, opt1, opt2)
+				--insert mod into ease mods table
+			--function mod_perframe(start, end, function(beat, deltatime))
+				--insert function into perframe reader
+				
+			--function mod_message(beat,msg,persistent)
+				--insert something into the actions table.
+				--msg can also be a function. If string, a message gets broadcast at that beat
+				--if 'persistent' is true, message will run even if editor starts at a beat past it
+				
+			--function mod_blacklist(t,n)
+				--check if number n occurs in table t
+				--useful for doing 'every beat EXCEPT the contents of t'
+				
+			--function simple_m0d(beat,strength,mult,mod)
+			--function simple_m0d2(beat,strength,mult,mod,pn)
+			--function simple_m0d3(beat,strength,duration,bpm,mod,pn)
+				--activate mods at specific beat but also deactivate them
+				
+			--function mod_wiggle(beat,num,div,amt,speed,mod,pn,first)
+				--alternates a mod back and forth before resetting to 0
+				
+			--function mod_spring(beat,strength,num,mod,pn)
+				--like mod_wiggle, but springier
+			
+			--function mod_springt(time,strength,dur,mod,pn)
+				--time-based per-frame alternating mod that decreases based on how much time is left.
+					--think doorstopper
+			
+			--function mod_springt2(time,strength,dur,mod,pn)
+				--time-based per-frame alternating mod
+			
+			--function mod_spring_adjustable(beat,strength,num,period,mod,pn, first)
+				--it's not very good
+			
+			--function mod_beat(beat,strength,pn)
+				--turns on beat for the beat specified, at the desired strength	
+			
+			--function switcheroo_add(beat,which,speed,len,pn)
+				--adds a column swap at the desired beat
+			--[[	switcheroos = {normal = {0,0}, ldur = {0,0}, reset = {0,0},
+					flip = {100,0}, rudl = {100,0}, invert = {0,100}, dlru = {0,100},
+					ludr = {25,-75}, rdul = {75,75}, drlu = {25,125}, ulrd = {75,-125}, urld = {100,-100}}
+			]]
+			
+			--function mod_sugarkiller(beat,duration,speed,minstealth,maxstealth,pn)
+				--portable version of the effect from sugarkill X
+			
+			--function mod_bounce(beat,length,start,apex,mod,ease_type,pn)
+			--function func_bounce(beat,length,start,apex,function,ease_type)
+				--eases out from start to apex, then eases back in from apex to start
+				--ease_type should be a string, i.e. 'Quad', 'Cubic', 'Circ'
+			
+			
+			
+			--function modulo(a, b)
+				--returns the remainder when a is divided by b, works properly with negatives unlike math.mod
+			
+			--function randomXD(t)
+				--returns a pseudo-random number between 0 and 1 seeded based on the given argument
+				--returns 0.5 if t is 0 (useful sometimes!)
+				
+			---------------------------------------------------------
+			--------END DOCUMENTATION--------------------------------
+			---------------------------------------------------------
+			
+			local m = mod_insert
+			local me = mod_ease
+			local m2 = mod_message
+			local mpf = mod_perframe
+			
+			--beat based mods
+			--m(beat_start, beat_end, mods, len_or_end, player_number)
+			
+			--beat-based ease mods
+			--me(beat_start, beat_end, mod_start, mod_end, mod/function, len_or_end, ease_type, player_number, sustainbeats, optional_param1, optional_param2)
+			--valid ease types are:
+				--linear
+				--inQuad    outQuad    inOutQuad    outInQuad
+				--inCubic   outCubic   inOutCubic   outInCubic
+				--inQuart   outQuart   inOutQuart   outInQuart
+				--inQuint   outQuint   inOutQuint   outInQuint
+				--inSine    outSine    inOutSine    outInSine
+				--inExpo    outExpo    inOutExpo    outInExpo
+				--inCirc    outCirc    inOutCirc    outInCirc
+				--inElastic outElastic inOutElastic outInElastic    --can take 2 optional parameters - amplitude & period
+				--inBack    outBack    inOutBack    outInBack       --can take 1 optional parameter  - spring amount
+				--inBounce  outBounce  inOutBounce  outInBounce
+				
+			--beat-based ease functions
+			--me(beat_start, beat_end, mod_start, mod_end, mod_function, len_or_end, ease_type, sustainbeats, optional_param1, optional_param2)
+			--mod_function gets passed a number as a parameter which can then be used to manipulate 
+				
+			-- you can now write perframe stuff without having to scroll down!
+			-- mpf(beat_start,beat_end,function(beat,deltatime))
+			
+			--this is both a message broadcaster and a function runner
+			--if you put mm(beat,'String') then 'String' is broadcast as a message on that beat
+			--if you put mm(beat,function() somecode end) then function() is run at that beat
+			--see example on beat 0
+			--mm(beat,thing,persists)
+			
+			local P3 = SCREENMAN:GetTopScreen():GetChild('PlayerP3')
+               if P3 then
+            P3:SetAwake(false)
+            P3:hidden(0)
+            P3:SetInputPlayer(1)
+			P3:GetChild('Judgment'):hidden(1)
+			P3:GetChild('Combo'):hidden(1)
+			P3:zoom(1.2)
+            end
+			
+			local P4 = SCREENMAN:GetTopScreen():GetChild('PlayerP4')
+               if P4 then
+            P4:SetAwake(false)
+            P4:hidden(0)
+            P4:SetInputPlayer(1)
+			P4:GetChild('Judgment'):hidden(1)
+			P4:GetChild('Combo'):hidden(1)
+			P4:zoom(1.2)
+            end
+
+            local function quickOn(beat,strength,len,md,pn)
+			    local activation_rate = math.abs(strength/10)
+			    m( beat-0.1,0.3,'*'..activation_rate..' '..strength..' '..md, 'len', pn )
+				m( beat+0.1,len,'*'..((activation_rate/5)/len)..' 0 '..md, 'len', pn )
+			end
+
+            m2(0, function()
+			   for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+			    a:linear(0.001)
+				a:zoom(0.01)
+			    a:x(sw/2)
+			    end
+				end
+			 end, true)
+
+			m2(0,function()
+            P4:hidden(1)
+            end)			
+			 
+			m2(2.5,function()
+			   for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+			    a:accelerate(0.6)
+				a:zoom(1.2)
+			    end
+				end
+			 end, true)
+			 
+			m2(4,function()
+			   for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+			    a:bounce(1)
+				a:effectmagnitude(0,10,0)
+				a:effectperiod(0.5)
+			    end
+				end
+			 end, true)
+			
+			m2(29,function()
+			   Plr(1):SetHiddenRegions({{31,36.1}})
+			   Plr(2):SetHiddenRegions({{31,36.1}})
+			end)
+			m2(29,function()
+			   P3:SetHiddenRegions({{29,31}})
+			end)
+			
+			m2(4,function()
+			P3:linear(0.01)
+			P3:diffusealpha(0)
+			end)
+			
+			m2(27,function()
+			P3:x(800)
+			P3:diffusealpha(0.5)
+			P3:zoom(0.6)
+			end)
+			
+			m2(30,function()
+			P3:linear(3.5)
+			P3:addx(-1000)
+			end)
+			
+			m2(36,function()
+			flash:accelerate(0.1)
+			flash:diffusealpha(1)
+			flash:accelerate(0.8)
+			flash:diffusealpha(0)
+			end)
+			
+			m2(36,function()
+			gradient:accelerate(0.5)
+			gradient:diffusealpha(0.5)
+			end)
+			
+			m2(68,function()
+			flash:diffusealpha(1)
+			flash:accelerate(0.6)
+			flash:diffusealpha(0)
+			end)
+			
+			m2(36,function()
+			blurizon:accelerate(0.1)
+			blurizon:diffusealpha(1)
+			end)
+			
+			m2(36,function()
+			softifier:decelerate(0.4)
+			softifier:diffusealpha(0.2)
+			end)
+
+			m(0,3,'*-1 stealth','len')
+			m(0,290.5,'*-1 stealth','len',4)
+			m(0,3,'*-1 dark','len',3)
+			m(30,1,'*-1 30% dark','len',3)
+			m(0,3,'*-1 dark','len',4)
+			m(4,29,'*-1 80% stealth','len',3)
+			m(29,4,'*1 no stealth','len',3)
+			m(30.5,6,'*-1 30% stealth','len',3)
+			m(36,20,'*-1 arrowpath','len')
+			
+			for i=31,36, 1 do
+			quickOn(i,50,.5,'tipsy',3)
+			quickOn(i,50,.5,'drunk',3)
+			quickOn(i+1,-100,.5,'tipsy',3)
+			quickOn(i+1,-100,.5,'drunk',3)
+			end
+			
+			m2(68,function()
+				blurizon:diffusealpha(0)
+				gradient:accelerate(1.960)
+				gradient:diffusealpha(0)
+				for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+					a:stopeffect()
+				end
+				end
+			end,true)
+			
+			mpf(36,68,function(beat)
+			blurizon:rotationy( 5*math.sin(beat*math.pi) )
+		    blurizon:rotationx( 5*math.sin(beat*math.pi) )
+			end)
+---------------------------------------------------------------------------------------
+----------------------Sort the actions table-------------------------------------------
+---------------------------------------------------------------------------------------
+			if table.getn(mod_actions) > 1 then
+                table.sort(mod_actions, modtable_compare)
+            end
+             
+            self:queuecommand('Revo_NITGFanUpdate')
+        end"
+        
+        Revo_NITGFanUpdateCommand="%function(self)
+            local beat = GAMESTATE:GetSongBeat()
+            self:sleep(0.02)
+            self:queuecommand('Revo_NITGFanUpdate')
+        end"
+		
+		
+		
+		/>
+	
+</children></Layer>
