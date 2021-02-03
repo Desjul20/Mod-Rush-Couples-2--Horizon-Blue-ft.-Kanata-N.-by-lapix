@@ -1,3 +1,4 @@
+--the amount of changes I've done to the code's structure today was so much that I decided to delete the previous version altogether. say hello to main default number 2!
 <ActorFrame
 InitCommand="%function(self)
 
@@ -403,6 +404,9 @@ end"
 			
 		    me(258,260,-3000,0,'parabolaz','end',outSine,2)
 			me(258,260,-3000,0,'parabolaz','end',outSine,1)
+			     
+			     --orange notes: I'm going throught all of this while being very tired so if I didn't transfer some code let me know
+			     also comment (update) or something on new changes so we don't get confused. not all of them, but some that you feel could be missed
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
