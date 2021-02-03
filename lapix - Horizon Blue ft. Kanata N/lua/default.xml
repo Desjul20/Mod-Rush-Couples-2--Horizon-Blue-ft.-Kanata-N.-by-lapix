@@ -181,13 +181,15 @@ end"
 				m( beat+0.1,len,'*'..((activation_rate/5)/len)..' 0 '..md, 'len', pn )
 			end    
 			
+			
+			
 ---------------------------------------------------------------------------------------
 ----------------------Begin tables 'n stuff--------------------------------------------
 ---------------------------------------------------------------------------------------
 			--beat based mods
 			--{beat_start, beat_end, mods, len_or_end, player_number}
 			mods = {
-				{0,9999,'*2 2.5x, *-1 overhead, *-1 approachtype, *-1 dizzyholds, *-1 stealthpastreceptors, *-1 modtimer, *-1 -999999999 cover','end'},
+				{0,9999,'*2 2.5x, *-1 overhead, *-1 approachtype, *-1 dizzyholds, *-1 stealthpastreceptors, *-1 modtimer, *-1 -999999999 cover','end'},	
 				{0,30.5,'*0.25 35 tipsy, *0.25 35 drunk','len'},
 				{30.5,1.5,'*0.25 0 tipsy, *0.25 0 drunk','len'},
 				{36,13,'*0.25 50 tipsy, *0.25 50 drunk','len'},
@@ -216,6 +218,16 @@ end"
 			mods_ease = {
 				-- EXAMPLE TWEEN: from beat 0 to 4, make rotationz go from 360 to 0 with the inOutBack tween
 				--{0, 4, 360, 0, 'rotationz', 'len', inOutBack},
+				{6,0.75,0,100,'flip','len',outQuad},
+				{6.75,0.75,100,0,'flip','len',outQuad},
+				{6.75,0.75,0,100,'invert','len',outQuad},
+				{7.5,0.75,100,0,'invert','len',outQuad},
+				
+				{14,0.75,0,100,'invert','len',outQuad},
+				{14.75,0.75,0,100,'flip','len',outQuad},
+				{14.75,0.75,100,0,'invert','len',outQuad},
+				{15.5,0.75,100,0,'flip','len',outQuad},
+				
 				{32,1,0,100,'flip','len', outCubic,3},
 				{33,1,0,100,'invert','len', outCubic,3},
 				{33,1,100,0,'flip','len', outCubic,3},
@@ -239,6 +251,12 @@ end"
 				{130,1,100,-100,'invert','len', outCubic},
 				{131,1,100,0,'flip','len', outCubic},
 				{131,1,-100,0,'invert','len', outCubic},
+				
+				{164,1,100,0,'stealth','len',outQuint},
+				
+				{165.5,1,100,0,'stealth','len',outQuint},
+				
+				{169.75,171.25,100,0,'stealth','end',inQuint},
 				
 				-- EXAMPLE TWEEN: from beat 4 to 8, rotate topscreen from 360 to 0 with the outBack tween
 				--{4, 4, 360, 0, function(a) SCREENMAN:GetTopScreen():rotationz(a) end, 'len', outBack},
@@ -325,7 +343,7 @@ end"
 			    end
 				end
 			 end, true)
-		
+			 
 			 m2(4,function()
 			   for pn = 1, 2 do
 			    local a = Plr(pn)
@@ -337,24 +355,16 @@ end"
 				end
 			 end, true)
 			     
-			 m2(68,function()
-			blurizon:diffusealpha(0)
-			end)
-			     
 			 m2(13,function()
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):linear(0.01)
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):diffusealpha(0)
 			end)
 			
 			m2(29,function()
-			   Plr(1):SetHiddenRegions({{31,36.1}})
-			   Plr(2):SetHiddenRegions({{31,36.1}})
+			   Plr(1):SetHiddenRegions({{32,36.1}})
+			   Plr(2):SetHiddenRegions({{32,36.1}})
 			end)
 			
-			m2(29,function()
-			   P3:SetHiddenRegions({{29,31}})
-			end)
-			     
 			m2(27,function()
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(800)
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):diffusealpha(0.4)
@@ -365,7 +375,7 @@ end"
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):linear(3.5)
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):addx(-1000)
 			end)
-			     
+			
 			m2(36,function()
 			flash:accelerate(0.1)
 			flash:diffusealpha(1)
@@ -385,9 +395,23 @@ end"
 			end)
 			
 			m2(36,function()
+			--THIS IS NICE.
 			blurizon:accelerate(0.1)
 			blurizon:diffusealpha(1)
 			end)     
+			
+			m2(68,function()
+				--Removing for the transition to black
+				blurizon:diffusealpha(0)
+				gradient:accelerate(1.960)
+				gradient:diffusealpha(0)
+				for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+					a:stopeffect()
+				end
+				end
+			end,true)
 			
 			--im sleepy and forgot the purpose of these, but ill still put them here
 			m(0,3,'*-1 stealth','len')
@@ -438,7 +462,78 @@ end"
 			me(50.5,1,0,300,'pulse','len',outExpo)
 			me(51.5,1.5,360,0,'rotationz','len',outExpo)
 			m(36,20,'*-1 arrowpath','len')
-			     
+			
+			m(110,1,'*-1 no pulse, *-1 no arrowpath, *-1 no tiny','len',3)
+			
+			me(176,1,0,200,'expand','len',outQuint)
+			me(177,1,200,0,'expand','len',inCirc)
+			m(178,0.25,'*16 '..(math.rad(90)*100)..' ConfusionZOffset','len')
+			m(178.25,0.25,'*16 '..(math.rad(180)*100)..' ConfusionZOffset','len')
+			m(178.5,0.25,'*16 '..(math.rad(270)*100)..' ConfusionZOffset','len')
+			m(178.75,0.5,'*16 '..(math.rad(360)*100)..' ConfusionZOffset','len')
+			m(179.25,0.25,'*16 '..(math.rad(450)*100)..' ConfusionZOffset','len')
+			m(179.5,0.25,'*16 '..(math.rad(540)*100)..' ConfusionZOffset','len')
+			m(179.75,0.25,'*32 '..(math.rad(0)*100)..' ConfusionZOffset','len')
+			
+			m(228,260,'*-1 400 movex','end',1)
+			m(260,261,'*-1 0 movex','end',1)
+			
+			
+			
+			
+			me(100,0.5,0,100,'flip','len',outBack)
+			me(100.5,0.5,100,0,'flip','len',outBack)
+			me(101,0.25,0,200,'drunk','len',linear)
+			me(101.25,0.25,200,-200,'drunk','len',linear)
+			me(101.5,0.25,-200,0,'drunk','len',linear)
+			m(101.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(102,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			me(102.25,0.25,0,100,'invert','len', outCubic)
+			me(102.5,0.5,100,75,'invert','len', outCubic)
+			me(102.5,0.5,0,75,'flip','len', outCubic)
+			me(103,0.5,75,-75,'invert','len', outCubic)
+			me(103,0.5,75,25,'flip','len', outCubic)
+			me(103.5,0.5,-75,0,'invert','len', outCubic)
+			me(103.5,0.5,25,0,'flip','len', outCubic)
+			
+			me(104,0.5,0,100,'Reverse','len', outCubic)
+			m(104.5,11.5,'*-1 Reverse')
+			
+			me(105,0.25,0,100,'invert','len',outBack)
+			me(105.25,0.25,100,0,'invert','len',outBack)
+			
+			me(105.75,0.5,0,200,'drunk, tipsy','len',linear)
+			me(106.25,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(106.5,0.25,-200,0,'drunk, tipsy','len',linear)
+			
+			me(107,0.25,0,100,'invert','len', outCubic)
+			me(107.25,0.25,100,75,'invert','len', outCubic)
+			me(107.25,0.25,0,75,'flip','len', outCubic)
+			me(107.5,0.25,75,0,'flip','len', outCubic)
+			me(107.5,0.25,75,0,'invert','len', outCubic)
+			
+			m(108,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(108.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			me(109,0.25,0,200,'drunk, tipsy','len',linear)
+			me(109.25,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(109.5,0.25,-200,0,'drunk, tipsy','len',linear)
+			
+			me(110.25,0.25,0,100,'invert','len', outCubic)
+			me(110.5,0.25,100,75,'invert','len', outCubic)
+			me(110.5,0.25,0,75,'flip','len', outCubic)
+			me(110.75,0.25,75,0,'flip','len', outCubic)
+			me(110.75,0.25,75,0,'invert','len', outCubic)
+			
+			me(111.25,0.25,0,200,'tipsy','len',outCubic)
+			me(111.5,0.25,200,-200,'tipsy','len',outCubic)
+			me(111.75,0.25,-200,0,'tipsy','len',outCubic)
+			
+			me(116,0.5,100,0,'Reverse','len', outCubic)
+			m(116,1,'*-1 no Reverse')
+			
+			
 			--can't just let the player 3 in the back move without wacky effects! not exactly satisfied with quickOn though.
 			
 			--yeah, at least you have something to go off of.
@@ -448,6 +543,8 @@ end"
 			quickOn(i+1,-100,.5,'tipsy',3)
 			quickOn(i+1,-100,.5,'drunk',3)
 			end
+			
+			m(100,99,'*-1 no stealth','len',3)
 			     
 			m2(260,function()
 			 for pn = 1, 2 do
@@ -526,9 +623,13 @@ end"
 				end
 			end, true)
 			
+			me(2.5,2.75,360,0,'rotationz','len',outCubic)
+			m(0,3.5,'*-1 stealth','len')
+			me(3,1.5,100,0,'stealth','len',outCubic)
+			
 			m2(112, function()
 				aux_spin:linear(0.393/2) 
-				aux_spin:aux(24)
+				aux_spin:aux(25)
 			end,true)
 			
 			m2(115.5,function()
@@ -538,7 +639,7 @@ end"
 			
 			m2(143, function()
 				aux_spin:linear(0.393/2) 
-				aux_spin:aux(24)
+				aux_spin:aux(25)
 			end,true)
 			
 			m2(147.5,function()
@@ -553,7 +654,6 @@ end"
 			    local a = Plr(pn)
 			    if a then
 					Plr(1):x(SCREEN_CENTER_X-192)
-					--idk why but something is holding player 1 on the same x value as player 2.
 					a:zoom(0.75)
 					SCREENMAN:GetTopScreen():GetChild('PlayerP3'):SetHiddenRegions({{260,324}})
 					SCREENMAN:GetTopScreen():GetChild('PlayerP4'):SetHiddenRegions({{260,324}})
@@ -565,17 +665,17 @@ end"
 				aux:linear(0.393*12)
 				aux:aux(150)
 			end,true)
-			  
+			
 			--trivial, but adds a nice touch to the bg.     
 			mpf(36,68,function(beat)
-			blurizon:rotationy( 5*math.sin(beat*math.pi) )
-		    blurizon:rotationx( 5*math.sin(beat*math.pi) )
+				blurizon:rotationy( 5*math.sin(beat*math.pi) )
+				blurizon:rotationx( 5*math.sin(beat*math.pi) )
 			end)
-			     
+			    
 			     --I havent started modding this idea yet, but I'm thinking of making something similar to that one part in kirby's sea of white elephants file on 292 onwards. what do you think? 
 				 
 				 
-				 --I don't know what part but i think it's the part where the play field turns into a SDVX playfield. if it's that one then it'll fit but is kinda boring. I was thinking to still have the scrolling but more effects, i'm not sure if it is good to have the scrolling on that part.
+					--I don't know what part but i think it's the part where the play field turns into a SDVX playfield. if it's that one then it'll fit but is kinda boring. I was thinking to still have the scrolling but more effects, i'm not sure if it is good to have the scrolling on that part.
 				 
 				 
 				 
@@ -583,9 +683,11 @@ end"
 			     --also, I dont have much ideas for the middle (100 to 226), so if you have anything cool for that part feel free to do it
 				 
 				 
-				 --Already working on it. Is gonna be difficult. I also helped you with some of the work you tried to add, it's not fully finished.. I hope it's what you want it to be.
-			     
-			     --orange notes: just curious, where are you from and how old are you? we've been working together for quite some time and I still know almost nothing about you
+					--Already working on it. Is gonna be difficult. I also helped you with some of the work you tried to add, it's not fully finished.. I hope it's what you want it to be.
+				 
+				 --orange notes: just curious, where are you from and how old are you? we've been working together for quite some time and I still know almost nothing about you
+				
+					--I'm from Arizona (United States). i'm 13.
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
@@ -738,22 +840,24 @@ end"
 						end
 					end
 					
-					if beat >= 112 then
+					if beat >= 111 then
 							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(1)
 							Plr(1):x(aux_spin:getaux()*math.cos(beat * math.pi)+SCREEN_CENTER_X)
 							Plr(1):y(aux_spin:getaux()*math.sin(beat * math.pi)+SCREEN_CENTER_Y)
-							Plr(2):x(aux_spin:getaux()*math.cos((beat + 0.5) * math.pi)+SCREEN_CENTER_X)
-							Plr(2):y(aux_spin:getaux()*math.sin((beat + 0.5) * math.pi)+SCREEN_CENTER_Y)
-							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):hidden(0)
-							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(aux_spin:getaux()*math.cos((beat + 1) * math.pi)+SCREEN_CENTER_X)
-							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):y(aux_spin:getaux()*math.sin((beat + 1) * math.pi)+SCREEN_CENTER_Y)
-							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):x(aux_spin:getaux()*math.cos((beat + 1.5) * math.pi)+SCREEN_CENTER_X)
-							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):y(aux_spin:getaux()*math.sin((beat + 1.5) * math.pi)+SCREEN_CENTER_Y)
+							Plr(2):x(aux_spin:getaux()*math.cos((beat + 0.66666) * math.pi)+SCREEN_CENTER_X)
+							Plr(2):y(aux_spin:getaux()*math.sin((beat + 0.66666) * math.pi)+SCREEN_CENTER_Y)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(1)
+							mod_do('*-1 0 mini')
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
+							mod_do('*-1 '..(math.abs(math.sin(beat/2 * math.pi)*(aux_spin:getaux()*4)))..' Invert')
 					end
 					
 					if beat >= 292 and beat <= 324 then
 						mod_do('*-1 '..(math.sin(beat/4 * math.pi)*100)..' drunk')
 					end
+					
+					--Modified to be a flicker on tiny from a function I made for Pon-Pon-Pompoko Dai-Sen-Saw! It used to be a function on Blink but more controllable to be way better.
 					
 					function tinyFlicker(b,value1,value2,length,period,speed1,speed2)
 						if beat-b < length then
@@ -897,6 +1001,9 @@ end"
 	
 	<Layer Type="Quad" InitCommand="hidden,1;" OnCommand="%function(self) aux = self self:aux(5) end" />
 	
+	<Layer Type="Quad" InitCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;" ResetBGMessageCommand="diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" DestroyBGMessageCommand="diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" />
+	
+	
 	--<Layer Type="Quad" InitCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;" ResetBGMessageCommand="diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" DestroyBGMessageCommand="diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" />
 	
 	--the flash above, but better
@@ -931,6 +1038,9 @@ end"
 	self:x(SCREEN_CENTER_X);
 	self:y(SCREEN_CENTER_Y);
 	self:diffuse(0,0.5,2,0.5);
+	self:sleep(26.676)
+	self:linear(1.960)
+	self:diffusealpha(0)
     end"
 	/>
 	
