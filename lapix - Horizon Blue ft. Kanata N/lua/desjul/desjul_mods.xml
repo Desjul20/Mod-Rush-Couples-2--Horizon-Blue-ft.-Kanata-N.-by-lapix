@@ -81,6 +81,16 @@
 				--returns a pseudo-random number between 0 and 1 seeded based on the given argument
 				--returns 0.5 if t is 0 (useful sometimes!)
 				
+			--This will be important for later
+			--[[
+				64px (64/135) = 47.4% Centered
+
+				*(BPM * XMOD / 60 * 64/135) 400% Centered
+				*(BPM * XMOD / 60) 400% Centered2
+				(Normal Mod Time)
+				
+			]]--
+				
 			---------------------------------------------------------
 			--------END DOCUMENTATION--------------------------------
 			---------------------------------------------------------
@@ -122,11 +132,11 @@
 			--mm(beat,thing,persists)
 			
 			
-			m(224,258.25,'Dark','end',1)
-			m(224,258.25,'Dark','end',2)
-			m(228,259.75,'*-1 HideNoteFlash','end',1)
-			m(228,259.75,'*-1 HideNoteFlash','end',2)
-			m(259.75,0.25,'*-1 no HideNoteFlash','len')
+			m(224,258.25,'*-1 Dark','end',1)
+			m(224,258.25,'*-1 Dark','end',2)
+			m(224,259.75,'*-1 HideNoteFlash, *-1 Halgun','end',1)
+			m(224,259.75,'*-1 HideNoteFlash, *-1 Halgun','end',2)
+			m(259.75,0.25,'*-1 no HideNoteFlash, *-1 no Halgun','len')
 			m(258.25,999,'Dark','len',3)
 			m(258.25,290.5,'Dark','end',4)
 			m(260,999,'*-1 hide','len',3)
@@ -134,6 +144,7 @@
 			m(290.5,1,'*-1 no hide','len',4)
 			m(260,999,'*-1 hide,*-1 Halgun','len',3)
 			m(260,999,'*-1 hide,*-1 Halgun','len',4)
+			
 			
 			--I hope this doesn't lag too much. It's fine for me. Cool effect either way
 			m(228,257.5,'*-1 -3000% parabolaz, *-1 200 drawsize','end')
@@ -163,7 +174,15 @@
 			
 			m(116,1,'*-1 no Reverse')
 			
+			m(117.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(118,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
 			m(100,99,'*-1 no stealth','len',3)
+			
+			--This kinda good but not great.
+			--m(124,4,'*2 -60 rotationx, *2 150 wave, *2 reverse, *2 -55 tornado, *2 250 parabolaz','len')
+			
+			--m(128,9,'*2 no rotationx,*2 no wave,*2 no drunk,*2 no reverse,*2 no tornado,*2 no parabolaz','len')
 			
 			
 			 m2(260,function()
@@ -243,7 +262,7 @@
 			
 			m2(112, function()
 				aux_spin:linear(0.393/2) 
-				aux_spin:aux(24)
+				aux_spin:aux(25)
 			end,true)
 			
 			m2(115.5,function()
@@ -251,9 +270,19 @@
 				aux_spin:aux(0)
 			end,true)
 			
+			--[[m2(124, function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(25)
+			end,true)
+			
+			m2(128,function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(0)
+			end,true)]]--
+			
 			m2(143, function()
 				aux_spin:linear(0.393/2) 
-				aux_spin:aux(24)
+				aux_spin:aux(25)
 			end,true)
 			
 			m2(147.5,function()
@@ -261,7 +290,7 @@
 				aux_spin:aux(0)
 			end,true)
 			
-			m2(225,function()
+			m2(224,function()
 				Plr(1):SetHiddenRegions({{225,259.75}})
 				Plr(2):SetHiddenRegions({{225,259.75}})
 				for pn = 1, 2 do
@@ -285,6 +314,19 @@
 			softifier:linear(1.96)
 			softifier:diffusealpha(0)
 			end)
+			
+			m2(68,function()
+				for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+					a:linear(1.960)
+					a:zoom(1)
+				end
+				end
+				--I hope this is ok
+				gradient2:accelerate(1.960)
+				gradient2:diffusealpha(0)
+			end,true)
 			
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
