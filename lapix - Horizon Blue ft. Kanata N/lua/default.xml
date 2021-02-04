@@ -291,7 +291,7 @@ end"
 				{68,'DestroyBG',true},
 				{340,'ResetBG',true},
 				{404,'DestroyBG',true},
-				{260,'Proxy',true},
+				{225,'Proxy',true},
 				{324,'HideProxy',true},
 				{0,function()
 					for pn=1,2 do
@@ -354,6 +354,8 @@ end"
 			me(51.5,1.5,360,0,'rotationz','len',outExpo)
 			
 			--desjul, this little modding land is officially yours
+			
+			--i needed a LOT of space for the middle part so thank you.
 			me(176,1,0,200,'expand','len',outQuint)
 			me(177,1,200,0,'expand','len',inCirc)
 			
@@ -402,11 +404,54 @@ end"
 			
 			me(116,0.5,100,0,'Reverse','len', outCubic)
 			
+			me(116,0.5,0,100,'flip','len',outCubic)
+			me(116.5,0.5,100,0,'flip','len',outCubic)
+			
+			me(117,0.25,0,200,'drunk, tipsy','len',linear)
+			me(117.25,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(117.5,0.25,-200,0,'drunk, tipsy','len',linear)
+			
+			me(118.25,0.25,0,100,'invert','len',outCubic)
+			me(118.5,0.5,100,0,'invert','len',outCubic)
+			me(118.5,0.5,0,100,'flip','len',outCubic)
+			me(119,0.5,100,-100,'invert','len',outCubic)
+			
+			me(119.5,0.5,100,0,'flip','len',outCubic)
+			me(119.5,0.5,-100,0,'invert','len',outCubic)
+			
+			me(121,0.25,0,200,'drunk','len',linear)
+			me(121.25,0.25,200,-200,'drunk','len',linear)
+			me(121.5,0.25,-200,200,'drunk','len',linear)
+			me(121.75,0.25,200,-200,'drunk','len',linear)
+			me(122,0.25,-200,0,'drunk','len',linear)
+			
+			me(122,0.1875,0,-50,'flip','len',outCubic)
+			me(122.1875,122.75,-50,0,'flip','end',outCubic)
+			
+			me(122.75,0.1875,0,-50,'flip','len',outCubic)
+			me(122.9375,123.5,-50,0,'flip','end',outCubic)
+			
+			me(123.5,0.1875,0,-50,'flip','len',outCubic)
+			me(123.6875,0.5625,-50,0,'flip','len',outCubic)
+			
+			me(122,0.1875,0,-150,'tipsy','len',outCubic)
+			me(122.1875,122.75,-150,0,'tipsy','end',outCubic)
+			
+			me(122.75,0.1875,0,150,'tipsy','len',outCubic)
+			me(122.9375,123.5,150,0,'tipsy','end',outCubic)
+			
+			me(123.5,0.1875,0,-150,'tipsy','len',outCubic)
+			me(123.6875,0.5625,-150,0,'tipsy','len',outCubic)
+			
 		    me(258,260,-3000,0,'parabolaz','end',outSine,2)
 			me(258,260,-3000,0,'parabolaz','end',outSine,1)
+			
+			
+			
+			
 			     
 			     --orange notes: I'm going throught all of this while being very tired so if I didn't transfer some code let me know
-			     also comment (update) or something on new changes so we don't get confused. not all of them, but some that you feel could be missed
+			    -- also comment (update) or something on new changes so we don't get confused. not all of them, but some that you feel could be missed
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
@@ -542,6 +587,15 @@ end"
 					---------------------
 					-- Perframe reader --
 					---------------------
+					
+					function math.sign(v)
+						return (v >= 0 and 1) or -1
+					end
+					function math.round(v, bracket)
+						bracket = bracket or 1
+						return math.floor(v/bracket + math.sign(v) * 0.5) * bracket
+					end
+				
 					if table.getn(mod_perframes)>0 then
 						for i=1,table.getn(mod_perframes) do
 							local a = mod_perframes[i]
@@ -557,10 +611,13 @@ end"
 							Plr(1):y(aux_spin:getaux()*math.sin(beat * math.pi)+SCREEN_CENTER_Y)
 							Plr(2):x(aux_spin:getaux()*math.cos((beat + 0.66666) * math.pi)+SCREEN_CENTER_X)
 							Plr(2):y(aux_spin:getaux()*math.sin((beat + 0.66666) * math.pi)+SCREEN_CENTER_Y)
-							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(1)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(1)
 							mod_do('*-1 0 mini')
 							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
 							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
+							
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
 							if math.abs(math.sin(beat/2 * math.pi)*(aux_spin:getaux()*4)) > 0 then
 								mod_do('*-1 '..(math.abs(math.sin(beat/2 * math.pi)*(aux_spin:getaux()*4)))..' Invert')
 							end
@@ -684,26 +741,31 @@ end"
     />
 	
 	----OPTIMIZE!!!!
-	<LAER Type="ActorProxy" 
-	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192+192) end end"/>
-	<LAER Type="ActorProxy" 
-	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192+192+192) end end"/>
-	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-192) end end"/>
 	
-	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-384) end end"/>
+	--Noticed that you copied some old code. I'll always update the main so try to add some additions to your repository. But also good job cleaning. It's nicer to code here.
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(192*4) end end"
+	HideProxyMessageCommand="hidden,1" />
 	
-	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(576+192) end end"/>
-	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(768) end end"/>
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192*2) end end"
+	HideProxyMessageCommand="hidden,1" />
 	
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(192*3) end end"
+	HideProxyMessageCommand="hidden,1" />
 	
-	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(-576+192) end end"/>
-	<LAER Type="ActorProxy"
-	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-768) end end"/>
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(-192*2) end end"
+	HideProxyMessageCommand="hidden,1" />
+	
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-192*2) end end"
+	HideProxyMessageCommand="hidden,1" />
+	
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(-192*3) end end"
+	HideProxyMessageCommand="hidden,1" />
 	
 	
 	
@@ -714,60 +776,7 @@ end"
 	
 	--<Layer Type="Quad" InitCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;" OnCommand="sleep,26.676;diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" />
 	
-	<Layer
-	Type="Sprite"
-	Texture="white"
-	Frag="horizon.frag"
-	OnCommand="%function(self)
-	star=self
-	self:x(SCREEN_CENTER_X)
-	self:y(SCREEN_CENTER_Y)
-	self:diffusealpha(1)
-	end"
-	/>
 	
-	<Layer
-	File="oranger/gradient"
-	OnCommand="%function(self)
-	gradient=self;
-	self:x(SCREEN_CENTER_X);
-	self:y(SCREEN_CENTER_Y);
-	self:diffusealpha(0)
-	end"
-	/>
-	
-	<Layer
-	File="oranger/gradient2"
-	OnCommand="%function(self)
-	gradient2=self;
-	self:x(SCREEN_CENTER_X);
-	self:y(SCREEN_CENTER_Y);
-	self:diffusealpha(0.5)
-	self:rotationz(180)
-	end"
-	/>	
-	
-	<Layer
-	Type="Quad"
-	OnCommand="%function(self)
-	flash=self;
-	 self:diffusealpha(0);
-         self:zoomto(SCREEN_WIDTH,SCREEN_HEIGHT);
-           self:x(SCREEN_CENTER_X);
-            self:y(SCREEN_CENTER_Y);
-            self:diffuse(1,1,1,0);
-	end"
-	/>
-	
-	<Layer
-	File="oranger/white"
-	OnCommand="%function(self)
-	softifier=self
-	self:zoomto(SCREEN_WIDTH,SCREEN_HEIGHT);
-	self:x(SCREEN_CENTER_X);
-	self:y(SCREEN_CENTER_Y);
-	self:diffuse(0,0.5,2,0.5);
-    end"
-	/>
 	
 </children></ActorFrame></children></ActorFrame>
+
