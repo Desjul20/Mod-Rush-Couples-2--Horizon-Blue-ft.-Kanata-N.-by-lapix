@@ -777,6 +777,61 @@ end"
 	--<Layer Type="Quad" InitCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;" OnCommand="sleep,26.676;diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" />
 	
 	
+	<Layer
+	Type="Sprite"
+	Texture="white"
+	Frag="horizon.frag"
+	OnCommand="%function(self)
+	star=self
+	self:x(SCREEN_CENTER_X)
+	self:y(SCREEN_CENTER_Y)
+	self:diffusealpha(1)
+	end"
+	/>
+	
+	<Layer
+	File="oranger/gradient"
+	OnCommand="%function(self)
+	gradient=self;
+	self:x(SCREEN_CENTER_X);
+	self:y(SCREEN_CENTER_Y);
+	self:diffusealpha(0)
+	end"
+	/>
+	
+	<Layer
+	File="oranger/gradient2"
+	OnCommand="%function(self)
+	gradient2=self;
+	self:x(SCREEN_CENTER_X);
+	self:y(SCREEN_CENTER_Y);
+	self:diffusealpha(0.5)
+	self:rotationz(180)
+	end"
+	/>	
+	
+	<Layer
+	Type="Quad"
+	OnCommand="%function(self)
+	flash=self;
+	 self:diffusealpha(0);
+         self:zoomto(SCREEN_WIDTH,SCREEN_HEIGHT);
+           self:x(SCREEN_CENTER_X);
+            self:y(SCREEN_CENTER_Y);
+            self:diffuse(1,1,1,0);
+	end"
+	/>
+	
+	<Layer
+	File="oranger/white"
+	OnCommand="%function(self)
+	softifier=self
+	self:zoomto(SCREEN_WIDTH,SCREEN_HEIGHT);
+	self:x(SCREEN_CENTER_X);
+	self:y(SCREEN_CENTER_Y);
+	self:diffuse(0,0.5,2,0.5);
+    end"
+	/>
 	
 </children></ActorFrame></children></ActorFrame>
 
