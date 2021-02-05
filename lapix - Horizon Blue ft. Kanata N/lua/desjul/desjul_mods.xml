@@ -312,10 +312,11 @@
 			
 			m2(68,function()
 			softifier:linear(1.96)
-			softifier:diffusealpha(0)
+			softifier:diffusealpha(0.1)
 			end)
 			
-			m2(68,function()
+		   --sorry for barging into your personal modding space, but this thing is now mine and resides in orange mods in a changed state >:)
+			--[[m2(68,function()
 				for pn = 1, 2 do
 			    local a = Plr(pn)
 			    if a then
@@ -326,7 +327,7 @@
 				--I hope this is ok
 				gradient2:accelerate(1.960)
 				gradient2:diffusealpha(0)
-			end,true)
+			end,true)]]
 			
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
