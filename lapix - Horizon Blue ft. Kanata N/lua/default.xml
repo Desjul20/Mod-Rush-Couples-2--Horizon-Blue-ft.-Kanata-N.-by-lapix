@@ -1,4 +1,4 @@
---the amount of changes I've done to the code's structure today was so much that I decided to delete the previous version altogether. say hello to main default number 2!
+--today's changes are... *grabs list* ahem, new files in the bg folder, an updated bg default, a teeeeny tiny bit of tinkering in desjul mods, a few eases here and some new code in orange mods.
 <ActorFrame
 InitCommand="%function(self)
 
