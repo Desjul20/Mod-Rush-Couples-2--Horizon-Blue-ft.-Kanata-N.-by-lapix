@@ -1,57 +1,72 @@
 <ActorFrame><children>
 
 	<Layer
+        Type="Sprite"
+        Texture="bg.png"
+        Shader="horizon.frag"
+		OnCommand="%function(self)
+		star=self
+            self:x(SCREEN_CENTER_X)
+            self:y(SCREEN_CENTER_Y)
+            self:zoomtowidth(SCREEN_WIDTH)
+            self:zoomtoheight(SCREEN_HEIGHT)
+	    self:diffusealpha(1)
+        end"
+	/>
+	
+
+	<Layer
 		File="1x1"
-		OnCommand="x,80;y,80;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
+		OnCommand="x,80;y,80;sleep,26.676;accelerate,2;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
 	/>
 	<Layer
 		File="2x1"
-		OnCommand="x,240;y,80;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
+		OnCommand="x,240;y,80;sleep,26.676;decelerate,1.5;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
 	/>
 	<Layer
 		File="3x1"
-		OnCommand="x,400;y,80;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
+		OnCommand="x,400;y,80;sleep,26.676;linear,1.5;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
 	/>
 	<Layer
 		File="4x1"
-		OnCommand="x,560;y,80;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
+		OnCommand="x,560;y,80;sleep,26.676;linear,1.7;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
 	/>
 	
 	<Layer
 		File="1x2"
-		OnCommand="x,80;y,240;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
+		OnCommand="x,80;y,240;sleep,26.676;accelerate,1.5;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
 	/>
 	<Layer
 		File="2x2"
-		OnCommand="x,240;y,240;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
+		OnCommand="x,240;y,240;sleep,26.676;decelerate,1.6;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
 	/>
 	<Layer
 		File="3x2"
-		OnCommand="x,400;y,240;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
+		OnCommand="x,400;y,240;sleep,26.676;accelerate,1.8;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
 	/>
 	<Layer
 		File="4x2"
-		OnCommand="x,560;y,240;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
+		OnCommand="x,560;y,240;sleep,26.676;linear,1.9;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
 	/>
 	
 	<Layer
 		File="1x3"
-		OnCommand="x,80;y,400;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
+		OnCommand="x,80;y,400;sleep,26.676;linear,1.75;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
 	/>
 	<Layer
 		File="2x3"
-		OnCommand="x,240;y,400;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
+		OnCommand="x,240;y,400;sleep,26.676;accelerate,1.6;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
 	/>
 	<Layer
 		File="3x3"
-		OnCommand="x,400;y,400;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
+		OnCommand="x,400;y,400;sleep,26.676;linear,2;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
 	/>
 	<Layer
 		File="4x3"
-		OnCommand="x,560;y,400;sleep,26.676;linear,1.5;zoom,0;sleep,105.166;zoom,1;sleep,25.152;linear,1.5;zoom,0;"
+		OnCommand="x,560;y,400;sleep,26.676;decelerate,2;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
 	/>
-
-	<Layer
+	
+    <Layer
 	   File="horizon_blurry"
 	   OnCommand="%function(self)
 	   blurizon=self;
@@ -62,14 +77,46 @@
 	/>
 	
 	<Layer
-	File="sparklies/white"
+	File="fader2"
 	OnCommand="%function(self)
 	horizon=self
+    self:diffusealpha(0)
 	self:zoomto(SCREEN_WIDTH,SCREEN_HEIGHT);
 	self:x(SCREEN_CENTER_X);
 	self:y(SCREEN_CENTER_Y);
-	self:diffuse(0,0.5,2,1);
+    end"
+	/>
+	
+	<Layer
+	File="fader2"
+	OnCommand="%function(self)
+	horizon2=self
 	self:diffusealpha(0)
+	self:zoomto(SCREEN_WIDTH,SCREEN_HEIGHT);
+	self:x(SCREEN_CENTER_X);
+	self:y(SCREEN_CENTER_Y);
+    end"
+	/>
+	
+	<Layer
+	File="starrii"
+	OnCommand="%function(self)
+	addrizon=self
+	self:diffusealpha(0)
+	self:zoomto(SCREEN_WIDTH*2,SCREEN_HEIGHT*2);
+	self:x(SCREEN_CENTER_X);
+	self:y(SCREEN_CENTER_Y);
+    end"
+	/>
+	
+	<Layer
+	File="starrii"
+	OnCommand="%function(self)
+	addrizon2=self
+	self:diffusealpha(0)
+	self:zoomto(SCREEN_WIDTH*2,SCREEN_HEIGHT*2);
+	self:x(SCREEN_CENTER_X);
+	self:y(SCREEN_CENTER_Y);
     end"
 	/>
 	
