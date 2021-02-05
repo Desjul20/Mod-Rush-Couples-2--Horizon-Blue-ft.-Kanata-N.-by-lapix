@@ -268,6 +268,106 @@
 			blurizon:rotationy( 5*math.sin(beat*math.pi) )
 		    blurizon:rotationx( 5*math.sin(beat*math.pi) )
 			end)
+		   --update!
+		   m2(68,function()
+			horizon2:accelerate(0.1)
+			horizon2:rotationx(60)
+			horizon2:rotationz(180)
+			horizon2:addy(sh/2)
+			horizon2:diffusealpha(1)
+			end)
+			
+			m2(68,function()
+			horizon:accelerate(0.1)
+			horizon:rotationx(-60)
+			horizon:rotationz(0)
+			horizon:addy(-sh/2)
+			horizon:diffusealpha(1)
+			end)
+			
+			m2(68,function()
+			addrizon2:accelerate(0.1)
+			addrizon2:rotationx(65)
+			addrizon2:rotationz(180)
+			addrizon2:addy(sh/2)
+			addrizon2:diffusealpha(0.05)
+			addrizon2:spin(1)
+			end)
+			
+			m2(68,function()
+			addrizon:accelerate(0.1)
+			addrizon:rotationx(-65)
+			addrizon:rotationz(0)
+			addrizon:addy(-sh/2)
+			addrizon:diffusealpha(0.05)
+			addrizon:spin(0.5)
+			end)
+			
+			m2(68,function()
+				for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+					a:accelerate(1.7)
+					a:zoom(0)
+				end
+				end
+				--this is, indeed, ok
+				gradient2:accelerate(1.960)
+				gradient2:diffusealpha(0)
+			end,true)
+			
+			m2(68,function()
+			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):hidden(0)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(1)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(SCREEN_CENTER_X)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(0)
+                        end)
+			
+		   --lfd-esque transition
+			m(68,6,'*-1 no stealth','len',4)
+			m(68,75.9,'*10000 49.9% Reverse,*10000 -2000% Bumpy,*10000 1200% Sudden,*10000 50% Mini, *1000 no flip, *1000 dark','end',4)
+			m(68,75.9,'*10000 -92% SuddenOffset, *10000 C8.43, *1000 -200 brake','end',4)
+			
+			m2(74,function()
+			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):accelerate(0.8)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(4)
+			end)
+			
+			m2(76,function()
+				for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+					a:linear(2.5)
+					a:zoom(0.9)
+				end
+				end
+			end,true)
+			
+			m2(76,function()
+			Plr(1):addx(sw/3)
+			Plr(2):addx(-sw/3)
+			end)
+			
+			m2(76.01,function()
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):linear(2.5)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(0.9)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(0.9)
+			end)
+			
+			m2(76,function()
+			flash:diffusealpha(1)
+			flash:accelerate(0.3)
+			flash:diffusealpha(0)
+			end)
+			
+			m2(76,function()
+			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(0)
+			end)
+			
+			m(76,1,'*-1 no stealth','len',3)
+			m(76.2,1,'*-1 no bumpy','len',4)
+			m(76.1,1,'*-1 clearall','len',4)
+            m(76.1,1,'*-1 no sudden','len',4)
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
