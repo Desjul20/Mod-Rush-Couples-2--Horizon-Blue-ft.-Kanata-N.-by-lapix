@@ -237,6 +237,16 @@ end"
 				{34,1,100,-100,'invert','len', outCubic},
 				{35,1,100,0,'flip','len', outCubic},
 				{35,1,-100,0,'invert','len', outCubic},
+			        --update!
+			        {38,0.75,0,100,'flip','len',outQuad},
+				{38.75,0.75,100,0,'flip','len',outQuad},
+				{38.75,0.75,0,100,'invert','len',outQuad},
+				{39.5,0.75,100,0,'invert','len',outQuad},
+				
+				{46,0.75,0,100,'invert','len',outQuad},
+				{46.75,0.75,0,100,'flip','len',outQuad},
+				{46.75,0.75,100,0,'invert','len',outQuad},
+				{47.5,0.75,100,0,'flip','len',outQuad},
 				
 				{64,1,0,100,'flip','len', outCubic},
 				{65,1,0,100,'invert','len', outCubic},
@@ -245,6 +255,11 @@ end"
 				{66,1,100,-100,'invert','len', outCubic},
 				{67,1,100,0,'flip','len', outCubic},
 				{67,1,-100,0,'invert','len', outCubic},
+			        --fortnite! wait no I meant update
+			        {85,2,0,100,'flip','len',outQuad},
+				{87,2,100,0,'flip','len',outQuad},
+				{89,2,0,100,'invert','len',outQuad},
+				{91,2,100,0,'invert','len',outQuad},
 				
 				{128,1,0,100,'flip','len', outCubic},
 				{129,1,0,100,'invert','len', outCubic},
@@ -353,6 +368,16 @@ end"
 			me(50.5,1,0,300,'pulse','len',outExpo)
 			me(51.5,1.5,360,0,'rotationz','len',outExpo)
 			
+			me(76,4,1080,0,'rotationy','len',outCubic)
+			
+			me(84,2,0,180,'rotationz','len',outExpo)
+			me(84,2,0,-100,'mini','len',outExpo)
+			me(86,2,-180,0,'rotationz','len',outExpo)
+			me(86,2,-100,-50,'mini','len',outExpo)
+			me(88,2,0,180,'rotationz','len',outExpo)
+			me(88,2,-50,-150,'mini','len',outExpo)
+			me(90,2,-180,0,'rotationz','len',outExpo)
+			me(90,2,-150,0,'mini','len',outExpo)
 			--desjul, this little modding land is officially yours
 			
 			--i needed a LOT of space for the middle part so thank you.
@@ -628,7 +653,7 @@ end"
 					end
 					
 					--Modified to be a flicker on tiny from a function I made for Pon-Pon-Pompoko Dai-Sen-Saw! It used to be a function on Blink but more controllable to be way better.
-					
+					--weird thing, if playing this file is the first thing you do after booting up nitg, math.round gets separated into math and round, succesfully turning round into a nil value. It's not an issue, but it happens.
 					function tinyFlicker(b,value1,value2,length,period,speed1,speed2)
 						if beat-b < length then
 							if ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) > -0.5 and ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) < 0 then
@@ -775,19 +800,6 @@ end"
 	<Layer Type="Quad" InitCommand="hidden,1;" OnCommand="%function(self) aux = self self:aux(5) end" />
 	
 	--<Layer Type="Quad" InitCommand="diffusealpha,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;" OnCommand="sleep,26.676;diffusealpha,1;zoomto,640,480;hidden,0;accelerate,0.6;diffusealpha,0" />
-	
-	
-	<Layer
-	Type="Sprite"
-	Texture="white"
-	Frag="horizon.frag"
-	OnCommand="%function(self)
-	star=self
-	self:x(SCREEN_CENTER_X)
-	self:y(SCREEN_CENTER_Y)
-	self:diffusealpha(1)
-	end"
-	/>
 	
 	<Layer
 	File="oranger/gradient"
