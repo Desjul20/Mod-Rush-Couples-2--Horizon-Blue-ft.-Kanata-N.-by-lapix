@@ -1,7 +1,7 @@
 <Layer Type="ActorFrame"><children>
 
-    <Layer File="modhelpers" />
-	<Layer File="easing" />
+    <Layer File="../modhelpers" />
+	<Layer File="../easing" />
 	<Layer
         Type="ActorFrame"
         OnCommand="%function(self)
@@ -145,11 +145,15 @@
 			m(260,999,'*-1 hide,*-1 Halgun','len',3)
 			m(260,999,'*-1 hide,*-1 Halgun','len',4)
 			
+			m(68,1,'*-1 no drunk, *-1 no tipsy','len',3)
+			
+			
+			
 			
 			--I hope this doesn't lag too much. It's fine for me. Cool effect either way
 			m(228,257.5,'*-1 -3000% parabolaz, *-1 200 drawsize','end')
-			m(227,260,'*-1 0 parabolaz, *2 95 stealth, 150 wave, -100 tornado,  distant, 25 centered, dark','end',3)
-			m(227,260,'*-1 0 parabolaz, *2 95 stealth, 150 wave, 100 tornado,  distant, 25 centered, dark','end',4)
+			m(227,260,'*-1 0 parabolaz, *2 95 stealth, *1.25 150 wave, *1.25 -115 tornado, *1.25 -45 rotationx, *1.25 dark, *1.25 '..(math.rad(45)*100)..' confusionxoffset, *1.25 -25 centered, 3x','end',3)
+			m(227,260,'*-1 0 parabolaz, *2 95 stealth, *1.25 150 wave, *1.25 115 tornado,  *1.25 -45 rotationx, *1.25 dark, *1.25 '..(math.rad(45)*100)..' confusionxoffset,*1.25 -25 centered, 3x','end',4)
 			
 			m(68,1,'*-1 no pulse, *-1 no arrowpath, *-1 no tiny','len')
 			
@@ -157,9 +161,8 @@
 			m(178.25,0.25,'*16 '..(math.rad(180)*100)..' ConfusionZOffset','len')
 			m(178.5,0.25,'*16 '..(math.rad(270)*100)..' ConfusionZOffset','len')
 			m(178.75,0.5,'*16 '..(math.rad(360)*100)..' ConfusionZOffset','len')
-			m(179.25,0.25,'*16 '..(math.rad(450)*100)..' ConfusionZOffset','len')
-			m(179.5,0.25,'*16 '..(math.rad(540)*100)..' ConfusionZOffset','len')
-			m(179.75,0.25,'*32 '..(math.rad(0)*100)..' ConfusionZOffset','len')
+			m(179.25,0.25,'*32 '..(math.rad(180)*100)..' ConfusionZOffset','len')
+			m(179.5,0.25,'*32 '..(math.rad(0)*100)..' ConfusionZOffset','len')
 			
 			m(228,260,'*-1 400 movex','end',1)
 			m(260,261,'*-1 0 movex','end',1)
@@ -179,10 +182,38 @@
 			
 			m(100,99,'*-1 no stealth','len',3)
 			
+			m(133.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(134,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			m(149.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(150,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			m(156,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(156.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			m(168,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(168.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			m(172,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(172.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			m(180,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(180.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			m(184,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(184.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			m(200,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(200.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			m(157,3,'*-1 1.5x','len')
+			
 			--This kinda good but not great.
 			--m(124,4,'*2 -60 rotationx, *2 150 wave, *2 reverse, *2 -55 tornado, *2 250 parabolaz','len')
 			
 			--m(128,9,'*2 no rotationx,*2 no wave,*2 no drunk,*2 no reverse,*2 no tornado,*2 no parabolaz','len')
+			
+			
 			
 			
 			 m2(260,function()
@@ -270,22 +301,22 @@
 				aux_spin:aux(0)
 			end,true)
 			
-			--[[m2(124, function()
-				aux_spin:linear(0.393/2) 
-				aux_spin:aux(25)
-			end,true)
-			
-			m2(128,function()
-				aux_spin:linear(0.393/2) 
-				aux_spin:aux(0)
-			end,true)]]--
-			
 			m2(143, function()
 				aux_spin:linear(0.393/2) 
 				aux_spin:aux(25)
 			end,true)
 			
 			m2(147.5,function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(0)
+			end,true)
+			
+			m2(187.5, function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(25)
+			end,true)
+			
+			m2(191.5,function()
 				aux_spin:linear(0.393/2) 
 				aux_spin:aux(0)
 			end,true)
@@ -312,10 +343,11 @@
 			
 			m2(68,function()
 			softifier:linear(1.96)
-			softifier:diffusealpha(0.1)
+			softifier:diffusealpha(0)
 			end)
 			
-		   --sorry for barging into your personal modding space, but this thing is now mine and resides in orange mods in a changed state >:)
+			--sorry for barging into your personal modding space, but this thing is now mine and resides in orange mods in a changed state >:)
+			--Don't worry. I check yours too but don't add anything to confuse you
 			--[[m2(68,function()
 				for pn = 1, 2 do
 			    local a = Plr(pn)
