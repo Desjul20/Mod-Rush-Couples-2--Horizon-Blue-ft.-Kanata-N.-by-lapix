@@ -806,7 +806,7 @@
         
         Revo_NITGFanUpdateCommand="%function(self)
             local beat = GAMESTATE:GetSongBeat()
-            self:sleep(0.02)
+            self:sleep(0.0075)
             self:queuecommand('Revo_NITGFanUpdate')
         end"
 		/>
