@@ -1,4 +1,4 @@
---today's changes are... *grabs list* ahem, new files in the bg folder, an updated bg default, a teeeeny tiny bit of tinkering in desjul mods, a few eases here and some new code in orange mods.
+--today's changes: little bit of eases, an unfinished transition betwenn the tornado-stealth and player-proxy march, ghfklgfklfghlk.
 <ActorFrame
 InitCommand="%function(self)
 
@@ -369,6 +369,8 @@ end"
 				
 				--are you adding something to have multiple playfield at once, let me know so i can change a code that resets it
 			        --I don't think so?
+			     
+			     --orange notes: you know, I was kind of scared we wouldn't finish this file in time. but things seem to be going pretty well! there's only 2 and a half sections left to make and they shouldnt(?) take a lot of time, so I'm pretty pumped to finish it all up tomorrow :)
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
