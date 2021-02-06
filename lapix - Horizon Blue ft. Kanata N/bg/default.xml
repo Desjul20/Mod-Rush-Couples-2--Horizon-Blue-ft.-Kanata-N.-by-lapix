@@ -1,20 +1,25 @@
 <ActorFrame><children>
 
+	--Changes to make it work:
+	
+	--For shaders you have to specify what shader, it can be a frag or a vert
+	--to get the exact same picture as the outcome, use a white texture
 	<Layer
         Type="Sprite"
-        Texture="bg.png"
-        Shader="horizon.frag"
+        Texture="sparklies/white.png"
+        Frag="horizon.frag"
 		OnCommand="%function(self)
 		star=self
             self:x(SCREEN_CENTER_X)
             self:y(SCREEN_CENTER_Y)
-            self:zoomtowidth(SCREEN_WIDTH)
-            self:zoomtoheight(SCREEN_HEIGHT)
+			self:zoomto(640,480)
 	    self:diffusealpha(1)
         end"
 	/>
 	
 --I did a thing with these sprites
+
+--THESE LOOK SO NICE
 	<Layer
 		File="1x1"
 		OnCommand="x,80;y,80;sleep,26.676;accelerate,2;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
