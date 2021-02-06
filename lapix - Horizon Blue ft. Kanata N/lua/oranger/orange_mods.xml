@@ -84,7 +84,8 @@
 			---------------------------------------------------------
 			--------END DOCUMENTATION--------------------------------
 			---------------------------------------------------------
-			
+			local linear, inQuad, outQuad, inOutQuad, outInQuad, inCubic, outCubic, inOutCubic, outInCubic, inQuart, outQuart, inOutQuart, outInQuart, inQuint, outQuint, inOutQuint, outInQuint, inSine, outSine, inOutSine, outInSine, inExpo, outExpo, inOutExpo, outInExpo, inCirc, outCirc, inOutCirc, outInCirc, inElastic, outElastic, inOutElastic, outInElastic, inBack, outBack, inOutBack, outInBack, inBounce, outBounce, inOutBounce, outInBounce = ease.linear, ease.inQuad, ease.outQuad, ease.inOutQuad, ease.outInQuad, ease.inCubic, ease.outCubic, ease.inOutCubic, ease.outInCubic, ease.inQuart, ease.outQuart, ease.inOutQuart, ease.outInQuart, ease.inQuint, ease.outQuint, ease.inOutQuint, ease.outInQuint, ease.inSine, ease.outSine, ease.inOutSine, ease.outInSine, ease.inExpo, ease.outExpo, ease.inOutExpo, ease.outInExpo, ease.inCirc, ease.outCirc, ease.inOutCirc, ease.outInCirc, ease.inElastic, ease.outElastic, ease.inOutElastic, ease.outInElastic, ease.inBack, ease.outBack, ease.inOutBack, ease.outInBack, ease.inBounce, ease.outBounce, ease.inOutBounce, ease.outInBounce 
+		   
 			local m = mod_insert
 			local me = mod_ease
 			local m2 = mod_message
@@ -395,8 +396,70 @@
 			
 			m2(227,function()
 			softifier:accelerate(0.3)
-			softifier:diffusealpha(0.9)
+			softifier:diffusealpha(0)
 			end)
+			
+			m2(227,function()
+			gradient:accelerate(0.3)
+			gradient:diffuse(0,0,0,0.8)
+                        end)
+			
+			m2(227,function()
+			gradient2:accelerate(0.3)
+			gradient2:diffuse(0,0,0,0.8)
+			end)
+			
+			m2(254,function()
+			blurizon:diffusealpha(1)
+			blurizon:zoom(0)
+			blurizon:linear(2)
+			blurizon:zoom(1)
+			end)
+			
+			me(2.5,2.75,360,0,'rotationz','len',outCubic)
+			me(3,1.5,100,0,'stealth','len',outCubic)
+			me(28.5,0.5,0,30,'rotationy','len',outCubic,1)
+			me(28.5,0.5,0,30,'rotationy','len',outCubic,2)
+			me(28.5,0.5,0,30,'rotationy','len',outCubic,4)
+			me(29,7,1110,0,'rotationy','len',outCubic,1)
+			me(29,7,1110,0,'rotationy','len',outCubic,2)
+			me(29,7,1110,0,'rotationy','len',outCubic,4)
+			me(18,1,0,50,'movey','len',inOutElastic,1)
+			me(18,1,0,-50,'movey','len',inOutElastic,2)
+			me(19.5,2,360,0,'rotationx','len',outCubic)
+			
+			me(36,5,0,-200,'movex0','len',outExpo,1)
+			me(36,5,0,-100,'movex0','len',outExpo,2)
+			me(36,5,0,-100,'movex1','len',outExpo,1)
+			me(36,5,0,100,'movex2','len',outExpo,1)
+			me(36,5,0,200,'movex3','len',outExpo,1)
+			me(36,5,0,100,'movex3','len',outExpo,2)
+			me(41,25,-200,-200,'movex0','len',outExpo,1)
+			me(41,25,-100,-100,'movex0','len',outExpo,2)
+			me(41,25,-100,-100,'movex1','len',outExpo,1)
+			me(41,25,100,100,'movex2','len',outExpo,1)
+			me(41,25,200,200,'movex3','len',outExpo,1)
+			me(41,25,100,100,'movex3','len',outExpo,2)
+			me(50.5,1,0,300,'pulse','len',outExpo)
+			me(51.5,1.5,360,0,'rotationz','len',outExpo)
+			
+			me(76,4,1080,0,'rotationy','len',outCubic)
+			
+			me(84,2,0,180,'rotationz','len',outExpo)
+			me(84,2,0,-100,'mini','len',outExpo)
+			me(86,2,-180,0,'rotationz','len',outExpo)
+			me(86,2,-100,-50,'mini','len',outExpo)
+			me(88,2,0,180,'rotationz','len',outExpo)
+			me(88,2,-50,-150,'mini','len',outExpo)
+			me(90,2,-180,0,'rotationz','len',outExpo)
+			me(90,2,-150,0,'mini','len',outExpo)
+			
+			me(208,1,0,60,'rotationz','len',outCubic)
+			me(209,1,60,-60,'rotationz','len',outCubic)
+			me(210,1,-60,0,'rotationz','len',outCubic)
+			me(208,1,360,0,'rotationy','len',outCubic)
+			me(209,1,-360,0,'rotationy','len',outCubic)
+			me(210,1,360,0,'rotationy','len',outCubic)
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
@@ -409,7 +472,7 @@
         
         Revo_NITGFanUpdateCommand="%function(self)
             local beat = GAMESTATE:GetSongBeat()
-            self:sleep(0.02)
+            self:sleep(0.0075)
             self:queuecommand('Revo_NITGFanUpdate')
         end"
 		
