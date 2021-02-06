@@ -384,12 +384,16 @@ end"
 			me(76,4,1080,0,'rotationy','len',outCubic)
 			
 			me(84,2,0,180,'rotationz','len',outExpo)
+			me(84,2,0,math.rad(-180)*100,'confusionzoffset','len',outExpo)
 			me(84,2,0,-100,'mini','len',outExpo)
 			me(86,2,-180,0,'rotationz','len',outExpo)
+			me(86,2,math.rad(180)*100,0,'confusionzoffset','len',outExpo)
 			me(86,2,-100,-50,'mini','len',outExpo)
 			me(88,2,0,180,'rotationz','len',outExpo)
+			me(88,2,0,math.rad(-180)*100,'confusionzoffset','len',outExpo)
 			me(88,2,-50,-150,'mini','len',outExpo)
 			me(90,2,-180,0,'rotationz','len',outExpo)
+			me(90,2,math.rad(180)*100,0,'confusionzoffset','len',outExpo)
 			me(90,2,-150,0,'mini','len',outExpo)
 			
 			--desjul, this little modding land is officially yours
