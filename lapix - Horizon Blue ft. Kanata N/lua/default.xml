@@ -632,8 +632,8 @@ end"
 			
 			------------------------------------------- This is a lot of code for something that is 30 bars. So far only 15 bars so half way done! This is still a lot. It's almost copy and patse EXCEPT THE RHYTHM SOMETIMES ARE DIFFERENT TIMING.
 			
-			me(100+64,0.5,0,100,'flip','len',outCubic)
-			me(100.5+64,0.5,100,0,'flip','len',outCubic)
+			me(100+64,0.5,0,100,'flip','len',outBack)
+			me(100.5+64,0.5,100,0,'flip','len',outBack)
 			me(101+64,0.25,0,200,'drunk, tipsy','len',linear)
 			me(101.25+64,0.25,200,-200,'drunk, tipsy','len',linear)
 			me(101.5+64,0.25,-200,0,'drunk, tipsy','len',linear)
@@ -657,20 +657,20 @@ end"
 			me(173.75,0.5,0,100,'invert','len',outCubic) 
 			me(174.25,0.25,100,100,'invert','len',outCubic) 
 			
-			me(174.5,0.5,100,0,'invert','len',outCubic)
-			me(175,0.5,0,100,'invert','len',outCubic)
-			me(175.5,0.5,100,0,'invert','len',outCubic) 
+			me(174.5,0.5,100,0,'invert','len',outBack)
+			me(175,0.5,0,100,'invert','len',outBack)
+			me(175.5,0.5,100,0,'invert','len',outBack) 
 			
-			me(173,0.25,0,200,'drunk, tipsy','len',linear)
-			me(173.25,0.5,200,-200,'drunk, tipsy','len',linear)
-			me(173.75,0.5,-200,0,'drunk, tipsy','len',linear)
+			me(173,0.25,0,200,'tipsy','len',linear)
+			me(173.25,0.5,200,-200,'tipsy','len',linear)
+			me(173.75,0.5,-200,0,'tipsy','len',linear)
 			
 			me(174.5,0.5,0,200,'drunk, tipsy','len',linear)
 			me(175,0.5,200,-200,'drunk, tipsy','len',linear)
 			me(175.5,0.5,-200,0,'drunk, tipsy','len',linear)
 			
-			me(180,0.5,0,100,'invert',l,outCubic)
-			me(180.5,0.5,100,0,'invert',l,outCubic)
+			me(180,0.5,0,100,'invert',l,outBack)
+			me(180.5,0.5,100,0,'invert',l,outBack)
 			
 			me(181,0.25,0,200,'drunk, tipsy','len',outQuint)
 			me(181.25,0.5,200,-200,'drunk, tipsy','len',outQuint)
@@ -703,8 +703,8 @@ end"
 			
 			------------------------------------------- I hate this so much. I wish it was less longer but i'm 28 beats away which helps with confidence. Line of code from here is 304. Wow!
 			
-			me(196,0.5,0,100,'flip',l,outCubic)
-			me(196.5,0.5,100,0,'flip',l,outCubic)
+			me(196,0.5,0,100,'flip',l,outBack)
+			me(196.5,0.5,100,0,'flip',l,outBack)
 			me(197,0.25,0,200,'drunk, tipsy','len',linear)
 			me(197.25,0.25,200,-200,'drunk, tipsy','len',linear)
 			me(197.5,0.25,-200,0,'drunk, tipsy','len',linear)
@@ -717,7 +717,102 @@ end"
 			me(199.75,0.25,200,-200,'drunk, tipsy','len',linear)
 			me(200,0.25,-200,0,'drunk, tipsy','len',linear)
 			m(200.25,0.25,'no tipsy','len')
-			--I'm so close to being done but it's about midnight for me so i'm gonna leave it here.
+			me(200.75,0.25,0,100,'flip',l,outCubic)
+			me(201,0.25,100,100,'flip',l,outCubic)
+			me(201,0.25,0,-100,'invert',l,outCubic)
+			me(201.25,0.25,100,0,'flip',l,outCubic)
+			me(201.25,0.25,-100,100,'invert',l,outCubic)
+			me(201.5,0.25,100,0,'invert',l,outCubic)
+			
+			me(202,0.1875,0,200,'tipsy','len',outCubic)
+			me(202.1875,202.75,200,0,'tipsy','end',outCubic)
+			
+			me(202.75,0.1875,0,-200,'tipsy','len',outCubic)
+			me(202.9375,203.5,-200,0,'tipsy','end',outCubic)
+			
+			me(203.5,0.1875,0,200,'tipsy','len',outCubic)
+			me(203.6875,204.25,200,0,'tipsy','end',outCubic)
+			
+			me(202,0.1875,0,-50,'flip','len',outCubic)
+			me(202.1875,202.75,-50,0,'flip','end',outCubic)
+			
+			me(202.75,0.1875,0,-50,'flip','len',outCubic)
+			me(202.9375,203.5,-50,0,'flip','end',outCubic)
+			
+			me(203.5,0.1875,0,-50,'flip','len',outCubic)
+			me(203.6875,204.25,-50,0,'flip','end',outCubic)
+			
+			me(204,0.5,0,100,'flip',l,outBack)
+			me(204.5,0.5,100,0,'flip',l,outBack)
+			
+			me(205,0.25,0,200,'drunk, tipsy','len',linear)
+			me(205.25,0.5,200,-200,'drunk, tipsy','len',linear)
+			me(205.75,0.25,-200,0,'drunk, tipsy','len',linear)
+			
+			me(206.25,0.25,0,100,'invert',l,outSine)
+			me(206.5,0.25,100,-100,'invert',l,outSine)
+			me(206.5,0.25,0,100,'flip',l,outSine)
+			me(206.75,0.5,-100,100,'invert',l,outSine)
+			me(206.75,0.5,100,0,'flip',l,outSine)
+			me(207.25,0.25,0,100,'flip',l,outSine)
+			me(207.25,0.25,100,0,'invert',l,outSine)
+			me(207.5,0.25,100,0,'flip',l,outSine)
+			
+			me(208,1,0,100,'flip',l,outBack)
+			me(208,1,150,0,'tipsy',l,outBack)
+			me(209,1,100,0,'flip',l,outBack)
+			me(209,1,-150,0,'tipsy',l,outBack)
+			me(209,1,0,100,'invert',l,outBack)
+			me(209,1,150,0,'tipsy',l,outBack)
+			me(210,0.5,100,0,'invert',l,outBack)
+			me(210,0.5,-150,0,'tipsy',l,outBack)
+			
+			me(210.5,0.5,0,100,'flip',l,outBack)
+			me(211,0.5,100,0,'flip',l,outBack)
+			me(211,0.5,0,100,'invert',l,outBack)
+			me(211.5,0.5,100,0,'invert',l,outBack)
+			
+			me(212,0.5,0,100,'flip',l,outBack)
+			me(212.5,0.5,100,0,'flip',l,outBack)
+			
+			me(213,0.25,0,200,'drunk, tipsy','len',linear)
+			me(213.25,0.5,200,-200,'drunk, tipsy','len',linear)
+			me(213.75,0.25,-200,0,'drunk, tipsy','len',linear)
+			
+			me(214.25,0.25,0,100,'invert',l,outCubic)
+			me(214.5,0.5,100,0,'invert',l,outCubic)
+			
+			me(215,0.5,0,100,'flip',l,outCubic)
+			me(215.5,0.5,100,0,'flip',l,outCubic)
+			me(215.5,0.5,0,100,'invert',l,outCubic)
+			me(216,0.5,100,0,'invert',l,outCubic)
+			
+			me(217,0.25,0,100,'invert',l,outSine)
+			me(217.25,0.25,100,0,'invert',l,outSine)
+			me(217.25,0.25,0,100,'flip',l,outSine)
+			me(217.5,0.25,0,75,'invert',l,outSine)
+			me(217.5,0.25,100,75,'flip',l,outSine)
+			me(217.75,0.25,75,0,'invert',l,outSine)
+			me(217.75,0.25,75,100,'flip',l,outSine)
+			me(217.75,0.25,75,100,'flip',l,outSine)
+			me(218.25,0.5,100,0,'flip',l,outSine)
+			me(218.25,0.5,0,100,'invert',l,outSine)
+			me(218.75,0.5,0,100,'flip',l,outSine)
+			me(218.75,0.5,100,-100,'invert',l,outSine)
+			me(219.25,0.25,100,100,'flip',l,outSine)
+			me(219.25,0.25,-100,0,'invert',l,outSine)
+			me(219.5,0.5,100,0,'flip',l,outSine)
+			
+			me(220,1,2.5,1.5,'xmod',l,linear)
+			m(221.1,3,'*-1 1.5x',l)
+			me(221,3,0,230,'centered','len',linear)
+			m(224,0.5,'*-1 stealth',l)
+			m(224.5,3.5,'no stealth',l)
+			m(224,4,'*-1 no centered,*-1 reverse',l)
+			m(224,4,'*-1 no centered,*-1 reverse',l)
+			
+			m(226.5,4,'*2 0 reverse',l)
+			m(226.5,4,'*2 0 reverse',l)
 			
 			
 		    me(258,260,-3000,0,'parabolaz','end',outSine,2)
