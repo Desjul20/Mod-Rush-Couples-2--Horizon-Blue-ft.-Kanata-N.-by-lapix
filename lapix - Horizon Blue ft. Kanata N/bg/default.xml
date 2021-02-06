@@ -20,66 +20,6 @@
 --I did a thing with these sprites
 
 --THESE LOOK SO NICE
-	<Layer
-		File="1x1"
-		OnCommand="x,80;y,80;sleep,26.676;accelerate,2;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
-	/>
-	<Layer
-		File="2x1"
-		OnCommand="x,240;y,80;sleep,26.676;decelerate,1.5;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
-	/>
-	<Layer
-		File="3x1"
-		OnCommand="x,400;y,80;sleep,26.676;linear,1.5;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
-	/>
-	<Layer
-		File="4x1"
-		OnCommand="x,560;y,80;sleep,26.676;linear,1.7;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
-	/>
-	
-	<Layer
-		File="1x2"
-		OnCommand="x,80;y,240;sleep,26.676;accelerate,1.5;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
-	/>
-	<Layer
-		File="2x2"
-		OnCommand="x,240;y,240;sleep,26.676;decelerate,1.6;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
-	/>
-	<Layer
-		File="3x2"
-		OnCommand="x,400;y,240;sleep,26.676;accelerate,1.8;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
-	/>
-	<Layer
-		File="4x2"
-		OnCommand="x,560;y,240;sleep,26.676;linear,1.9;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
-	/>
-	
-	<Layer
-		File="1x3"
-		OnCommand="x,80;y,400;sleep,26.676;linear,1.75;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
-	/>
-	<Layer
-		File="2x3"
-		OnCommand="x,240;y,400;sleep,26.676;accelerate,1.6;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
-	/>
-	<Layer
-		File="3x3"
-		OnCommand="x,400;y,400;sleep,26.676;linear,2;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
-	/>
-	<Layer
-		File="4x3"
-		OnCommand="x,560;y,400;sleep,26.676;decelerate,2;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y"
-	/>
-	
-    <Layer
-	   File="horizon_blurry"
-	   OnCommand="%function(self)
-	   blurizon=self;
-	   self:x(SCREEN_CENTER_X)
-	   self:y(SCREEN_CENTER_Y)
-	   self:diffusealpha(0)
-	   end"
-	/>
 	
 	<Layer
 	File="fader2"
@@ -124,5 +64,65 @@
 	self:y(SCREEN_CENTER_Y);
     end"
 	/>
+        
+	<Layer
+		File="1x1"
+		OnCommand="x,80;y,80;sleep,26.676;accelerate,2;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3.137;linear,1;x,80;y,80;sleep,4.743;decelerate,0.3;zoom,1"
+	/>
+	<Layer
+		File="2x1"
+		OnCommand="x,240;y,80;sleep,26.676;decelerate,1.5;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3,137;linear,1;x,240;y,80;sleep,5.735;decelerate,0.3;zoom,1"
+	/>
+	<Layer
+		File="3x1"
+		OnCommand="x,400;y,80;sleep,26.676;linear,1.5;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3,137;linear,1;x,400;y,80;sleep,6.127;decelerate,0.3;zoom,1"
+	/>
+	<Layer
+		File="4x1"
+		OnCommand="x,560;y,80;sleep,26.676;linear,1.7;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3,137;linear,1;x,560;y,80;sleep,6.319;decelerate,0.3;zoom,1"
+	/>
 	
+	<Layer
+		File="1x2"
+		OnCommand="x,80;y,240;sleep,26.676;accelerate,1.5;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3,137;linear,1;x,80;y,240;sleep,5.343;decelerate,0.3;zoom,1"
+	/>
+	<Layer
+		File="2x2"
+		OnCommand="x,240;y,240;sleep,26.676;decelerate,1.6;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3,137;linear,1;x,240;y,240;sleep,5.635;decelerate,0.3;zoom,1"
+	/>
+	<Layer
+		File="3x2"
+		OnCommand="x,400;y,240;sleep,26.676;accelerate,1.8;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3,137;linear,1;x,400;y,240;sleep,5.827;decelerate,0.3;zoom,1"
+	/>
+	<Layer
+		File="4x2"
+		OnCommand="x,560;y,240;sleep,26.676;linear,1.9;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3,137;linear,1;x,560;y,240;sleep,6.119;decelerate,0.3;zoom,1"
+	/>
+	
+	<Layer
+		File="1x3"
+		OnCommand="x,80;y,400;sleep,26.676;linear,1.75;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3,137;linear,1;x,80;y,400;sleep,5.093;decelerate,0.3;zoom,1"
+	/>
+	<Layer
+		File="2x3"
+		OnCommand="x,240;y,400;sleep,26.676;accelerate,1.6;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3,137;linear,1;x,240;y,400;sleep,5.635;decelerate,0.3;zoom,1"
+	/>
+	<Layer
+		File="3x3"
+		OnCommand="x,400;y,400;sleep,26.676;linear,2;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3,137;linear,1;x,400;y,400;sleep,5.627;decelerate,0.3;zoom,1"
+	/>
+	<Layer
+		File="4x3"
+		OnCommand="x,560;y,400;sleep,26.676;decelerate,2;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3,137;linear,1;x,560;y,400;sleep,6.019;decelerate,0.3;zoom,1"
+	/>
+	
+	<Layer
+	   File="horizon_blurry"
+	   OnCommand="%function(self)
+	   blurizon=self;
+	   self:x(SCREEN_CENTER_X)
+	   self:y(SCREEN_CENTER_Y)
+	   self:diffusealpha(0)
+	   end"
+	/>
 </children></ActorFrame>
