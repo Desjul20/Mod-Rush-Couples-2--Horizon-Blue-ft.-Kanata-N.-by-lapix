@@ -132,10 +132,10 @@
 			--mm(beat,thing,persists)
 			
 			
-			m(224,258.25,'*-1 Dark','end',1)
-			m(224,258.25,'*-1 Dark','end',2)
-			m(224,259.75,'*-1 HideNoteFlash, *-1 Halgun','end',1)
-			m(224,259.75,'*-1 HideNoteFlash, *-1 Halgun','end',2)
+			m(223,258.25,'*-1 Dark','end',1)
+			m(223,258.25,'*-1 Dark','end',2)
+			m(223,259.75,'*-1 HideNoteFlash, *-1 Halgun','end',1)
+			m(223,259.75,'*-1 HideNoteFlash, *-1 Halgun','end',2)
 			m(259.75,0.25,'*-1 no HideNoteFlash, *-1 no Halgun','len')
 			m(258.25,999,'Dark','len',3)
 			m(258.25,290.5,'Dark','end',4)
@@ -205,6 +205,12 @@
 			
 			m(200,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
 			m(200.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			m(204,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(204.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			m(213.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(214,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
 			
 			m(157,3,'*-1 1.5x','len')
 			
@@ -321,9 +327,9 @@
 				aux_spin:aux(0)
 			end,true)
 			
-			m2(224,function()
-				Plr(1):SetHiddenRegions({{225,259.75}})
-				Plr(2):SetHiddenRegions({{225,259.75}})
+			m2(223,function()
+				Plr(1):SetHiddenRegions({{223,259.75}})
+				Plr(2):SetHiddenRegions({{223,259.75}})
 				for pn = 1, 2 do
 			    local a = Plr(pn)
 			    if a then

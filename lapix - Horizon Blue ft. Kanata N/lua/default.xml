@@ -160,7 +160,7 @@ end"
 			local m2 = mod_message
 			local me = mod_ease
 		    local mpf = mod_perframe
-			local P3 = SCREENMAN:GetTopScreen():GetChild('PlayerP3')
+			local P3 = Plr(3)
                if P3 then
             P3:SetAwake(false)
             P3:hidden(0)
@@ -170,11 +170,11 @@ end"
 			P3:zoom(1.2)
             end
 			
-			local P4 = SCREENMAN:GetTopScreen():GetChild('PlayerP4')
+			local P4 = Plr(4)
                if P4 then
             P4:SetAwake(false)
             P4:hidden(0)
-            P4:SetInputPlayer(1)
+            P4:SetInputPlayer(2)
 			P4:GetChild('Judgment'):hidden(1)
 			P4:GetChild('Combo'):hidden(1)
 			P4:zoom(1.2)
@@ -319,7 +319,7 @@ end"
 				{68,'DestroyBG',true},
 				{340,'ResetBG',true},
 				{404,'DestroyBG',true},
-				{225,'Proxy',true},
+				{223,'Proxy',true},
 				{324,'HideProxy',true},
 				{0,function()
 					for pn=1,2 do
@@ -703,6 +703,12 @@ end"
 			me(186.75,0.75,0,100,'flip','len',outSine)
 			me(187.5,0.75,100,0,'flip','len',outSine)
 			
+			me(189.5,1,0,100,'flip',l,outBack)
+			
+			me(190.5,1,100,0,'flip',l,outBack)
+			me(190.5,1,0,100,'invert',l,outBack)
+			me(191.5,0.5,100,0,'invert',l,outBack)
+			
 			------------------------------------------- I hate this so much. I wish it was less longer but i'm 28 beats away which helps with confidence. Line of code from here is 304. Wow!
 			
 			me(196,0.5,0,100,'flip',l,outBack)
@@ -762,12 +768,16 @@ end"
 			
 			me(208,1,0,100,'flip',l,outBack)
 			me(208,1,150,0,'tipsy',l,outBack)
+			me(208,1,150,0,'bumpy',l,outBack)
 			me(209,1,100,0,'flip',l,outBack)
 			me(209,1,-150,0,'tipsy',l,outBack)
+			me(208,1,1.5,2.5,'xmod',l,outBack)
 			me(209,1,0,100,'invert',l,outBack)
 			me(209,1,150,0,'tipsy',l,outBack)
+			me(209,1,1.5,2.5,'xmod',l,outBack)
 			me(210,0.5,100,0,'invert',l,outBack)
 			me(210,0.5,-150,0,'tipsy',l,outBack)
+			me(210,0.5,1.5,2.5,'xmod',l,outBack)
 			
 			me(210.5,0.5,0,100,'flip',l,outBack)
 			me(211,0.5,100,0,'flip',l,outBack)
@@ -778,8 +788,8 @@ end"
 			me(212.5,0.5,100,0,'flip',l,outBack)
 			
 			me(213,0.25,0,200,'drunk, tipsy','len',linear)
-			me(213.25,0.5,200,-200,'drunk, tipsy','len',linear)
-			me(213.75,0.25,-200,0,'drunk, tipsy','len',linear)
+			me(213.25,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(213.5,0.25,-200,0,'drunk, tipsy','len',linear)
 			
 			me(214.25,0.25,0,100,'invert',l,outCubic)
 			me(214.5,0.5,100,0,'invert',l,outCubic)
@@ -787,7 +797,9 @@ end"
 			me(215,0.5,0,100,'flip',l,outCubic)
 			me(215.5,0.5,100,0,'flip',l,outCubic)
 			me(215.5,0.5,0,100,'invert',l,outCubic)
-			me(216,0.5,100,0,'invert',l,outCubic)
+			me(216,0.5,100,0,'invert',l,outBack)
+			me(216,0.5,0,100,'flip',l,outBack)
+			me(216.5,0.5,100,0,'flip',l,outBack)
 			
 			me(217,0.25,0,100,'invert',l,outSine)
 			me(217.25,0.25,100,0,'invert',l,outSine)
@@ -796,9 +808,9 @@ end"
 			me(217.5,0.25,100,75,'flip',l,outSine)
 			me(217.75,0.25,75,0,'invert',l,outSine)
 			me(217.75,0.25,75,100,'flip',l,outSine)
-			me(217.75,0.25,75,100,'flip',l,outSine)
+			me(217.75,0.25,0,-100,'invert',l,outSine)
 			me(218.25,0.5,100,0,'flip',l,outSine)
-			me(218.25,0.5,0,100,'invert',l,outSine)
+			me(218.25,0.5,-100,100,'invert',l,outSine)
 			me(218.75,0.5,0,100,'flip',l,outSine)
 			me(218.75,0.5,100,-100,'invert',l,outSine)
 			me(219.25,0.25,100,100,'flip',l,outSine)
@@ -984,7 +996,7 @@ end"
 						end
 					end
 				
-				    if beat >= 111 then
+				    if beat >= 111 and beat <= 186 then
 							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(1)
 							Plr(1):x(aux_spin:getaux()*math.cos(beat * math.pi)+SCREEN_CENTER_X)
 							Plr(1):y(aux_spin:getaux()*math.sin(beat * math.pi)+SCREEN_CENTER_Y)
@@ -1000,6 +1012,21 @@ end"
 							if math.abs(math.sin(beat/2 * math.pi)*(aux_spin:getaux()*4)) > 0 then
 								mod_do('*-1 '..(math.abs(math.sin(beat/2 * math.pi)*(aux_spin:getaux()*4)))..' Invert')
 							end
+					end
+					
+					if beat >= 187 and beat <= 224 then
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(1)
+							Plr(1):x(aux_spin:getaux()*math.cos(beat * math.pi)+SCREEN_CENTER_X)
+							Plr(1):y(aux_spin:getaux()*math.sin(beat * math.pi)+SCREEN_CENTER_Y)
+							Plr(2):x(aux_spin:getaux()*math.cos((beat + 0.66666) * math.pi)+SCREEN_CENTER_X)
+							Plr(2):y(aux_spin:getaux()*math.sin((beat + 0.66666) * math.pi)+SCREEN_CENTER_Y)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(1)
+							mod_do('*-1 0 mini')
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
+							
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
 					end
 					
 					if beat >= 292 and beat <= 324 then
@@ -1207,4 +1234,3 @@ end"
 	
 	
 </children></ActorFrame></children></ActorFrame>
-
