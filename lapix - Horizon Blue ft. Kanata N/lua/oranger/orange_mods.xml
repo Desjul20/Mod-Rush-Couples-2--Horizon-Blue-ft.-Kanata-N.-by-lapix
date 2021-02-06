@@ -367,7 +367,36 @@
 			m(76,1,'*-1 no stealth','len',3)
 			m(76.2,1,'*-1 no bumpy','len',4)
 			m(76.1,1,'*-1 clearall','len',4)
-            m(76.1,1,'*-1 no sudden','len',4)
+                        m(76.1,1,'*-1 no sudden','len',4)
+		   
+		        m2(100,function()
+			flash:diffusealpha(1)
+			flash:accelerate(0.2)
+			flash:diffusealpha(0)
+			end)
+			m2(100,function()
+			for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+					a:x(SCREEN_CENTER_X)
+					a:zoom(1)
+				end
+				end
+			end,true)
+			m2(100,function()
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(1)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(1)
+			end)
+			
+			m2(226,function()
+			softifier:decelerate(0.2)
+			softifier:diffuse(0,0,0,0.99)
+			end)
+			
+			m2(227,function()
+			softifier:accelerate(0.3)
+			softifier:diffusealpha(0.9)
+			end)
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
