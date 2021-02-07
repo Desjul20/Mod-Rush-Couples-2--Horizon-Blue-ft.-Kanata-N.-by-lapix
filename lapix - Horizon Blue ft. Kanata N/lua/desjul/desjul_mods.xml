@@ -1,7 +1,4 @@
 <Layer Type="ActorFrame"><children>
-
-    <Layer File="../modhelpers" />
-	<Layer File="../easing" />
 	<Layer
         Type="ActorFrame"
         OnCommand="%function(self)
@@ -82,10 +79,11 @@
 				--returns 0.5 if t is 0 (useful sometimes!)
 				
 			--This will be important for later
-		        --wehehey, so when's this thing going to start being important
+		    --wehehey, so when's this thing going to start being important
+			
+			--it was gonna be used to do the centered calculation but apparently there's a mod timer, global mod timer is effecting it but i don't want to remove it so i didn't use these calculation. A linear easing works just as fine and sometimes way better. This calculation is still useful to have around sometimes.
 			--[[
 				64px (64/135) = 47.4% Centered
-
 				*(BPM * XMOD / 60 * 64/135) 400% Centered
 				*(BPM * XMOD / 60) 400% Centered2
 				(Normal Mod Time)
@@ -95,12 +93,16 @@
 			---------------------------------------------------------
 			--------END DOCUMENTATION--------------------------------
 			---------------------------------------------------------
-			local linear, inQuad, outQuad, inOutQuad, outInQuad, inCubic, outCubic, inOutCubic, outInCubic, inQuart, outQuart, inOutQuart, outInQuart, inQuint, outQuint, inOutQuint, outInQuint, inSine, outSine, inOutSine, outInSine, inExpo, outExpo, inOutExpo, outInExpo, inCirc, outCirc, inOutCirc, outInCirc, inElastic, outElastic, inOutElastic, outInElastic, inBack, outBack, inOutBack, outInBack, inBounce, outBounce, inOutBounce, outInBounce = ease.linear, ease.inQuad, ease.outQuad, ease.inOutQuad, ease.outInQuad, ease.inCubic, ease.outCubic, ease.inOutCubic, ease.outInCubic, ease.inQuart, ease.outQuart, ease.inOutQuart, ease.outInQuart, ease.inQuint, ease.outQuint, ease.inOutQuint, ease.outInQuint, ease.inSine, ease.outSine, ease.inOutSine, ease.outInSine, ease.inExpo, ease.outExpo, ease.inOutExpo, ease.outInExpo, ease.inCirc, ease.outCirc, ease.inOutCirc, ease.outInCirc, ease.inElastic, ease.outElastic, ease.inOutElastic, ease.outInElastic, ease.inBack, ease.outBack, ease.inOutBack, ease.outInBack, ease.inBounce, ease.outBounce, ease.inOutBounce, ease.outInBounce
-		   
+			
 			local m = mod_insert
 			local m2 = mod_message
 			local me = mod_ease
 			local mpf = mod_perframe
+			
+			local l = 'len'
+			local e = 'end'
+			
+			local linear, inQuad, outQuad, inOutQuad, outInQuad, inCubic, outCubic, inOutCubic, outInCubic, inQuart, outQuart, inOutQuart, outInQuart, inQuint, outQuint, inOutQuint, outInQuint, inSine, outSine, inOutSine, outInSine, inExpo, outExpo, inOutExpo, outInExpo, inCirc, outCirc, inOutCirc, outInCirc, inElastic, outElastic, inOutElastic, outInElastic, inBack, outBack, inOutBack, outInBack, inBounce, outBounce, inOutBounce, outInBounce = ease.linear, ease.inQuad, ease.outQuad, ease.inOutQuad, ease.outInQuad, ease.inCubic, ease.outCubic, ease.inOutCubic, ease.outInCubic, ease.inQuart, ease.outQuart, ease.inOutQuart, ease.outInQuart, ease.inQuint, ease.outQuint, ease.inOutQuint, ease.outInQuint, ease.inSine, ease.outSine, ease.inOutSine, ease.outInSine, ease.inExpo, ease.outExpo, ease.inOutExpo, ease.outInExpo, ease.inCirc, ease.outCirc, ease.inOutCirc, ease.outInCirc, ease.inElastic, ease.outElastic, ease.inOutElastic, ease.outInElastic, ease.inBack, ease.outBack, ease.inOutBack, ease.outInBack, ease.inBounce, ease.outBounce, ease.inOutBounce, ease.outInBounce
 			
 			--beat based mods
 			--m(beat_start, beat_end, mods, len_or_end, player_number)
@@ -149,15 +151,323 @@
 			
 			m(68,1,'*-1 no drunk, *-1 no tipsy','len',3)
 			
+			m(68,1,'*-1 no pulse, *-1 no arrowpath, *-1 no tiny, *-1 no drunk','len')
+			
+			me(84,2,0,math.rad(-180)*100,'confusionzoffset','len',outExpo)
+			me(86,2,math.rad(180)*100,0,'confusionzoffset','len',outExpo)
+			me(88,2,0,math.rad(-180)*100,'confusionzoffset','len',outExpo)
+			me(90,2,math.rad(180)*100,0,'confusionzoffset','len',outExpo)
+			
+			--you've probably already threw all this in on your end, but I'm still gonna leave this here
+			-----------------------------------------------------
+			
+			m(100,99,'*-1 no stealth','len',3)
+			
+			me(100,0.5,0,100,'flip','len',outBack)
+			me(100.5,0.5,100,0,'flip','len',outBack)
+			me(101,0.25,0,200,'drunk, tipsy','len',linear)
+			me(101.25,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(101.5,0.25,-200,0,'drunk, tipsy','len',linear)
+			
+			m(101.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(102,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			me(102.25,0.25,0,100,'invert','len', outCubic)
+			me(102.5,0.5,100,75,'invert','len', outCubic)
+			me(102.5,0.5,0,75,'flip','len', outCubic)
+			me(103,0.5,75,-75,'invert','len', outCubic)
+			me(103,0.5,75,25,'flip','len', outCubic)
+			me(103.5,0.5,-75,0,'invert','len', outCubic)
+			me(103.5,0.5,25,0,'flip','len', outCubic)
+			
+			me(104,0.5,0,100,'Reverse','len', outCubic)
+			
+			m(104.5,11.5,'*-1 Reverse')
+			
+			me(105,0.25,0,100,'invert','len',outBack)
+			me(105.25,0.25,100,0,'invert','len',outBack)
+			
+			me(105.75,0.5,0,200,'drunk, tipsy','len',linear)
+			me(106.25,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(106.5,0.25,-200,0,'drunk, tipsy','len',linear)
+			
+			me(107,0.25,0,100,'invert','len', outCubic)
+			me(107.25,0.25,100,75,'invert','len', outCubic)
+			me(107.25,0.25,0,75,'flip','len', outCubic)
+			me(107.5,0.25,75,0,'flip','len', outCubic)
+			me(107.5,0.25,75,0,'invert','len', outCubic)
+			
+			m(108,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(108.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			me(109,0.25,0,200,'drunk, tipsy','len',linear)
+			me(109.25,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(109.5,0.25,-200,0,'drunk, tipsy','len',linear)
+			
+			me(110.25,0.25,0,100,'invert','len', outCubic)
+			me(110.5,0.25,100,75,'invert','len', outCubic)
+			me(110.5,0.25,0,75,'flip','len', outCubic)
+			me(110.75,0.25,75,0,'flip','len', outCubic)
+			me(110.75,0.25,75,0,'invert','len', outCubic)
+			
+			me(111.25,0.25,0,200,'tipsy','len',outCubic)
+			me(111.5,0.25,200,-200,'tipsy','len',outCubic)
+			me(111.75,0.25,-200,0,'tipsy','len',outCubic)
+			
+			me(116,0.5,100,0,'Reverse','len', outCubic)
+			
+			m(116,1,'*-1 no Reverse')
+			
+			me(116,0.5,0,100,'flip','len',outCubic)
+			me(116.5,0.5,100,0,'flip','len',outCubic)
+			
+			me(117,0.25,0,200,'drunk, tipsy','len',linear)
+			me(117.25,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(117.5,0.25,-200,0,'drunk, tipsy','len',linear)
+			
+			m(117.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(118,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			me(118.25,0.25,0,100,'invert','len',outCubic)
+			me(118.5,0.5,100,0,'invert','len',outCubic)
+			me(118.5,0.5,0,100,'flip','len',outCubic)
+			me(119,0.5,100,-100,'invert','len',outCubic)
+			
+			me(119.5,0.5,100,0,'flip','len',outCubic)
+			me(119.5,0.5,-100,0,'invert','len',outCubic)
+			
+			me(121,0.25,0,200,'drunk','len',linear)
+			me(121.25,0.25,200,-200,'drunk','len',linear)
+			me(121.5,0.25,-200,200,'drunk','len',linear)
+			me(121.75,0.25,200,-200,'drunk','len',linear)
+			me(122,0.25,-200,0,'drunk','len',linear)
+			
+			me(122,0.1875,0,-50,'flip','len',outCubic)
+			me(122.1875,122.75,-50,0,'flip','end',outCubic)
+			
+			me(122.75,0.1875,0,-50,'flip','len',outCubic)
+			me(122.9375,123.5,-50,0,'flip','end',outCubic)
+			
+			me(123.5,0.1875,0,-50,'flip','len',outCubic)
+			me(123.9375,0.5625,-50,0,'flip','len',outCubic)
+			
+			me(125.5,0.1875,0,-150,'tipsy','len',outCubic)
+			me(125.6875,126.5,-150,0,'tipsy','end',outCubic)
+			
+			me(126.5,0.1875,0,150,'tipsy','len',outCubic)
+			me(126.6875,127.5,150,0,'tipsy','end',outCubic)
+			
+			me(127.5,0.1875,0,-150,'tipsy','len',outCubic)
+			me(127.6875,128,-150,0,'tipsy','end',outCubic)
+			
+			me(125.5,0.1875,0,-50,'flip','len',outCubic)
+			me(125.6875,126.75,-50,0,'flip','end',outCubic)
+			
+			me(126.5,0.1875,0,-50,'flip','len',outCubic)
+			me(126.6875,127.5,-50,0,'flip','end',outCubic)
+			
+			me(127.5,0.1875,0,-50,'flip','len',outCubic)
+			me(127.6875,128,-50,0,'flip','end',outCubic)
+			
+			me(124,1.5,0,172.5,'centered','len',linear)
+			me(125.5,0.5,0,100,'reverse','len',outSine)
+			me(125.5,1,100,0,'centered','len',linear)
+			m(126,1.5,'*-1 reverse','len')
+			me(128,0.5,100,0,'reverse','len',outSine)
+			
+			------------------------------------------- This a seperation line cause the chrous requires a lot of code, sometimes i don't know where i'm at so i added this!
+			
+			me(132,0.5,0,100,'flip','len',outBack)
+			me(132.5,0.5,100,0,'flip','len',outBack)
+			me(133,0.25,0,200,'drunk, tipsy','len',linear)
+			me(133.25,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(133.5,0.25,-200,0,'drunk, tipsy','len',linear)
+			
+			m(133.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(134,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			me(134.25,0.25,0,100,'invert','len', outCubic)
+			me(134.5,0.5,100,75,'invert','len', outCubic)
+			me(134.5,0.5,0,75,'flip','len', outCubic)
+			me(135,0.5,75,-75,'invert','len', outCubic)
+			me(135,0.5,75,25,'flip','len', outCubic)
+			me(135.5,0.5,-75,0,'invert','len', outCubic)
+			me(135.5,0.5,25,0,'flip','len', outCubic)
+			
+			me(136,0.5,0,100,'Reverse','len', outCubic)
+			m(136.5,148,'*-1 reverse','end')
+			me(148,0.5,100,0,'reverse','len',outCubic)
+			
+			me(137,0.25,0,100,'invert','len', outCubic)
+			me(137.25,0.25,100,-100,'invert','len', outCubic)
+			me(137.25,0.25,0,100,'flip','len', outCubic)
+			me(137.5,0.25,-100,0,'invert','len', outCubic)
+			me(137.5,0.25,100,100,'flip','len', outCubic)
+			me(137.75,0.25,100,0,'flip','len', outCubic)
+			
+			me(138.25,0.75,200,0,'tipsy','len',linear)
+			
+			me(139,0.5,200,0,'drunk, tipsy','len',outCubic)
+			me(139.5,0.5,-200,0,'drunk, tipsy','len',outCubic)
+			
+			me(140,0.5,0,100,'flip','len', outCubic)
+			me(140.5,0.5,100,0,'flip','len', outCubic)
+			me(140.5,0.5,0,100,'invert','len', outCubic)
+			m(141,0.75,'*-1 invert','len')
+			me(141.75,0.5,100,-100,'invert','len', outCubic)
+			me(141.75,0.5,0,100,'flip','len', outCubic)
+			me(142.25,0.5,-100,0,'invert','len', outCubic)
+			me(142.25,0.5,100,100,'flip','len', outCubic)
+			me(142.75,0.5,100,0,'flip','len', outCubic)
+			me(141,0.25,200,0,'tipsy','len',linear)
+			me(141.25,0.5,200,0,'tipsy','len',linear)
+			
+			me(148,0.5,0,100,'flip','len',outCubic)
+			me(148.5,0.5,100,0,'flip','len',outCubic)
+			
+			m(149.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(150,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
 			
 			
+			me(149,0.5,0,200,'drunk, tipsy','len',linear)
+			me(149.25,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(149.5,0.25,-200,0,'drunk, tipsy','len',linear)
 			
-			--I hope this doesn't lag too much. It's fine for me. Cool effect either way
-			m(228,257.5,'*-1 -3000% parabolaz, *-1 200 drawsize','end')
-			m(227,260,'*-1 0 parabolaz, *2 95 stealth, *1.25 150 wave, *1.25 -115 tornado, *1.25 -45 rotationx, *1.25 dark, *1.25 '..(math.rad(45)*100)..' confusionxoffset, *1.25 -25 centered, 3x','end',3)
-			m(227,260,'*-1 0 parabolaz, *2 95 stealth, *1.25 150 wave, *1.25 115 tornado,  *1.25 -45 rotationx, *1.25 dark, *1.25 '..(math.rad(45)*100)..' confusionxoffset,*1.25 -25 centered, 3x','end',4)
 			
-			m(68,1,'*-1 no pulse, *-1 no arrowpath, *-1 no tiny','len')
+			me(149.75,0.25,0,175,'drunk','len',outCubic)
+			me(150.25,0.25,175,-175,'drunk','len',outCubic)
+			me(150.5,0.5,-175,175,'drunk','len',outCubic)
+			me(151,0.5,175,-175,'drunk','len',outCubic)
+			me(151.5,0.25,-175,175,'drunk','len',outCubic)
+			me(151.75,0.25,175,-175,'drunk','len',outCubic)
+			me(152,0.25,-175,0,'drunk','len',outCubic)
+			
+			me(149.75,0.25,0,100,'tipsy','len',outSine)
+			me(150.25,0.25,100,-100,'tipsy','len',outSine)
+			me(150.5,0.5,-100,100,'tipsy','len',outSine)
+			me(151,0.5,100,-100,'tipsy','len',outSine)
+			me(151.5,0.25,-100,100,'tipsy','len',outSine)
+			me(151.75,0.25,100,-100,'tipsy','len',outSine)
+			me(152,0.25,-100,0,'tipsy','len',outSine)
+			
+			me(153,0.25,0,100,'flip','len',outSine)
+			me(153.25,0.25,100,0,'flip','len',outSine)
+			me(153.25,0.25,0,100,'invert','len',outSine)
+			me(153.5,0.25,0,100,'flip','len',outSine)
+			me(153.5,0.25,100,-100,'invert','len',outSine)
+			me(153.75,0.5,100,0,'flip','len',outSine)
+			me(153.75,0.5,-100,100,'invert','len',outSine)
+			
+			me(154.25,0.5,0,25,'flip','len',outSine)
+			me(154.25,0.5,100,-75,'invert','len',outSine)
+			
+			me(154.75,0.5,25,100,'flip','len',outSine)
+			me(154.75,0.5,-75,0,'invert','len',outSine)
+			
+			me(155.25,0.25,100,0,'flip','len',outSine)
+			me(155.25,0.25,0,100,'invert','len',outSine)
+			
+			me(155.5,0.5,100,0,'invert','len',outSine)
+			
+			m(156,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(156.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			
+			me(156,1,2.5,1.5,'xmod','len',linear)
+			
+			me(157,3,0,230,'centered','len',linear)
+			
+			m(157,3,'*-1 1.5x','len')
+			
+			me(160,0.1875,0,150,'tipsy','len',outCubic)
+			me(160.1875,161.25,150,0,'tipsy','end',outCubic)
+			
+			me(161.25,0.1875,0,-150,'tipsy','len',outCubic)
+			me(161.4375,161.75,-150,0,'tipsy','end',outCubic)
+			
+			me(161.75,0.1875,0,-150,'tipsy','len',outCubic)
+			me(161.9375,162.25,-150,0,'tipsy','end',outCubic)
+			
+			me(160,0.1875,0,-50,'flip','len',outCubic)
+			me(160.1875,161.25,-50,0,'flip','end',outCubic)
+			
+			me(161.25,0.1875,0,-50,'flip','len',outCubic)
+			me(161.4375,161.75,-50,0,'flip','end',outCubic)
+			
+			me(161.75,0.1875,0,-50,'flip','len',outCubic)
+			me(161.9375,162.25,-50,0,'flip','end',outCubic)
+			
+			
+			me(162.5,0.1875,0,150,'tipsy','len',outCubic)
+			me(162.6875,163,150,0,'tipsy','end',outCubic)
+			
+			me(163,0.1875,0,-150,'tipsy','len',outCubic)
+			me(163.1875,163.5,-150,0,'tipsy','end',outCubic)
+			
+			me(163.5,0.1875,0,-150,'tipsy','len',outCubic)
+			me(163.6875,164,-150,0,'tipsy','end',outCubic)
+			
+			me(162.5,0.1875,0,-50,'flip','len',outCubic)
+			me(162.6875,163,-50,0,'flip','end',outCubic)
+			
+			me(163,0.1875,0,-50,'flip','len',outCubic)
+			me(163.1875,163.5,-50,0,'flip','end',outCubic)
+			
+			me(163.5,0.1875,0,-50,'flip','len',outCubic)
+			me(163.6875,164,-50,0,'flip','end',outCubic)
+			
+			me(160,0.5,0,100,'reverse','len',outSine)
+			me(160,1,230,0,'centered','len',linear)
+			m(160,3.5,'*-1 reverse','len')
+			me(163.5,0.5,100,0,'reverse','len',outSine)
+			
+			------------------------------------------- This is a lot of code for something that is 30 bars. So far only 15 bars so half way done! This is still a lot. It's almost copy and patse EXCEPT THE RHYTHM SOMETIMES ARE DIFFERENT TIMING.
+			
+			me(100+64,0.5,0,100,'flip','len',outBack)
+			me(100.5+64,0.5,100,0,'flip','len',outBack)
+			me(101+64,0.25,0,200,'drunk, tipsy','len',linear)
+			me(101.25+64,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(101.5+64,0.25,-200,0,'drunk, tipsy','len',linear)
+			m(165.75,0.25,'*2 no tipsy','len')
+			
+			me(102.75+64,0.25,0,100,'invert','len', outCubic)
+			me(103+64,0.25,100,75,'invert','len', outCubic)
+			me(103+64,0.25,0,75,'flip','len', outCubic)
+			me(103.25+64,0.25,75,-75,'invert','len', outCubic)
+			me(103.25+64,0.25,75,25,'flip','len', outCubic)
+			me(103.5+64,0.25,-75,0,'invert','len', outCubic)
+			me(103.5+64,0.25,25,0,'flip','len', outCubic)
+			
+			me(166.5,0.25,200,0,'tipsy','len',linear)
+			
+			m(168,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(168.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			me(172,0.5,0,100,'flip','len',outCubic)
+			me(172.5,0.5,100,0,'flip','len',outCubic)
+			
+			m(172,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
+			m(172.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			me(173,0.25,0,100,'invert','len',outCubic)
+			me(173.25,0.5,100,0,'invert','len',outCubic)
+			me(173.75,0.5,0,100,'invert','len',outCubic) 
+			me(174.25,0.25,100,100,'invert','len',outCubic) 
+			
+			me(174.5,0.5,100,0,'invert','len',outBack)
+			me(175,0.5,0,100,'invert','len',outBack)
+			me(175.5,0.5,100,0,'invert','len',outBack) 
+			
+			me(173,0.25,0,200,'tipsy','len',linear)
+			me(173.25,0.5,200,-200,'tipsy','len',linear)
+			me(173.75,0.5,-200,0,'tipsy','len',linear)
+			
+			me(174.5,0.5,0,200,'drunk, tipsy','len',linear)
+			me(175,0.5,200,-200,'drunk, tipsy','len',linear)
+			me(175.5,0.5,-200,0,'drunk, tipsy','len',linear)
+			
+			me(176,1,2.5,6,'xmod','len',outQuint)
+			me(177,1,6,2.5,'xmod','len',inCirc)
 			
 			m(178,0.25,'*16 '..(math.rad(90)*100)..' ConfusionZOffset','len')
 			m(178.25,0.25,'*16 '..(math.rad(180)*100)..' ConfusionZOffset','len')
@@ -166,63 +476,252 @@
 			m(179.25,0.25,'*32 '..(math.rad(180)*100)..' ConfusionZOffset','len')
 			m(179.5,0.25,'*32 '..(math.rad(0)*100)..' ConfusionZOffset','len')
 			
-			m(228,260,'*-1 400 movex','end',1)
-			m(260,261,'*-1 0 movex','end',1)
-			
-			m(101.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
-			m(102,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
-			
-			m(104.5,11.5,'*-1 Reverse')
-			
-			m(108,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
-			m(108.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
-			
-			m(116,1,'*-1 no Reverse')
-			
-			m(117.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
-			m(118,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
-			
-			m(100,99,'*-1 no stealth','len',3)
-			
-			m(133.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
-			m(134,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
-			
-			m(149.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
-			m(150,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
-			
-			m(156,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
-			m(156.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
-			
-			m(168,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
-			m(168.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
-			
-			m(172,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
-			m(172.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			me(180,0.5,0,100,'invert',l,outBack)
+			me(180.5,0.5,100,0,'invert',l,outBack)
 			
 			m(180,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
 			m(180.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
 			
+			me(181,0.25,0,200,'drunk, tipsy','len',outQuint)
+			me(181.25,0.5,200,-200,'drunk, tipsy','len',outQuint)
+			me(181.75,0.25,-200,200,'drunk, tipsy','len',outQuint)
+			me(182,0.5,200,0,'drunk, tipsy','len',outQuint)
+			
+			me(183,0.25,0,100,'flip',l,outSine)
+			me(183.25,0.25,100,0,'invert',l,outSine)
+			me(183.25,0.25,0,100,'flip',l,outSine)
+			me(183.5,0.25,100,0,'flip',l,outSine)
+			
 			m(184,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
 			m(184.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			me(186,0.75,200,0,'tipsy','len',linear)
+			me(186.75,0.75,-200,0,'tipsy','len',linear)
+			me(187.5,0.75,200,0,'tipsy','len',linear)
+			
+			me(185,0.25,0,100,'invert',l,outSine)
+			me(185.25,0.25,100,75,'invert',l,outSine)
+			me(185.25,0.25,0,75,'flip',l,outSine)
+			me(185.5,0.25,75,-75,'invert',l,outSine)
+			me(185.5,0.25,75,25,'flip',l,outSine)
+			me(185.75,0.25,-75,0,'invert',l,outSine)
+			me(185.75,0.25,25,0,'flip',l,outSine)
+			
+			me(186,0.75,0,100,'invert','len',outSine)
+			me(186.75,0.75,100,0,'invert','len',outSine)
+			me(186.75,0.75,0,100,'flip','len',outSine)
+			me(187.5,0.75,100,0,'flip','len',outSine)
+			
+			me(189.5,1,0,100,'flip',l,outBack)
+			
+			me(190.5,1,100,0,'flip',l,outBack)
+			me(190.5,1,0,100,'invert',l,outBack)
+			me(191.5,0.5,100,0,'invert',l,outBack)
+			
+			------------------------------------------- I hate this so much. I wish it was less longer but i'm 28 beats away which helps with confidence. Line of code from here is 304. Wow!
+			
+			me(196,0.5,0,100,'flip',l,outBack)
+			me(196.5,0.5,100,0,'flip',l,outBack)
+			me(197,0.25,0,200,'drunk, tipsy','len',linear)
+			me(197.25,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(197.5,0.25,-200,0,'drunk, tipsy','len',linear)
+			m(197.75,0.25,'*2 no tipsy','len')
+			me(198.25,0.25,0,100,'invert',l,outCubic)
+			me(198.5,0.25,100,0,'invert',l,outCubic)
+			me(198.5,0.5,0,100,'flip',l,outCubic)
+			me(199,0.5,100,0,'flip',l,outCubic)
+			me(199.5,0.25,0,200,'drunk, tipsy','len',linear)
+			me(199.75,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(200,0.25,-200,0,'drunk, tipsy','len',linear)
 			
 			m(200,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
 			m(200.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
 			
+			m(200.25,0.25,'no tipsy','len')
+			me(200.75,0.25,0,100,'flip',l,outCubic)
+			me(201,0.25,100,100,'flip',l,outCubic)
+			me(201,0.25,0,-100,'invert',l,outCubic)
+			me(201.25,0.25,100,0,'flip',l,outCubic)
+			me(201.25,0.25,-100,100,'invert',l,outCubic)
+			me(201.5,0.25,100,0,'invert',l,outCubic)
+			
+			me(202,0.1875,0,200,'tipsy','len',outCubic)
+			me(202.1875,202.75,200,0,'tipsy','end',outCubic)
+			
+			me(202.75,0.1875,0,-200,'tipsy','len',outCubic)
+			me(202.9375,203.5,-200,0,'tipsy','end',outCubic)
+			
+			me(203.5,0.1875,0,200,'tipsy','len',outCubic)
+			me(203.6875,204.25,200,0,'tipsy','end',outCubic)
+			
+			me(202,0.1875,0,-50,'flip','len',outCubic)
+			me(202.1875,202.75,-50,0,'flip','end',outCubic)
+			
+			me(202.75,0.1875,0,-50,'flip','len',outCubic)
+			me(202.9375,203.5,-50,0,'flip','end',outCubic)
+			
+			me(203.5,0.1875,0,-50,'flip','len',outCubic)
+			me(203.6875,204.25,-50,0,'flip','end',outCubic)
+			
+			me(204,0.5,0,100,'flip',l,outBack)
+			me(204.5,0.5,100,0,'flip',l,outBack)
+			
 			m(204,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
 			m(204.25,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
+			
+			me(205,0.25,0,200,'drunk, tipsy','len',linear)
+			me(205.25,0.5,200,-200,'drunk, tipsy','len',linear)
+			me(205.75,0.25,-200,0,'drunk, tipsy','len',linear)
+			
+			me(206.25,0.25,0,100,'invert',l,outSine)
+			me(206.5,0.25,100,-100,'invert',l,outSine)
+			me(206.5,0.25,0,100,'flip',l,outSine)
+			me(206.75,0.5,-100,100,'invert',l,outSine)
+			me(206.75,0.5,100,0,'flip',l,outSine)
+			me(207.25,0.25,0,100,'flip',l,outSine)
+			me(207.25,0.25,100,0,'invert',l,outSine)
+			me(207.5,0.25,100,0,'flip',l,outSine)
+			
+			me(208,1,0,100,'flip',l,outBack)
+			me(208,1,150,0,'tipsy',l,outBack)
+			me(208,1,150,0,'bumpy',l,outBack)
+			me(209,1,100,0,'flip',l,outBack)
+			me(209,1,-150,0,'tipsy',l,outBack)
+			me(208,1,1.5,2.5,'xmod',l,outBack)
+			me(209,1,0,100,'invert',l,outBack)
+			me(209,1,150,0,'tipsy',l,outBack)
+			me(209,1,1.5,2.5,'xmod',l,outBack)
+			me(210,0.5,100,0,'invert',l,outBack)
+			me(210,0.5,-150,0,'tipsy',l,outBack)
+			me(210,0.5,1.5,2.5,'xmod',l,outBack)
+			
+			me(210.5,0.5,0,100,'flip',l,outBack)
+			me(211,0.5,100,0,'flip',l,outBack)
+			me(211,0.5,0,100,'invert',l,outBack)
+			me(211.5,0.5,100,0,'invert',l,outBack)
+			
+			me(212,0.5,0,100,'flip',l,outBack)
+			me(212.5,0.5,100,0,'flip',l,outBack)
+			
+			me(213,0.25,0,200,'drunk, tipsy','len',linear)
+			me(213.25,0.25,200,-200,'drunk, tipsy','len',linear)
+			me(213.5,0.25,-200,0,'drunk, tipsy','len',linear)
 			
 			m(213.75,0.25,'*16 1x, *32 400 bumpy, 25 dizzy, 50 tipsy','len')
 			m(214,6,'*1.75 2.5x, *2 no bumpy, *1.5 no dizzy, *1.75 no tipsy','len')
 			
-			m(157,3,'*-1 1.5x','len')
+			me(214.25,0.25,0,100,'invert',l,outCubic)
+			me(214.5,0.5,100,0,'invert',l,outCubic)
+			
+			me(215,0.5,0,100,'flip',l,outCubic)
+			me(215.5,0.5,100,0,'flip',l,outCubic)
+			me(215.5,0.5,0,100,'invert',l,outCubic)
+			me(216,0.5,100,0,'invert',l,outBack)
+			me(216,0.5,0,100,'flip',l,outBack)
+			me(216.5,0.5,100,0,'flip',l,outBack)
+			
+			me(217,0.25,0,100,'invert',l,outSine)
+			me(217.25,0.25,100,0,'invert',l,outSine)
+			me(217.25,0.25,0,100,'flip',l,outSine)
+			me(217.5,0.25,0,75,'invert',l,outSine)
+			me(217.5,0.25,100,75,'flip',l,outSine)
+			me(217.75,0.25,75,0,'invert',l,outSine)
+			me(217.75,0.25,75,100,'flip',l,outSine)
+			me(217.75,0.25,0,-100,'invert',l,outSine)
+			me(218.25,0.5,100,0,'flip',l,outSine)
+			me(218.25,0.5,-100,100,'invert',l,outSine)
+			me(218.75,0.5,0,100,'flip',l,outSine)
+			me(218.75,0.5,100,-100,'invert',l,outSine)
+			me(219.25,0.25,100,100,'flip',l,outSine)
+			me(219.25,0.25,-100,0,'invert',l,outSine)
+			me(219.5,0.5,100,0,'flip',l,outSine)
+			
+			me(220,1,2.5,1.5,'xmod',l,linear)
+			m(221.1,3,'*-1 1.5x',l)
+			me(221,3,0,230,'centered','len',linear)
+			m(224,0.5,'*-1 stealth',l)
+			m(224.5,3.5,'no stealth',l)
+			m(224,4,'*-1 no centered,*-1 reverse',l)
+			m(224,4,'*-1 no centered,*-1 reverse',l)
+			
+			m(226.5,4,'*2 0 reverse',l)
+			m(226.5,4,'*2 0 reverse',l)
+			
+			
+			--I hope this doesn't lag too much. It's fine for me. Cool effect either way
+			
+		   
+			m(228,257.5,'*-1 -3000% parabolaz, *-1 200 drawsize','end')
+			m(227,260,'*-1 0 parabolaz, *2 95 stealth, *1.25 150 wave, *1.25 -115 tornado, *1.25 -45 rotationx, *1.25 dark, *1.25 '..(math.rad(45)*100)..' confusionxoffset, *1.25 -25 centered, 3x','end',3)
+			m(227,260,'*-1 0 parabolaz, *2 95 stealth, *1.25 150 wave, *1.25 115 tornado,  *1.25 -45 rotationx, *1.25 dark, *1.25 '..(math.rad(45)*100)..' confusionxoffset,*1.25 -25 centered, 3x','end',4)
+			
+			me(258,260,-3000,0,'parabolaz','end',outSine,2)
+			me(258,260,-3000,0,'parabolaz','end',outSine,1)
+			
+			m(228,260,'*-1 400 movex','end',2)
+			m(228,260,'*-1 800 movex','end',1)
+			m(260,261,'*-1 0 movex','end',1)
+			m(260,261,'*-1 0 movex','end',2)
 			
 			--This kinda good but not great.
 			--m(124,4,'*2 -60 rotationx, *2 150 wave, *2 reverse, *2 -55 tornado, *2 250 parabolaz','len')
 			
 			--m(128,9,'*2 no rotationx,*2 no wave,*2 no drunk,*2 no reverse,*2 no tornado,*2 no parabolaz','len')
 			
+			m2(53.5,function()
+				aux:linear(0.393*12)
+				aux:aux(150)
+			end,true)
 			
+			m2(68,function()
+			softifier:linear(1.96)
+			softifier:diffusealpha(0)
+			end)
 			
+			m2(112, function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(25)
+			end,true)
+			
+			m2(115.5,function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(0)
+			end,true)
+			
+			m2(143, function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(25)
+			end,true)
+			
+			m2(147.5,function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(0)
+			end,true)
+			
+			m2(187.5, function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(25)
+			end,true)
+			
+			m2(191.5,function()
+				aux_spin:linear(0.393/2) 
+				aux_spin:aux(0)
+			end,true)
+			
+			m2(223,function()
+				Plr(1):SetHiddenRegions({{223,259.75}})
+				Plr(2):SetHiddenRegions({{223,259.75}})
+				for pn = 1, 2 do
+			    local a = Plr(pn)
+			    if a then
+					Plr(1):x(SCREEN_CENTER_X-192)
+					--idk why but something is holding player 1 on the same x value as player 2.
+					a:zoom(0.75)
+					SCREENMAN:GetTopScreen():GetChild('PlayerP3'):SetHiddenRegions({{260,324}})
+					SCREENMAN:GetTopScreen():GetChild('PlayerP4'):SetHiddenRegions({{260,324}})
+				end
+				end
+			end,true)
 			
 			 m2(260,function()
 			 for pn = 1, 2 do
@@ -299,61 +798,6 @@
 				end
 			end, true)
 			
-			m2(112, function()
-				aux_spin:linear(0.393/2) 
-				aux_spin:aux(25)
-			end,true)
-			
-			m2(115.5,function()
-				aux_spin:linear(0.393/2) 
-				aux_spin:aux(0)
-			end,true)
-			
-			m2(143, function()
-				aux_spin:linear(0.393/2) 
-				aux_spin:aux(25)
-			end,true)
-			
-			m2(147.5,function()
-				aux_spin:linear(0.393/2) 
-				aux_spin:aux(0)
-			end,true)
-			
-			m2(187.5, function()
-				aux_spin:linear(0.393/2) 
-				aux_spin:aux(25)
-			end,true)
-			
-			m2(191.5,function()
-				aux_spin:linear(0.393/2) 
-				aux_spin:aux(0)
-			end,true)
-			
-			m2(223,function()
-				Plr(1):SetHiddenRegions({{223,259.75}})
-				Plr(2):SetHiddenRegions({{223,259.75}})
-				for pn = 1, 2 do
-			    local a = Plr(pn)
-			    if a then
-					Plr(1):x(SCREEN_CENTER_X-192)
-					--idk why but something is holding player 1 on the same x value as player 2.
-					a:zoom(0.75)
-					SCREENMAN:GetTopScreen():GetChild('PlayerP3'):SetHiddenRegions({{260,324}})
-					SCREENMAN:GetTopScreen():GetChild('PlayerP4'):SetHiddenRegions({{260,324}})
-				end
-				end
-			end,true)
-			
-			m2(53.5,function()
-				aux:linear(0.393*12)
-				aux:aux(150)
-			end,true)
-			
-			m2(68,function()
-			softifier:linear(1.96)
-			softifier:diffusealpha(0)
-			end)
-			
 			--sorry for barging into your personal modding space, but this thing is now mine and resides in orange mods in a changed state >:)
 			--Don't worry. I check yours too but don't add anything to confuse you
 			--[[m2(68,function()
@@ -368,431 +812,7 @@
 				gradient2:accelerate(1.960)
 				gradient2:diffusealpha(0)
 			end,true)]]
-			--you've probably already threw all this in on your end, but I'm still gonna leave this here
-		        me(176,1,0,200,'expand','len',outQuint)
-			me(177,1,200,0,'expand','len',inCirc)
 			
-			me(100,0.5,0,100,'flip','len',outBack)
-			me(100.5,0.5,100,0,'flip','len',outBack)
-			me(101,0.25,0,200,'drunk','len',linear)
-			me(101.25,0.25,200,-200,'drunk','len',linear)
-			me(101.5,0.25,-200,0,'drunk','len',linear)
-			
-			me(102.25,0.25,0,100,'invert','len', outCubic)
-			me(102.5,0.5,100,75,'invert','len', outCubic)
-			me(102.5,0.5,0,75,'flip','len', outCubic)
-			me(103,0.5,75,-75,'invert','len', outCubic)
-			me(103,0.5,75,25,'flip','len', outCubic)
-			me(103.5,0.5,-75,0,'invert','len', outCubic)
-			me(103.5,0.5,25,0,'flip','len', outCubic)
-			
-			me(104,0.5,0,100,'Reverse','len', outCubic)
-			
-			me(105,0.25,0,100,'invert','len',outBack)
-			me(105.25,0.25,100,0,'invert','len',outBack)
-			
-			me(105.75,0.5,0,200,'drunk, tipsy','len',linear)
-			me(106.25,0.25,200,-200,'drunk, tipsy','len',linear)
-			me(106.5,0.25,-200,0,'drunk, tipsy','len',linear)
-			
-			me(107,0.25,0,100,'invert','len', outCubic)
-			me(107.25,0.25,100,75,'invert','len', outCubic)
-			me(107.25,0.25,0,75,'flip','len', outCubic)
-			me(107.5,0.25,75,0,'flip','len', outCubic)
-			me(107.5,0.25,75,0,'invert','len', outCubic)
-			
-			me(109,0.25,0,200,'drunk, tipsy','len',linear)
-			me(109.25,0.25,200,-200,'drunk, tipsy','len',linear)
-			me(109.5,0.25,-200,0,'drunk, tipsy','len',linear)
-			
-			me(110.25,0.25,0,100,'invert','len', outCubic)
-			me(110.5,0.25,100,75,'invert','len', outCubic)
-			me(110.5,0.25,0,75,'flip','len', outCubic)
-			me(110.75,0.25,75,0,'flip','len', outCubic)
-			me(110.75,0.25,75,0,'invert','len', outCubic)
-			
-			me(111.25,0.25,0,200,'tipsy','len',outCubic)
-			me(111.5,0.25,200,-200,'tipsy','len',outCubic)
-			me(111.75,0.25,-200,0,'tipsy','len',outCubic)
-			
-			me(116,0.5,100,0,'Reverse','len', outCubic)
-			
-			me(116,0.5,0,100,'flip','len',outCubic)
-			me(116.5,0.5,100,0,'flip','len',outCubic)
-			
-			me(117,0.25,0,200,'drunk, tipsy','len',linear)
-			me(117.25,0.25,200,-200,'drunk, tipsy','len',linear)
-			me(117.5,0.25,-200,0,'drunk, tipsy','len',linear)
-			
-			me(118.25,0.25,0,100,'invert','len',outCubic)
-			me(118.5,0.5,100,0,'invert','len',outCubic)
-			me(118.5,0.5,0,100,'flip','len',outCubic)
-			me(119,0.5,100,-100,'invert','len',outCubic)
-			
-			me(119.5,0.5,100,0,'flip','len',outCubic)
-			me(119.5,0.5,-100,0,'invert','len',outCubic)
-			
-			me(121,0.25,0,200,'drunk','len',linear)
-			me(121.25,0.25,200,-200,'drunk','len',linear)
-			me(121.5,0.25,-200,200,'drunk','len',linear)
-			me(121.75,0.25,200,-200,'drunk','len',linear)
-			me(122,0.25,-200,0,'drunk','len',linear)
-			
-			me(122,0.1875,0,-50,'flip','len',outCubic)
-			me(122.1875,122.75,-50,0,'flip','end',outCubic)
-			
-			me(122.75,0.1875,0,-50,'flip','len',outCubic)
-			me(122.9375,123.5,-50,0,'flip','end',outCubic)
-			
-			me(123.5,0.1875,0,-50,'flip','len',outCubic)
-			me(123.9375,0.5625,-50,0,'flip','len',outCubic)
-			
-			me(125.5,0.1875,0,-150,'tipsy','len',outCubic)
-			me(125.6875,126.5,-150,0,'tipsy','end',outCubic)
-			
-			me(126.5,0.1875,0,150,'tipsy','len',outCubic)
-			me(126.6875,127.5,150,0,'tipsy','end',outCubic)
-			
-			me(127.5,0.1875,0,-150,'tipsy','len',outCubic)
-			me(127.6875,128,-150,0,'tipsy','end',outCubic)
-			
-			me(125.5,0.1875,0,-50,'flip','len',outCubic)
-			me(125.6875,126.75,-50,0,'flip','end',outCubic)
-			
-			me(126.5,0.1875,0,-50,'flip','len',outCubic)
-			me(126.6875,127.5,-50,0,'flip','end',outCubic)
-			
-			me(127.5,0.1875,0,-50,'flip','len',outCubic)
-			me(127.6875,128,-50,0,'flip','end',outCubic)
-			
-			me(124,1.5,0,172.5,'centered','len',linear)
-			me(125.5,0.5,0,100,'reverse','len',outSine)
-			me(125.5,1,100,0,'centered','len',linear)
-			m(126,1.5,'*-1 reverse','len')
-			me(128,0.5,100,0,'reverse','len',outSine)
-			
-			------------------------------------------- This a seperation line cause the chrous requires a lot of code, sometimes i don't know where i'm at so i added this!
-			
-			me(132,0.5,0,100,'flip','len',outBack)
-			me(132.5,0.5,100,0,'flip','len',outBack)
-			me(133,0.25,0,200,'drunk, tipsy','len',linear)
-			me(133.25,0.25,200,-200,'drunk, tipsy','len',linear)
-			me(133.5,0.25,-200,0,'drunk, tipsy','len',linear)
-			
-			me(134.25,0.25,0,100,'invert','len', outCubic)
-			me(134.5,0.5,100,75,'invert','len', outCubic)
-			me(134.5,0.5,0,75,'flip','len', outCubic)
-			me(135,0.5,75,-75,'invert','len', outCubic)
-			me(135,0.5,75,25,'flip','len', outCubic)
-			me(135.5,0.5,-75,0,'invert','len', outCubic)
-			me(135.5,0.5,25,0,'flip','len', outCubic)
-			
-			me(136,0.5,0,100,'Reverse','len', outCubic)
-			m(136.5,148,'*-1 reverse','end')
-			me(148,0.5,100,0,'reverse','len',outCubic)
-			
-			me(137,0.25,0,100,'invert','len', outCubic)
-			me(137.25,0.25,100,-100,'invert','len', outCubic)
-			me(137.25,0.25,0,100,'flip','len', outCubic)
-			me(137.5,0.25,-100,0,'invert','len', outCubic)
-			me(137.5,0.25,100,100,'flip','len', outCubic)
-			me(137.75,0.25,100,0,'flip','len', outCubic)
-			
-			me(138.25,0.75,200,0,'tipsy','len',linear)
-			
-			me(139,0.5,200,0,'drunk, tipsy','len',outCubic)
-			me(139.5,0.5,-200,0,'drunk, tipsy','len',outCubic)
-			
-			me(140,0.5,0,100,'flip','len', outCubic)
-			me(140.5,0.5,100,0,'flip','len', outCubic)
-			me(140.5,0.5,0,100,'invert','len', outCubic)
-			m(141,0.75,'*-1 invert','len')
-			me(141.75,0.5,100,-100,'invert','len', outCubic)
-			me(141.75,0.5,0,100,'flip','len', outCubic)
-			me(142.25,0.5,-100,0,'invert','len', outCubic)
-			me(142.25,0.5,100,100,'flip','len', outCubic)
-			me(142.75,0.5,100,0,'flip','len', outCubic)
-			me(141,0.25,200,0,'tipsy','len',linear)
-			me(141.25,0.5,200,0,'tipsy','len',linear)
-			
-			me(148,0.5,0,100,'flip','len',outCubic)
-			me(148.5,0.5,100,0,'flip','len',outCubic)
-			
-			me(149,0.5,0,200,'drunk, tipsy','len',linear)
-			me(149.25,0.25,200,-200,'drunk, tipsy','len',linear)
-			me(149.5,0.25,-200,0,'drunk, tipsy','len',linear)
-			
-			
-			me(149.75,0.25,0,175,'drunk','len',outCubic)
-			me(150.25,0.25,175,-175,'drunk','len',outCubic)
-			me(150.5,0.5,-175,175,'drunk','len',outCubic)
-			me(151,0.5,175,-175,'drunk','len',outCubic)
-			me(151.5,0.25,-175,175,'drunk','len',outCubic)
-			me(151.75,0.25,175,-175,'drunk','len',outCubic)
-			me(152,0.25,-175,0,'drunk','len',outCubic)
-			
-			me(149.75,0.25,0,100,'tipsy','len',outSine)
-			me(150.25,0.25,100,-100,'tipsy','len',outSine)
-			me(150.5,0.5,-100,100,'tipsy','len',outSine)
-			me(151,0.5,100,-100,'tipsy','len',outSine)
-			me(151.5,0.25,-100,100,'tipsy','len',outSine)
-			me(151.75,0.25,100,-100,'tipsy','len',outSine)
-			me(152,0.25,-100,0,'tipsy','len',outSine)
-			
-			me(153,0.25,0,100,'flip','len',outSine)
-			me(153.25,0.25,100,0,'flip','len',outSine)
-			me(153.25,0.25,0,100,'invert','len',outSine)
-			me(153.5,0.25,0,100,'flip','len',outSine)
-			me(153.5,0.25,100,-100,'invert','len',outSine)
-			me(153.75,0.5,100,0,'flip','len',outSine)
-			me(153.75,0.5,-100,100,'invert','len',outSine)
-			
-			me(154.25,0.5,0,25,'flip','len',outSine)
-			me(154.25,0.5,100,-75,'invert','len',outSine)
-			
-			me(154.75,0.5,25,100,'flip','len',outSine)
-			me(154.75,0.5,-75,0,'invert','len',outSine)
-			
-			me(155.25,0.25,100,0,'flip','len',outSine)
-			me(155.25,0.25,0,100,'invert','len',outSine)
-			
-			me(155.5,0.5,100,0,'invert','len',outSine)
-			
-			me(156,1,2.5,1.5,'xmod','len',linear)
-			
-			me(157,3,0,230,'centered','len',linear)
-			
-			me(160,0.1875,0,150,'tipsy','len',outCubic)
-			me(160.1875,161.25,150,0,'tipsy','end',outCubic)
-			
-			me(161.25,0.1875,0,-150,'tipsy','len',outCubic)
-			me(161.4375,161.75,-150,0,'tipsy','end',outCubic)
-			
-			me(161.75,0.1875,0,-150,'tipsy','len',outCubic)
-			me(161.9375,162.25,-150,0,'tipsy','end',outCubic)
-			
-			me(160,0.1875,0,-50,'flip','len',outCubic)
-			me(160.1875,161.25,-50,0,'flip','end',outCubic)
-			
-			me(161.25,0.1875,0,-50,'flip','len',outCubic)
-			me(161.4375,161.75,-50,0,'flip','end',outCubic)
-			
-			me(161.75,0.1875,0,-50,'flip','len',outCubic)
-			me(161.9375,162.25,-50,0,'flip','end',outCubic)
-			
-			
-			me(162.5,0.1875,0,150,'tipsy','len',outCubic)
-			me(162.6875,163,150,0,'tipsy','end',outCubic)
-			
-			me(163,0.1875,0,-150,'tipsy','len',outCubic)
-			me(163.1875,163.5,-150,0,'tipsy','end',outCubic)
-			
-			me(163.5,0.1875,0,-150,'tipsy','len',outCubic)
-			me(163.6875,164,-150,0,'tipsy','end',outCubic)
-			
-			me(162.5,0.1875,0,-50,'flip','len',outCubic)
-			me(162.6875,163,-50,0,'flip','end',outCubic)
-			
-			me(163,0.1875,0,-50,'flip','len',outCubic)
-			me(163.1875,163.5,-50,0,'flip','end',outCubic)
-			
-			me(163.5,0.1875,0,-50,'flip','len',outCubic)
-			me(163.6875,164,-50,0,'flip','end',outCubic)
-			
-			me(160,0.5,0,100,'reverse','len',outSine)
-			me(160,1,230,0,'centered','len',linear)
-			m(160,3.5,'*-1 reverse','len')
-			me(163.5,0.5,100,0,'reverse','len',outSine)
-			
-			------------------------------------------- This is a lot of code for something that is 30 bars. So far only 15 bars so half way done! This is still a lot. It's almost copy and patse EXCEPT THE RHYTHM SOMETIMES ARE DIFFERENT TIMING.
-			
-			me(100+64,0.5,0,100,'flip','len',outCubic)
-			me(100.5+64,0.5,100,0,'flip','len',outCubic)
-			me(101+64,0.25,0,200,'drunk, tipsy','len',linear)
-			me(101.25+64,0.25,200,-200,'drunk, tipsy','len',linear)
-			me(101.5+64,0.25,-200,0,'drunk, tipsy','len',linear)
-			m(165.75,0.25,'*2 no tipsy','len')
-			
-			me(102.75+64,0.25,0,100,'invert','len', outCubic)
-			me(103+64,0.25,100,75,'invert','len', outCubic)
-			me(103+64,0.25,0,75,'flip','len', outCubic)
-			me(103.25+64,0.25,75,-75,'invert','len', outCubic)
-			me(103.25+64,0.25,75,25,'flip','len', outCubic)
-			me(103.5+64,0.25,-75,0,'invert','len', outCubic)
-			me(103.5+64,0.25,25,0,'flip','len', outCubic)
-			
-			me(166.5,0.25,200,0,'tipsy','len',linear)
-			
-			me(172,0.5,0,100,'flip','len',outCubic)
-			me(172.5,0.5,100,0,'flip','len',outCubic)
-			
-			me(173,0.25,0,100,'invert','len',outCubic)
-			me(173.25,0.5,100,0,'invert','len',outCubic)
-			me(173.75,0.5,0,100,'invert','len',outCubic) 
-			me(174.25,0.25,100,100,'invert','len',outCubic) 
-			
-			me(174.5,0.5,100,0,'invert','len',outCubic)
-			me(175,0.5,0,100,'invert','len',outCubic)
-			me(175.5,0.5,100,0,'invert','len',outCubic) 
-			
-			me(173,0.25,0,200,'drunk, tipsy','len',linear)
-			me(173.25,0.5,200,-200,'drunk, tipsy','len',linear)
-			me(173.75,0.5,-200,0,'drunk, tipsy','len',linear)
-			
-			me(174.5,0.5,0,200,'drunk, tipsy','len',linear)
-			me(175,0.5,200,-200,'drunk, tipsy','len',linear)
-			me(175.5,0.5,-200,0,'drunk, tipsy','len',linear)
-			
-			me(180,0.5,0,100,'invert',l,outCubic)
-			me(180.5,0.5,100,0,'invert',l,outCubic)
-			
-			me(181,0.25,0,200,'drunk, tipsy','len',outQuint)
-			me(181.25,0.5,200,-200,'drunk, tipsy','len',outQuint)
-			me(181.75,0.25,-200,200,'drunk, tipsy','len',outQuint)
-			me(182,0.5,200,0,'drunk, tipsy','len',outQuint)
-			
-			me(183,0.25,0,100,'flip',l,outCubic)
-			me(183.25,0.25,100,0,'invert',l,outCubic)
-			me(183.25,0.25,0,100,'flip',l,outCubic)
-			me(183.5,0.25,100,0,'flip',l,outCubic)
-			
-			me(186,0.75,200,0,'tipsy','len',linear)
-			me(186.75,0.75,-200,0,'tipsy','len',linear)
-			me(187.5,0.75,200,0,'tipsy','len',linear)
-			
-			me(185,0.25,0,100,'invert',l,outCubic)
-			me(185.25,0.25,100,0,'invert',l,outCubic)
-			me(185.25,0.25,0,100,'flip',l,outCubic)
-			me(185.5,0.25,0,75,'invert',l,outCubic)
-			me(185.5,0.25,100,75,'flip',l,outCubic)
-			me(185.75,0.25,75,0,'invert',l,outCubic)
-			me(185.75,0.25,75,0,'flip',l,outCubic)
-			
-			me(186,0.35,0,100,'invert','len',outCubic)
-			m(186.35,0.35,'*-1 invert',l)
-			me(186.75,0.35,100,0,'invert','len',outCubic)
-			m(187.1,0.4,'*-1 flip',l)
-			me(186.75,0.35,0,100,'flip','len',outCubic)
-			me(187.5,0.35,100,0,'flip','len',outCubic)
-			
-			------------------------------------------- I hate this so much. I wish it was less longer but i'm 28 beats away which helps with confidence. Line of code from here is 304. Wow!
-			
-			me(196,0.5,0,100,'flip',l,outCubic)
-			me(196.5,0.5,100,0,'flip',l,outCubic)
-			me(197,0.25,0,200,'drunk, tipsy','len',linear)
-			me(197.25,0.25,200,-200,'drunk, tipsy','len',linear)
-			me(197.5,0.25,-200,0,'drunk, tipsy','len',linear)
-			m(197.75,0.25,'*2 no tipsy','len')
-			me(198.25,0.25,0,100,'invert',l,outCubic)
-			me(198.5,0.25,100,0,'invert',l,outCubic)
-			me(198.5,0.5,0,100,'flip',l,outCubic)
-			me(199,0.5,100,0,'flip',l,outCubic)
-			me(199.5,0.25,0,200,'drunk, tipsy','len',linear)
-			me(199.75,0.25,200,-200,'drunk, tipsy','len',linear)
-			me(200,0.25,-200,0,'drunk, tipsy','len',linear)
-			m(200.25,0.25,'no tipsy','len')
-			me(200.75,0.25,0,100,'flip',l,outCubic)
-			me(201,0.25,100,100,'flip',l,outCubic)
-			me(201,0.25,0,-100,'invert',l,outCubic)
-			me(201.25,0.25,100,0,'flip',l,outCubic)
-			me(201.25,0.25,-100,100,'invert',l,outCubic)
-			me(201.5,0.25,100,0,'invert',l,outCubic)
-			
-			me(202,0.1875,0,200,'tipsy','len',outCubic)
-			me(202.1875,202.75,200,0,'tipsy','end',outCubic)
-			
-			me(202.75,0.1875,0,-200,'tipsy','len',outCubic)
-			me(202.9375,203.5,-200,0,'tipsy','end',outCubic)
-			
-			me(203.5,0.1875,0,200,'tipsy','len',outCubic)
-			me(203.6875,204.25,200,0,'tipsy','end',outCubic)
-			
-			me(202,0.1875,0,-50,'flip','len',outCubic)
-			me(202.1875,202.75,-50,0,'flip','end',outCubic)
-			
-			me(202.75,0.1875,0,-50,'flip','len',outCubic)
-			me(202.9375,203.5,-50,0,'flip','end',outCubic)
-			
-			me(203.5,0.1875,0,-50,'flip','len',outCubic)
-			me(203.6875,204.25,-50,0,'flip','end',outCubic)
-			
-			me(204,0.5,0,100,'flip',l,outBack)
-			me(204.5,0.5,100,0,'flip',l,outBack)
-			
-			me(205,0.25,0,200,'drunk, tipsy','len',linear)
-			me(205.25,0.5,200,-200,'drunk, tipsy','len',linear)
-			me(205.75,0.25,-200,0,'drunk, tipsy','len',linear)
-			
-			me(206.25,0.25,0,100,'invert',l,outSine)
-			me(206.5,0.25,100,-100,'invert',l,outSine)
-			me(206.5,0.25,0,100,'flip',l,outSine)
-			me(206.75,0.5,-100,100,'invert',l,outSine)
-			me(206.75,0.5,100,0,'flip',l,outSine)
-			me(207.25,0.25,0,100,'flip',l,outSine)
-			me(207.25,0.25,100,0,'invert',l,outSine)
-			me(207.5,0.25,100,0,'flip',l,outSine)
-			
-			me(208,1,0,100,'flip',l,outBack)
-			me(208,1,150,0,'tipsy',l,outBack)
-			me(209,1,100,0,'flip',l,outBack)
-			me(209,1,-150,0,'tipsy',l,outBack)
-			me(209,1,0,100,'invert',l,outBack)
-			me(209,1,150,0,'tipsy',l,outBack)
-			me(210,0.5,100,0,'invert',l,outBack)
-			me(210,0.5,-150,0,'tipsy',l,outBack)
-			
-			me(210.5,0.5,0,100,'flip',l,outBack)
-			me(211,0.5,100,0,'flip',l,outBack)
-			me(211,0.5,0,100,'invert',l,outBack)
-			me(211.5,0.5,100,0,'invert',l,outBack)
-			
-			me(212,0.5,0,100,'flip',l,outBack)
-			me(212.5,0.5,100,0,'flip',l,outBack)
-			
-			me(213,0.25,0,200,'drunk, tipsy','len',linear)
-			me(213.25,0.5,200,-200,'drunk, tipsy','len',linear)
-			me(213.75,0.25,-200,0,'drunk, tipsy','len',linear)
-			
-			me(214.25,0.25,0,100,'invert',l,outCubic)
-			me(214.5,0.5,100,0,'invert',l,outCubic)
-			
-			me(215,0.5,0,100,'flip',l,outCubic)
-			me(215.5,0.5,100,0,'flip',l,outCubic)
-			me(215.5,0.5,0,100,'invert',l,outCubic)
-			me(216,0.5,100,0,'invert',l,outBack)
-			me(216,0.5,0,100,'flip',l,outBack)
-			me(216.5,0.5,100,0,'flip',l,outBack)
-			
-			me(217,0.25,0,100,'invert',l,outSine)
-			me(217.25,0.25,100,0,'invert',l,outSine)
-			me(217.25,0.25,0,100,'flip',l,outSine)
-			me(217.5,0.25,0,75,'invert',l,outSine)
-			me(217.5,0.25,100,75,'flip',l,outSine)
-			me(217.75,0.25,75,0,'invert',l,outSine)
-			me(217.75,0.25,75,100,'flip',l,outSine)
-			me(217.75,0.25,75,100,'flip',l,outSine)
-			me(218.25,0.5,100,0,'flip',l,outSine)
-			me(218.25,0.5,0,100,'invert',l,outSine)
-			me(218.75,0.5,0,100,'flip',l,outSine)
-			me(218.75,0.5,100,-100,'invert',l,outSine)
-			me(219.25,0.25,100,100,'flip',l,outSine)
-			me(219.25,0.25,-100,0,'invert',l,outSine)
-			me(219.5,0.5,100,0,'flip',l,outSine)
-			
-			me(220,1,2.5,1.5,'xmod',l,linear)
-			m(221.1,3,'*-1 1.5x',l)
-			me(221,3,0,230,'centered','len',linear)
-			m(224,0.5,'*-1 stealth',l)
-			m(224.5,3.5,'no stealth',l)
-			m(224,4,'*-1 no centered,*-1 reverse',l)
-			m(224,4,'*-1 no centered,*-1 reverse',l)
-			
-			m(226.5,4,'*2 0 reverse',l)
-			m(226.5,4,'*2 0 reverse',l)
-			--I'm so close to being done but it's about midnight for me so i'm gonna leave it here.
-			
-		    me(258,260,-3000,0,'parabolaz','end',outSine,2)
-			me(258,260,-3000,0,'parabolaz','end',outSine,1)
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
@@ -806,6 +826,69 @@
         
         Revo_NITGFanUpdateCommand="%function(self)
             local beat = GAMESTATE:GetSongBeat()
+			function math.sign(v)
+						return (v >= 0 and 1) or -1
+					end
+					function math.round(v, bracket)
+						bracket = bracket or 1
+						return math.floor(v/bracket + math.sign(v) * 0.5) * bracket
+					end
+				
+					if table.getn(mod_perframes)>0 then
+						for i=1,table.getn(mod_perframes) do
+							local a = mod_perframes[i]
+							if beat > a[1] and beat < a[2] then
+								a[3](beat,deltatime);
+							end
+						end
+					end
+					
+					--Modified to be a flicker on tiny from a function I made for Pon-Pon-Pompoko Dai-Sen-Saw! It used to be a function on Blink but more controllable to be way better.
+					
+					function tinyFlicker(b,value1,value2,length,period,speed1,speed2)
+						if beat-b < length then
+							if ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) > -0.5 and ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) < 0 then
+									mod_do('*'..speed1..' '..value1..' tiny')
+							elseif ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) > 0 and ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) < 0.5 then
+								mod_do('*'..speed2..' '..value2..' tiny')
+							end
+						end
+					end
+					
+					tinyFlicker(53.5,aux:getaux(),aux:getaux()*-1,10.5,32,-1,-1)
+				
+				    if beat >= 111 and beat <= 186 then
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(1)
+							Plr(1):x(aux_spin:getaux()*math.cos(beat * math.pi)+SCREEN_CENTER_X)
+							Plr(1):y(aux_spin:getaux()*math.sin(beat * math.pi)+SCREEN_CENTER_Y)
+							Plr(2):x(aux_spin:getaux()*math.cos((beat + 0.66666) * math.pi)+SCREEN_CENTER_X)
+							Plr(2):y(aux_spin:getaux()*math.sin((beat + 0.66666) * math.pi)+SCREEN_CENTER_Y)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(1)
+							mod_do('*-1 0 mini')
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
+							
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
+							if math.abs(math.sin(beat/2 * math.pi)*(aux_spin:getaux()*4)) > 0 then
+								mod_do('*-1 '..(math.abs(math.sin(beat/2 * math.pi)*(aux_spin:getaux()*4)))..' Invert')
+							end
+					end
+					
+					if beat >= 187 and beat <= 224 then
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(1)
+							Plr(1):x(aux_spin:getaux()*math.cos(beat * math.pi)+SCREEN_CENTER_X)
+							Plr(1):y(aux_spin:getaux()*math.sin(beat * math.pi)+SCREEN_CENTER_Y)
+							Plr(2):x(aux_spin:getaux()*math.cos((beat + 0.66666) * math.pi)+SCREEN_CENTER_X)
+							Plr(2):y(aux_spin:getaux()*math.sin((beat + 0.66666) * math.pi)+SCREEN_CENTER_Y)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(1)
+							mod_do('*-1 0 mini')
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
+							
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
+							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
+					end
             self:sleep(0.0075)
             self:queuecommand('Revo_NITGFanUpdate')
         end"
