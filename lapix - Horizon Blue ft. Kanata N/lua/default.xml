@@ -1,7 +1,6 @@
 --today's changes: little bit of eases, an unfinished transition betwenn the tornado-stealth and player-proxy march, ghfklgfklfghlk.
 <ActorFrame
 InitCommand="%function(self)
-
 	nitg_version = FUCK_EXE and tonumber(GAMESTATE:GetVersionDate()) >= 20180617 --NotITG version number to check for, v3 by default
 	
 	if not nitg_version then
@@ -55,9 +54,9 @@ end"
 	<Layer File="modhelpers" />
 	<Layer File="easing" />
 	<Layer File="spellcards" />
-	<Layer File="desjul/notedata.xml" />
-	<Layer File="oranger/orange_mods" />
 	<Layer File="desjul/desjul_mods" />
+	<Layer File="oranger/orange_mods" />
+	
 	
 	<Layer
 		Type="ActorFrame"
@@ -160,7 +159,7 @@ end"
 			local m2 = mod_message
 			local me = mod_ease
 		    local mpf = mod_perframe
-			local P3 = Plr(3)
+			local P3 = SCREENMAN:GetTopScreen():GetChild('PlayerP3')
                if P3 then
             P3:SetAwake(false)
             P3:hidden(0)
@@ -170,7 +169,7 @@ end"
 			P3:zoom(1.2)
             end
 			
-			local P4 = Plr(4)
+			local P4 = SCREENMAN:GetTopScreen():GetChild('PlayerP4')
                if P4 then
             P4:SetAwake(false)
             P4:hidden(0)
@@ -183,6 +182,8 @@ end"
 			local l = 'len'
 			local e = 'end'
 			
+			
+			
 			local function quickOn(beat,strength,len,md,pn)
 			    local activation_rate = math.abs(strength/10)
 			    m( beat-0.1,0.3,'*'..activation_rate..' '..strength..' '..md, 'len', pn )
@@ -191,7 +192,6 @@ end"
 ---------------------------------------------------------------------------------------
 ----------------------Begin tables 'n stuff--------------------------------------------
 ---------------------------------------------------------------------------------------
-
 			--beat based mods
 			--{beat_start, beat_end, mods, len_or_end, player_number}
 			mods = {
@@ -203,6 +203,16 @@ end"
 				
 				{68,99,'*-1 40 DrawSize','len'},
 				{260,64,'*8 300 beat','len'},
+				{324,11,'*8 300 beat','len'},
+				
+				{291,100,'*1 100% stealth, *1 100% dark, *1 100% hidenoteflash, *1 100% halgun','len',1},
+				{291,100,'*-1 100% stealth, *1 100% dark, *1 100% hidenoteflash, *1 100% halgun','len',2},
+				
+				{324,5,'*-1 0 parabolaz, 0 sudden, 0 hidden, 0 hiddenoffset, *1.25 0 wave, *1.25 0 tornado, *1.25 0 rotationx, *1.25 0 dark, *1.25 0 confusionxoffset, *1.25 0 centered, 3x','len',3},
+			    {324,5,'*-1 0 parabolaz, 0 sudden, 0 hidden, 0 hiddenoffset, *1.25 0 wave, *1.25 0 tornado,  *1.25 0 rotationx, *1.25 0 dark, *1.25 0 confusionxoffset,*1.25 0 centered, 3x','len',4},
+			    {324,5,'*-1 0 parabolaz, *-1 0 drawsize','len'},
+			    {324,5,'*-1 0 stealth','len',4},
+				{324,5,'*-1 0 stealth','len',3},
 			}
 			
 			--beat-based ease mods
@@ -258,10 +268,19 @@ end"
 				{67,1,100,0,'flip','len', outCubic},
 				{67,1,-100,0,'invert','len', outCubic},
 				--fortnite! wait no I meant update
-			    {85,2,0,100,'flip','len',outQuad},
-				{87,2,100,0,'flip','len',outQuad},
-				{89,2,0,100,'invert','len',outQuad},
-				{91,2,100,0,'invert','len',outQuad},
+			    {85,2,0,100,'flip','len',outCubic},
+				{87,2,100,0,'flip','len',outCubic},
+				{89,2,0,100,'invert','len',outCubic},
+				{91,2,100,0,'invert','len',outCubic},
+				
+				{96,1,0,100,'flip','len', outCubic},
+				{97,1,0,100,'invert','len', outCubic},
+				{97,1,100,0,'flip','len', outCubic},
+				{98,1,0,100,'flip','len', outCubic},
+				{98,1,100,-100,'invert','len', outCubic},
+				{99,1,100,0,'flip','len', outCubic},
+				{99,1,-100,0,'invert','len', outCubic},
+				
 				{128,1,0,100,'flip','len', outCubic},
 				{129,1,0,100,'invert','len', outCubic},
 				{129,1,100,0,'flip','len', outCubic},
@@ -292,6 +311,8 @@ end"
 				{194,1,100,-100,'invert','len', outCubic},
 				{195,1,100,0,'flip','len', outCubic},
 				{195,1,-100,0,'invert','len', outCubic},
+				
+				
 				
 				-- EXAMPLE TWEEN: from beat 4 to 8, rotate topscreen from 360 to 0 with the outBack tween
 				--{4, 4, 360, 0, function(a) SCREENMAN:GetTopScreen():rotationz(a) end, 'len', outBack},
@@ -325,6 +346,7 @@ end"
 				{340,'ResetBG',true},
 				{404,'DestroyBG',true},
 				{223,'Proxy',true},
+				{260,'HideProxy2',true},
 				{324,'HideProxy',true},
 				{0,function()
 					for pn=1,2 do
@@ -333,6 +355,7 @@ end"
 							a:GetChild('Judgment'):hidden(1)
 							a:GetChild('Combo'):hidden(1)
 							a:SetFarDist(10000)
+							
 						end
 					end
 					
@@ -523,55 +546,6 @@ end"
 							end
 						end
 					end
-				
-				    if beat >= 111 and beat <= 186 then
-							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(1)
-							Plr(1):x(aux_spin:getaux()*math.cos(beat * math.pi)+SCREEN_CENTER_X)
-							Plr(1):y(aux_spin:getaux()*math.sin(beat * math.pi)+SCREEN_CENTER_Y)
-							Plr(2):x(aux_spin:getaux()*math.cos((beat + 0.66666) * math.pi)+SCREEN_CENTER_X)
-							Plr(2):y(aux_spin:getaux()*math.sin((beat + 0.66666) * math.pi)+SCREEN_CENTER_Y)
-							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(1)
-							mod_do('*-1 0 mini')
-							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
-							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
-							
-							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
-							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
-							if math.abs(math.sin(beat/2 * math.pi)*(aux_spin:getaux()*4)) > 0 then
-								mod_do('*-1 '..(math.abs(math.sin(beat/2 * math.pi)*(aux_spin:getaux()*4)))..' Invert')
-							end
-					end
-					
-					if beat >= 187 and beat <= 224 then
-							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(1)
-							Plr(1):x(aux_spin:getaux()*math.cos(beat * math.pi)+SCREEN_CENTER_X)
-							Plr(1):y(aux_spin:getaux()*math.sin(beat * math.pi)+SCREEN_CENTER_Y)
-							Plr(2):x(aux_spin:getaux()*math.cos((beat + 0.66666) * math.pi)+SCREEN_CENTER_X)
-							Plr(2):y(aux_spin:getaux()*math.sin((beat + 0.66666) * math.pi)+SCREEN_CENTER_Y)
-							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(1)
-							mod_do('*-1 0 mini')
-							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
-							SCREENMAN:GetTopScreen():GetChild('PlayerP3'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
-							
-							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):x(aux_spin:getaux()*math.cos((beat + 1.33333) * math.pi)+SCREEN_CENTER_X)
-							SCREENMAN:GetTopScreen():GetChild('PlayerP4'):y(aux_spin:getaux()*math.sin((beat + 1.33333) * math.pi)+SCREEN_CENTER_Y)
-					end
-					
-					if beat >= 292 and beat <= 324 then
-						mod_do('*-1 '..(math.sin(beat/4 * math.pi)*100)..' drunk')
-					end
-					
-					--Modified to be a flicker on tiny from a function I made for Pon-Pon-Pompoko Dai-Sen-Saw! It used to be a function on Blink but more controllable to be way better.
-					
-					function tinyFlicker(b,value1,value2,length,period,speed1,speed2)
-						if beat-b < length then
-							if ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) > -0.5 and ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) < 0 then
-									mod_do('*'..speed1..' '..value1..' tiny')
-							elseif ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) > 0 and ((beat-b)*period-(length-(length-math.round((beat-b)*period)))) < 0.5 then
-								mod_do('*'..speed2..' '..value2..' tiny')
-							end
-						end
-					end
 					
 					tinyFlicker(53.5,aux:getaux(),aux:getaux()*-1,10.5,32,-1,-1)
 				
@@ -590,7 +564,6 @@ end"
 					end
 				end
 			end
-
 ---------------------------------------------------------------------------------------
 ----------------------END DON'T TOUCH IT KIDDO-----------------------------------------
 ---------------------------------------------------------------------------------------
@@ -701,6 +674,14 @@ end"
 	
 	<Layer Type="ActorProxy" 
 	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(-192*3) end end"
+	HideProxyMessageCommand="hidden,1" />
+	
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P2 then self:SetTarget(P2) self:x(-192*3) end end"
+	HideProxy2MessageCommand="hidden,1" />
+	
+	<Layer Type="ActorProxy" 
+	ProxyMessageCommand="%function(self) if P1 then self:SetTarget(P1) self:x(192*3) end end"
 	HideProxyMessageCommand="hidden,1" />
 	
 	

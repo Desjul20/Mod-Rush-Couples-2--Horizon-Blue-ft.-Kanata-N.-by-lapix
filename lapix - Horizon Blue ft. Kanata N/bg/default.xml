@@ -1,5 +1,4 @@
 <ActorFrame><children>
---just figured i'd add this bg.png while I remember.
 	<Layer
         Type="Sprite"
         Texture="bg.png"
@@ -12,10 +11,6 @@
 	    self:diffusealpha(1)
         end"
 	/>
-	
---I did a thing with these sprites
-
---THESE LOOK SO NICE
 	
 	<Layer
 	File="fader2"
@@ -39,28 +34,7 @@
     end"
 	/>
 	
-	<Layer
-	File="starrii"
-	OnCommand="%function(self)
-	addrizon=self
-	self:diffusealpha(0)
-	self:zoomto(SCREEN_WIDTH*2,SCREEN_HEIGHT*2);
-	self:x(SCREEN_CENTER_X);
-	self:y(SCREEN_CENTER_Y);
-    end"
-	/>
-	
-	<Layer
-	File="starrii"
-	OnCommand="%function(self)
-	addrizon2=self
-	self:diffusealpha(0)
-	self:zoomto(SCREEN_WIDTH*2,SCREEN_HEIGHT*2);
-	self:x(SCREEN_CENTER_X);
-	self:y(SCREEN_CENTER_Y);
-    end"
-	/>
-        --working with these sprites is painful... but rewarding! honestly I would never think of splitting a bg into shards like that, so thank you for giving me all the ideas that I can do with this :)
+    --these values are a pain.
 	<Layer
 		File="1x1"
 		OnCommand="x,80;y,80;sleep,26.676;accelerate,2;zoom,0;x,SCREEN_CENTER_X;y,SCREEN_CENTER_Y;sleep,3.137;linear,1;x,80;y,80;sleep,4.743;decelerate,0.3;zoom,1;sleep,51,173;accelerate,0.1;diffusealpha,0"
@@ -120,5 +94,27 @@
 	   self:y(SCREEN_CENTER_Y)
 	   self:diffusealpha(0)
 	   end"
+	/>
+	
+	<Layer
+	File="starrii"
+	OnCommand="%function(self)
+	addrizon=self
+	self:diffusealpha(0)
+	self:zoomto(SCREEN_WIDTH*2,SCREEN_HEIGHT*2);
+	self:x(SCREEN_CENTER_X);
+	self:y(SCREEN_CENTER_Y);
+    end"
+	/>
+	
+	<Layer
+	File="starrii"
+	OnCommand="%function(self)
+	addrizon2=self
+	self:diffusealpha(0)
+	self:zoomto(SCREEN_WIDTH*2,SCREEN_HEIGHT*2);
+	self:x(SCREEN_CENTER_X);
+	self:y(SCREEN_CENTER_Y);
+    end"
 	/>
 </children></ActorFrame>

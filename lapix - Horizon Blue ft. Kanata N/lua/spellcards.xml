@@ -28,6 +28,13 @@
 	--start,end,name,difficulty,color
 	prefix_spellcards = {
 		--{40,64,'name',6,{.1,.2,.8,1}},
+		{0,63,'what a sweet looking file! I sure hope there isnt anything horrifying ahead!',6,{.0,.2,.6,3}},
+		{64,100,'well? are you ready to go or.?',8,{.2,.4,.9,3}},
+		{100,224,'*unblues your horizon*',16,{.3,.5,3,3}},
+		{228,259,'I would say this is the chill part if I could',14,{.5,.8,3,1}},
+		{260,291,'where are they going?',14,{.0,.4,.8,1.5}},
+		{291.5,323,'putting the horizon in horizon blue',10,{.0,.8,.8,3}},
+		{324,339,'slowing the horizon',8,{.4,.4,.8,2}},
 	}
 	nitg_send_spellcards(prefix_spellcards)
 end"/>

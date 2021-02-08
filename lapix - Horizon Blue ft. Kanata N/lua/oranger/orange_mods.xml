@@ -122,32 +122,12 @@
 			--see example on beat 0
 			--mm(beat,thing,persists)
 			
-			local P3 = SCREENMAN:GetTopScreen():GetChild('PlayerP3')
-               if P3 then
-            P3:SetAwake(false)
-            P3:hidden(0)
-            P3:SetInputPlayer(1)
-			P3:GetChild('Judgment'):hidden(1)
-			P3:GetChild('Combo'):hidden(1)
-			P3:zoom(1.2)
-            end
 			
-			local P4 = SCREENMAN:GetTopScreen():GetChild('PlayerP4')
-               if P4 then
-            P4:SetAwake(false)
-            P4:hidden(0)
-            P4:SetInputPlayer(1)
-			P4:GetChild('Judgment'):hidden(1)
-			P4:GetChild('Combo'):hidden(1)
-			P4:zoom(1.2)
-            end
-
             local function quickOn(beat,strength,len,md,pn)
 			    local activation_rate = math.abs(strength/10)
 			    m( beat-0.1,0.3,'*'..activation_rate..' '..strength..' '..md, 'len', pn )
 				m( beat+0.1,len,'*'..((activation_rate/5)/len)..' 0 '..md, 'len', pn )
 			end
-
             m2(0, function()
 			   for pn = 1, 2 do
 			    local a = Plr(pn)
@@ -157,11 +137,24 @@
 			    a:x(sw/2)
 			    end
 				end
-			 end, true)
-
-			m2(0,function()
+				P3 = SCREENMAN:GetTopScreen():GetChild('PlayerP3')
+               if P3 then
+            P3:hidden(0)
+            P3:SetInputPlayer(1)
+			P3:GetChild('Judgment'):hidden(1)
+			P3:GetChild('Combo'):hidden(1)
+			P3:zoom(1.2)
+            end
+			
+			P4 = SCREENMAN:GetTopScreen():GetChild('PlayerP4')
+               if P4 then
             P4:hidden(1)
-            end)			
+            P4:SetInputPlayer(2)
+			P4:GetChild('Judgment'):hidden(1)
+			P4:GetChild('Combo'):hidden(1)
+			P4:zoom(1.2)
+            end
+			 end, true)		
 			 
 			m2(2.5,function()
 			   for pn = 1, 2 do
@@ -193,8 +186,7 @@
 			end)
 			
 			m2(4,function()
-			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):linear(0.01)
-			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):diffusealpha(0)
+				SCREENMAN:GetTopScreen():GetChild('PlayerP3'):x(1600)
 			end)
 			
 			m2(27,function()
@@ -203,7 +195,7 @@
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(0.6)
 			end)
 			
-			m2(30,function()
+			m2(29.5,function()
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):linear(3.5)
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):addx(-1000)
 			end)
@@ -235,9 +227,8 @@
 			softifier:decelerate(0.4)
 			softifier:diffusealpha(0.2)
 			end)
-
 			m(0,3,'*-1 stealth','len')
-			m(0,290.5,'*-1 stealth','len',4)
+			m(0,68,'*-1 stealth','len',4)
 			m(0,3,'*-1 dark','len',3)
 			m(30,1,'*-1 30% dark','len',3)
 			m(0,3,'*-1 dark','len',4)
@@ -249,7 +240,7 @@
 			for i=31,36, 1 do
 			quickOn(i,50,.5,'tipsy',3)
 			quickOn(i,50,.5,'drunk',3)
-			quickOn(i+1,-100,.5,'tipsy',3)
+			quickOn(i+1,-100*mod_value:getaux(),.5,'tipsy',3)
 			quickOn(i+1,-100,.5,'drunk',3)
 			end
 			
@@ -263,6 +254,11 @@
 					a:stopeffect()
 				end
 				end
+				--DO NOT CHANGE
+				--this will hide the quadmash that stick to your screen if you don't hit it
+				P4:hidden(0)
+				P4:SetInputPlayer(2)
+				P3:SetInputPlayer(2)
 			end,true)
 			
 			mpf(36,68,function(beat)
@@ -292,7 +288,8 @@
 			addrizon2:rotationz(180)
 			addrizon2:addy(sh/2)
 			addrizon2:diffusealpha(0.05)
-			addrizon2:spin(1)
+			addrizon:customtexturerect(4,4,0,0)
+			addrizon:texcoordvelocity(-0.15,-0.2)
 			end)
 			
 			m2(68,function()
@@ -301,7 +298,8 @@
 			addrizon:rotationz(0)
 			addrizon:addy(-sh/2)
 			addrizon:diffusealpha(0.05)
-			addrizon:spin(0.5)
+			addrizon:customtexturerect(4,4,0,0)
+			addrizon:texcoordvelocity(-0.15,-0.2)
 			end)
 			
 			m2(68,function()
@@ -315,6 +313,7 @@
 				--this is, indeed, ok
 				gradient2:accelerate(1.960)
 				gradient2:diffusealpha(0)
+				P4:hidden(0)
 			end,true)
 			
 			m2(68,function()
@@ -327,18 +326,21 @@
 		   --lfd-esque transition
 			m(68,6,'*-1 no stealth','len',4)
 			m(68,75.9,'*10000 49.9% Reverse,*10000 -2000% Bumpy,*10000 1200% Sudden,*10000 50% Mini, *1000 no flip, *1000 dark','end',4)
-			m(68,75.9,'*10000 -92% SuddenOffset, *10000 C8.43, *1000 -200 brake','end',4)
+			m(68,75.9,'*10000 -92% SuddenOffset, *10000 C5.43, *1000 -200 brake','end',4)
 			
 			m2(74,function()
 			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):accelerate(0.8)
 			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(4)
+			--change player 3 and 4 back
+			P4:SetInputPlayer(1)
+			P3:SetInputPlayer(0)
 			end)
 			
 			m2(76,function()
 				for pn = 1, 2 do
 			    local a = Plr(pn)
 			    if a then
-					a:linear(2.5)
+					a:linear(2)
 					a:zoom(0.9)
 				end
 				end
@@ -350,9 +352,10 @@
 			end)
 			
 			m2(76.01,function()
-			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):linear(2.5)
-			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(0.9)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):linear(2)
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(0.9)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):linear(2)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(0)
 			end)
 			
 			m2(76,function()
@@ -368,9 +371,9 @@
 			m(76,1,'*-1 no stealth','len',3)
 			m(76.2,1,'*-1 no bumpy','len',4)
 			m(76.1,1,'*-1 clearall','len',4)
-                        m(76.1,1,'*-1 no sudden','len',4)
+            m(76.1,1,'*-1 no sudden','len',4)
 		   
-		        m2(100,function()
+		    m2(100,function()
 			flash:diffusealpha(1)
 			flash:accelerate(0.2)
 			flash:diffusealpha(0)
@@ -388,6 +391,10 @@
 			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):zoom(1)
 			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):zoom(1)
 			end)
+			m2(100,function()
+			addrizon:diffusealpha(0.02)
+			addrizon2:diffusealpha(0.02)
+			end)
 			
 			m2(226,function()
 			softifier:decelerate(0.2)
@@ -402,7 +409,7 @@
 			m2(227,function()
 			gradient:accelerate(0.3)
 			gradient:diffuse(0,0,0,0.8)
-                        end)
+            end)
 			
 			m2(227,function()
 			gradient2:accelerate(0.3)
@@ -415,6 +422,99 @@
 			blurizon:linear(2)
 			blurizon:zoom(1)
 			end)
+			
+			m2(227,function()
+			horizon:diffusealpha(0)
+			horizon2:diffusealpha(0)
+			addrizon:diffusealpha(0)
+			addrizon:stopeffect(1)
+			addrizon2:diffusealpha(0)
+			addrizon2:stopeffect(1)
+			end)
+			
+			m2(260,function()
+			flash:diffusealpha(1)
+			flash:accelerate(0.3)
+			flash:diffusealpha(0)
+			end)
+			m2(260,function()
+			softifier:diffuse(0,0.5,2,0.5)
+			gradient:diffuse(1,1,1,0.2)
+			gradient2:diffuse(1,1,1,0.2)
+			end)
+			
+			m2(260,function()
+			addrizon:diffusealpha(0.2)
+			addrizon:rotationx(0)
+			end)
+			
+			m(291,4,'*1 no dark, *1 no halgun, *1 no hidenoteflash','len',4)
+			m(291,4,'*1 no dark, *1 no halgun, *1 no hidenoteflash, *1 70% stealth, *1 no hide','len',3)
+			me(291.5,2,0,100,'reverse','len',outExpo,4)
+			me(291.5,2,0,220,'incoming','len',outExpo,4)
+			me(291.5,2,0,175,'movey','len',outExpo,4)
+			me(291.5,2,720,0,'rotationy','len',outExpo,4)
+			me(293,100,100,100,'reverse','len',linear,4)
+			me(293,100,220,220,'incoming','len',linear,4)
+			me(293,100,175,175,'movey','len',linear,4)
+			
+			me(291.5,2,0,220,'incoming','len',outExpo,3)
+			me(291.5,2,0,-150,'movey','len',outExpo,3)
+			me(291.5,2,720,0,'rotationy','len',outExpo,3)
+			me(293,100,220,220,'incoming','len',linear,3)
+			me(293,100,-175,-175,'movey','len',linear,3)
+			
+			m2(290.9,function()
+			horizon:diffusealpha(1)
+			horizon2:diffusealpha(1)
+			addrizon:rotationx(-65)
+			addrizon:rotationz(0)
+			addrizon:addy(-sh/2)
+			addrizon2:diffusealpha(0.05)
+			addrizon:diffusealpha(0.05)
+			end)
+			
+			m2(291,function()
+			blurizon:accelerate(0.5)
+			blurizon:addy(sh/3)
+			blurizon:rotationx(-65)
+			blurizon:diffusealpha(0)
+			end)
+			
+			m2(291,function()
+			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):wag(1)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP4'):effectmagnitude(0,10,0)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):wag(1)
+			SCREENMAN:GetTopScreen():GetChild('PlayerP3'):effectmagnitude(0,10,0)
+			end)
+			
+			m2(324,function()
+			flash:diffusealpha(1)
+			flash:accelerate(0.3)
+			flash:diffusealpha(0)
+			end)
+
+			m2(323.9,function()
+			Plr(1):x(SCREEN_CENTER_X)
+			Plr(2):x(SCREEN_CENTER_X)
+			end)
+			m2(324,function()
+			Plr(1):addx(sw/3)
+			Plr(2):addx(-sw/3)
+			end)
+			m2(324,function()
+			blurizon:diffusealpha(1)
+			blurizon:addy(-sh/3)
+			blurizon:rotationx(0)
+			end)
+			m2(324,function()
+			Plr(1):x(160)
+			Plr(1):zoom(1)
+			Plr(2):x(480)
+			Plr(2):zoom(1)
+			end)
+			
+			
 			
 			me(2.5,2.75,360,0,'rotationz','len',outCubic)
 			me(3,1.5,100,0,'stealth','len',outCubic)
@@ -450,9 +550,9 @@
 			me(86,2,-180,0,'rotationz','len',outExpo)
 			me(86,2,-100,-50,'mini','len',outExpo)
 			me(88,2,0,180,'rotationz','len',outExpo)
-			me(88,2,-50,-150,'mini','len',outExpo)
+			me(88,2,-50,-100,'mini','len',outExpo)
 			me(90,2,-180,0,'rotationz','len',outExpo)
-			me(90,2,-150,0,'mini','len',outExpo)
+			me(90,2,-100,0,'mini','len',outExpo)
 			
 			me(208,1,0,60,'rotationz','len',outCubic)
 			me(209,1,60,-60,'rotationz','len',outCubic)
@@ -460,6 +560,16 @@
 			me(208,1,360,0,'rotationy','len',outCubic)
 			me(209,1,-360,0,'rotationy','len',outCubic)
 			me(210,1,360,0,'rotationy','len',outCubic)
+			
+			m(291,5,'*-1 no parabolaz, no sudden, no hidden, no hiddenoffset, *1.25 no wave, *1.25 no tornado, *1.25 no rotationx, *1.25 no dark, *1.25 no confusionxoffset, *1.25 no centered, 3x','len',3)
+			m(291,5,'*-1 no parabolaz, no sudden, no hidden, no hiddenoffset, *1.25 no wave, *1.25 no tornado,  *1.25 no rotationx, *1.25 no dark, *1.25 no confusionxoffset,*1.25 no centered, 3x','len',4)
+			m(291,5,'*-1 no parabolaz, *-1 no drawsize','len')
+			m(291,5,'*-1 no stealth','len',4)
+			
+			m(324,10,'*-1 hide, *-1 halgun, *-1 hidenoteflash','len',3)
+			m(324,10,'*-1 hide, *-1 halgun, *-1 hidenoteflash','len',4)
+			m(324,100,'*-1 no stealth, *1 no dark, *1 no hidenoteflash, *1 no halgun','len',1)
+		    m(324,100,'*-1 no stealth, *1 no dark, *1 no hidenoteflash, *1 no halgun','len',2)
 ---------------------------------------------------------------------------------------
 ----------------------Sort the actions table-------------------------------------------
 ---------------------------------------------------------------------------------------
